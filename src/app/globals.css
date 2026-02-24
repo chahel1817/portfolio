@@ -1,33 +1,65 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
+@import "tailwindcss";
+
+/* ─── Batman Design Tokens ─────────────────────────────── */
+@theme {
+  --color-bat-black: #080810;
+  --color-bat-dark: #0d0d1a;
+  --color-bat-navy: #0f0f20;
+  --color-bat-gray: #1a1a2e;
+  --color-bat-yellow: #f5c518;
+  --color-bat-gold: #ffd700;
+  --color-bat-amber: #f59e0b;
+  --color-bat-cyan: #00f5ff;
+  --color-bat-purple: #7c3aed;
+  --color-bat-red: #dc2626;
+
+  --font-orbitron: 'Orbitron', monospace;
+  --font-rajdhani: 'Rajdhani', sans-serif;
+  --font-mono-tech: 'Share Tech Mono', monospace;
+
+  --shadow-neon-yellow: 0 0 12px rgba(245, 197, 24, 0.7), 0 0 32px rgba(245, 197, 24, 0.3);
+  --shadow-neon-yellow-lg: 0 0 24px rgba(245, 197, 24, 0.9), 0 0 64px rgba(245, 197, 24, 0.4);
+  --shadow-neon-cyan: 0 0 12px rgba(0, 245, 255, 0.7), 0 0 32px rgba(0, 245, 255, 0.3);
+  --shadow-neon-cyan-lg: 0 0 24px rgba(0, 245, 255, 0.9), 0 0 64px rgba(0, 245, 255, 0.4);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── CSS Variables (legacy / plain CSS use) ────────────── */
+:root {
+  --c-black: #080810;
+  --c-dark: #0d0d1a;
+  --c-navy: #0f0f20;
+  --c-gray: #1a1a2e;
+  --c-yellow: #f5c518;
+  --c-gold: #ffd700;
+  --c-cyan: #00f5ff;
+  --c-purple: #7c3aed;
+
+  --glow-y: 0 0 14px rgba(245, 197, 24, 0.8), 0 0 36px rgba(245, 197, 24, 0.3);
+  --glow-c: 0 0 14px rgba(0, 245, 255, 0.8), 0 0 36px rgba(0, 245, 255, 0.3);
+}
+
+/* ─── Base Reset ─────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--c-black);
+  color: #cbd5e1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
 a {
@@ -35,8 +67,456 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+/* ─── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--c-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--c-yellow);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--c-gold);
+}
+
+/* ─── Text Selection ─────────────────────────────────────── */
+::selection {
+  background: rgba(245, 197, 24, 0.25);
+  color: var(--c-yellow);
+}
+
+/* ─── Custom Cursor ──────────────────────────────────────── */
+*,
+*:hover {
+  cursor: none;
+}
+
+/* ─── Font Helpers ───────────────────────────────────────── */
+.f-orbitron {
+  font-family: 'Orbitron', monospace;
+}
+
+.f-rajdhani {
+  font-family: 'Rajdhani', sans-serif;
+  /* Global base brightness lift — all Rajdhani copy gets this minimum */
+  color: #b0bac9;
+}
+
+.f-mono {
+  font-family: 'Share Tech Mono', monospace;
+  /* Mono elements default to a readable mid-grey, not near-invisible dark */
+  color: #8b95a8;
+}
+
+/* ─── Global Brightness Lift ─────────────────────────────── */
+/* Overrides scattered inline #374151 / #4b5563 / #6b7280 grey values      */
+/* that made secondary content nearly invisible on dark backgrounds          */
+
+/* Section subtitles & descriptions */
+section p,
+section span {
+  /* floor: nothing renders below 45% luminance on #0d0d1a background */
+  opacity: 1;
+}
+
+/* Sec-label overline text */
+.sec-label span {
+  color: rgba(245, 197, 24, 0.65) !important;
+}
+
+/* Any inline muted label that uses Tailwind #374151 */
+[style*='color: rgb(55, 65, 81)'],
+[style*="color: '#374151'"] {
+  color: #6b7280 !important;
+}
+
+/* ─── Neon Glow Text ─────────────────────────────────────── */
+.neon-y {
+  color: var(--c-yellow);
+  text-shadow: var(--glow-y);
+}
+
+.neon-c {
+  color: var(--c-cyan);
+  text-shadow: var(--glow-c);
+}
+
+/* ─── Glassmorphism Card ─────────────────────────────────── */
+.glass {
+  background: rgba(13, 13, 26, 0.75);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(245, 197, 24, 0.12);
+  border-radius: 8px;
+}
+
+.glass-dark {
+  background: rgba(8, 8, 16, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+/* ─── Section Label ──────────────────────────────────────── */
+.sec-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.sec-label::before,
+.sec-label::after {
+  content: '';
+  height: 1px;
+  width: 80px;
+  background: linear-gradient(90deg, transparent, rgba(245, 197, 24, 0.5));
+}
+
+.sec-label::after {
+  background: linear-gradient(90deg, rgba(245, 197, 24, 0.5), transparent);
+}
+
+/* ─── Corner Accent ──────────────────────────────────────── */
+.corner-tl {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-top: 2px solid var(--c-yellow);
+  border-left: 2px solid var(--c-yellow);
+}
+
+.corner-tr {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  border-top: 2px solid var(--c-yellow);
+  border-right: 2px solid var(--c-yellow);
+}
+
+.corner-bl {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-bottom: 2px solid var(--c-yellow);
+  border-left: 2px solid var(--c-yellow);
+}
+
+.corner-br {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  border-bottom: 2px solid var(--c-yellow);
+  border-right: 2px solid var(--c-yellow);
+}
+
+/* ─── Bat Logo SVG (no filter, clean shape) ──────────────── */
+.bat-logo-svg {
+  overflow: visible;
+  display: block;
+}
+
+/* ─── Grid Pattern ───────────────────────────────────────── */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(245, 197, 24, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 197, 24, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* ─── Keyframes ──────────────────────────────────────────── */
+@keyframes float-y {
+
+  0%,
+  100% {
+    transform: translateY(0);
   }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes spin-cw {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-ccw {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes flicker {
+
+  0%,
+  93%,
+  95%,
+  100% {
+    opacity: 1;
+  }
+
+  94% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes progress {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: var(--tw);
+  }
+}
+
+@keyframes glitch1 {
+
+  0%,
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 32%, 0 32%);
+    transform: translate(-3px, -3px);
+  }
+
+  50% {
+    clip-path: polygon(0 62%, 100% 62%, 100% 100%, 0 100%);
+    transform: translate(3px, 3px);
+  }
+}
+
+@keyframes glitch2 {
+
+  0%,
+  100% {
+    clip-path: polygon(0 38%, 100% 38%, 100% 68%, 0 68%);
+    transform: translate(3px, 0);
+    color: var(--c-cyan);
+  }
+
+  50% {
+    clip-path: polygon(0 8%, 100% 8%, 100% 42%, 0 42%);
+    transform: translate(-3px, 0);
+    color: var(--c-yellow);
+  }
+}
+
+/* ─── Glitch Text ────────────────────────────────────────── */
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  opacity: 0.65;
+}
+
+.glitch::before {
+  animation: glitch1 3.5s infinite;
+}
+
+.glitch::after {
+  animation: glitch2 3.5s infinite;
+}
+
+/* ─── Batman Title Pulse Glow ─────────────────────────────── */
+@keyframes pulseGlow {
+
+  0%,
+  100% {
+    text-shadow:
+      0 0 5px #ffd000,
+      0 0 15px rgba(255, 208, 0, 0.6),
+      0 0 40px rgba(255, 208, 0, 0.4);
+  }
+
+  50% {
+    text-shadow:
+      0 0 5px #ffd000,
+      0 0 20px rgba(255, 208, 0, 0.9),
+      0 0 60px rgba(255, 208, 0, 0.55),
+      0 0 80px rgba(255, 208, 0, 0.2);
+  }
+}
+
+.batman-title {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* ─── Batman Glitch Title ─────────────────────────────────── */
+.glitch-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  position: relative;
+  color: #ffd000;
+  letter-spacing: 0.15em;
+  display: inline-block;
+}
+
+.glitch-title::before,
+.glitch-title::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.glitch-title::before {
+  left: 2px;
+  text-shadow: -2px 0 #00f5ff;
+  animation: glitch-scan 2s infinite linear alternate-reverse;
+}
+
+.glitch-title::after {
+  left: -2px;
+  text-shadow: -2px 0 #ff00ff;
+  animation: glitch-scan 1.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-scan {
+  0% {
+    clip-path: inset(0 0 90% 0);
+  }
+
+  20% {
+    clip-path: inset(10% 0 60% 0);
+  }
+
+  40% {
+    clip-path: inset(40% 0 40% 0);
+  }
+
+  60% {
+    clip-path: inset(60% 0 20% 0);
+  }
+
+  80% {
+    clip-path: inset(80% 0 5% 0);
+  }
+
+  100% {
+    clip-path: inset(0 0 90% 0);
+  }
+}
+
+
+/* ─── Nav underline hover ────────────────────────────────── */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0;
+  height: 1px;
+  background: var(--c-yellow);
+  box-shadow: 0 0 6px var(--c-yellow);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ─── Skill bar ──────────────────────────────────────────── */
+.skill-fill {
+  animation: progress 1.4s ease-out forwards;
+}
+
+/* ─── Card lift ──────────────────────────────────────────── */
+.card-lift {
+  transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.35s ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-6px);
+}
+
+/* ─── Scanline overlay ───────────────────────────────────── */
+.scanline {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.scanline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(245, 197, 24, 0.06);
+  animation: scan 5s linear infinite;
 }
