@@ -8,6 +8,7 @@ import {
     SiPython, SiJsonwebtokens, SiGraphql, SiSocketdotio,
     SiDocker, SiVercel, SiNetlify, SiGithubactions, SiRender,
     SiGit, SiGithub, SiPostman, SiFigma, SiNpm, SiVite,
+    SiCplusplus,
 } from 'react-icons/si';
 import { FaJava } from 'react-icons/fa';
 import { VscCode } from 'react-icons/vsc';
@@ -110,6 +111,28 @@ const CATS = [
             { name: 'GH Actions', icon: SiGithubactions, color: '#2088ff' },
             { name: 'VS Code', icon: VscCode, color: '#007acc' },
             { name: 'npm', icon: SiNpm, color: '#cb3837' },
+        ],
+    },
+    {
+        id: 'fundamentals',
+        label: 'Core Fundamentals',
+        code: '05',
+        color: '#94a3b8',   /* neutral slate — intentionally calm, not flashy */
+        emoji: '🧩',
+        desc: 'Programming foundations — the bedrock every senior engineer checks for',
+        skills: [
+            { name: 'C++', icon: SiCplusplus, color: '#00599c' },
+            { name: 'Java', icon: FaJava, color: '#ed8b00' },
+        ],
+        patterns: [
+            'OOP Principles',
+            'Data Structures',
+            'Algorithm Design',
+            'SQL & Relational DBs',
+            'DBMS Concepts',
+            'Problem Solving',
+            'Time & Space Complexity',
+            'Programming Foundations',
         ],
     },
 ];
