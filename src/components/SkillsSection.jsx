@@ -96,9 +96,39 @@ const CATS = [
         ],
     },
     {
+        id: 'fundamentals',
+        label: 'Core Fundamentals',
+        code: '04',
+        color: '#94a3b8',
+        emoji: '🧩',
+        desc: 'Strong CS foundations powering scalable backend systems and efficient algorithmic design.',
+        skills: [
+            { name: 'C++', icon: SiCplusplus, color: '#00599c' },
+            { name: 'Java', icon: FaJava, color: '#ed8b00' },
+            { name: 'Python', icon: SiPython, color: '#3776ab' },
+            { name: 'SQL', icon: SiMysql, color: '#4479a1', label: 'SQL' },
+        ],
+        patternGroups: [
+            {
+                label: '🧠 Algorithmic Foundations',
+                items: ['Data Structures', 'Recursion', 'Searching & Sorting', 'Complexity Analysis', 'Problem Solving'],
+            },
+            {
+                label: '🏗️ Design & Architecture',
+                items: ['OOP Principles', 'SOLID Principles', 'Modular Design', 'Clean Code Practices'],
+            },
+            {
+                label: '🗄️ Database Foundations',
+                items: ['SQL & Relational DBs', 'Normalization Concepts', 'Indexing & Query Optimization', 'DBMS Concepts'],
+            },
+        ],
+        appliedIn: 'Applied in competitive coding, backend API development, and database schema design.',
+        credibility: 'Solved 130+ DSA problems across LeetCode and practice platforms.',
+    },
+    {
         id: 'devops',
         label: 'DevOps & Tools',
-        code: '04',
+        code: '05',
         color: '#a855f7',
         emoji: '🚀',
         desc: 'Deployment, CI/CD, version control & tooling',
@@ -111,28 +141,6 @@ const CATS = [
             { name: 'GH Actions', icon: SiGithubactions, color: '#2088ff' },
             { name: 'VS Code', icon: VscCode, color: '#007acc' },
             { name: 'npm', icon: SiNpm, color: '#cb3837' },
-        ],
-    },
-    {
-        id: 'fundamentals',
-        label: 'Core Fundamentals',
-        code: '05',
-        color: '#94a3b8',   /* neutral slate — intentionally calm, not flashy */
-        emoji: '🧩',
-        desc: 'Programming foundations — the bedrock every senior engineer checks for',
-        skills: [
-            { name: 'C++', icon: SiCplusplus, color: '#00599c' },
-            { name: 'Java', icon: FaJava, color: '#ed8b00' },
-        ],
-        patterns: [
-            'OOP Principles',
-            'Data Structures',
-            'Algorithm Design',
-            'SQL & Relational DBs',
-            'DBMS Concepts',
-            'Problem Solving',
-            'Time & Space Complexity',
-            'Programming Foundations',
         ],
     },
 ];
@@ -205,7 +213,7 @@ export default function SkillsSection() {
                 </div>
 
                 {/* ── Category pills ──────────────────────── */}
-                <div style={{ display: 'flex', justifyContent: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 48 }}>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: 8, flexWrap: 'wrap', marginBottom: 48 }}>
                     {CATS.map(c => {
                         const isOn = active === c.id;
                         return (
@@ -214,15 +222,15 @@ export default function SkillsSection() {
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.96 }}
                                 style={{
-                                    display: 'flex', alignItems: 'center', gap: 8,
-                                    fontFamily: "'Orbitron', monospace", fontSize: 11, fontWeight: 700,
-                                    letterSpacing: '0.1em', textTransform: 'uppercase',
-                                    padding: '11px 22px', borderRadius: 4,
+                                    display: 'flex', alignItems: 'center', gap: 6,
+                                    fontFamily: "'Orbitron', monospace", fontSize: 10, fontWeight: 700,
+                                    letterSpacing: '0.08em', textTransform: 'uppercase',
+                                    padding: '10px 16px', borderRadius: 4,
                                     background: isOn ? c.color : 'transparent',
-                                    color: isOn ? '#080810' : '#4b5563',
-                                    border: isOn ? `1px solid ${c.color}` : '1px solid rgba(255,255,255,0.08)',
+                                    color: isOn ? '#080810' : '#6b7280',
+                                    border: isOn ? `1px solid ${c.color}` : '1px solid rgba(255,255,255,0.09)',
                                     boxShadow: isOn ? `0 0 20px ${c.color}50` : 'none',
-                                    transition: 'all 0.3s',
+                                    transition: 'all 0.3s', whiteSpace: 'nowrap',
                                 }}
                             >
                                 <span style={{ fontSize: 14 }}>{c.emoji}</span>
@@ -249,12 +257,12 @@ export default function SkillsSection() {
                                     <div style={{ width: 4, height: 28, borderRadius: 2, background: cat.color, boxShadow: `0 0 10px ${cat.color}` }} />
                                     <div>
                                         <h3 className="f-orbitron" style={{ color: '#e2e8f0', fontWeight: 700, fontSize: 14 }}>{cat.label}</h3>
-                                        <p className="f-mono" style={{ color: '#374151', fontSize: 10, marginTop: 3 }}>{cat.desc}</p>
+                                        <p className="f-mono" style={{ color: '#6b7280', fontSize: 10, marginTop: 3 }}>{cat.desc}</p>
                                     </div>
                                 </div>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                                     <span className="f-mono" style={{ color: `${cat.color}80`, fontSize: 11 }}>
-                                        {cat.skills.length}{cat.patterns ? ` techs + ${cat.patterns.length} patterns` : ' technologies'}
+                                        {cat.skills.length}{(cat.patterns || cat.patternGroups) ? ` techs + ${cat.patternGroups ? cat.patternGroups.reduce((a, g) => a + g.items.length, 0) : cat.patterns.length} concepts` : ' technologies'}
                                     </span>
                                     <div style={{ width: 6, height: 6, borderRadius: '50%', background: cat.color, boxShadow: `0 0 8px ${cat.color}` }} />
                                 </div>
@@ -265,14 +273,14 @@ export default function SkillsSection() {
                                 display: 'grid',
                                 gridTemplateColumns: 'repeat(auto-fill, minmax(92px, 1fr))',
                                 gap: 12,
-                                marginBottom: cat.patterns ? 28 : 0,
+                                marginBottom: (cat.patterns || cat.patternGroups) ? 28 : 0,
                             }}>
                                 {cat.skills.map((skill, i) => (
                                     <SkillCard key={skill.name} skill={skill} color={cat.color} delay={i * 0.04} inView={inView} />
                                 ))}
                             </div>
 
-                            {/* Patterns & Practices — architectural chips */}
+                            {/* Flat Patterns & Practices (Backend, Auth, DevOps) */}
                             {cat.patterns && (
                                 <motion.div
                                     initial={{ opacity: 0, y: 12 }}
@@ -300,6 +308,55 @@ export default function SkillsSection() {
                                             </motion.span>
                                         ))}
                                     </div>
+                                </motion.div>
+                            )}
+
+                            {/* Grouped Pattern Blocks (Core Fundamentals) */}
+                            {cat.patternGroups && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 12 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4, delay: 0.2 }}
+                                    style={{ display: 'flex', flexDirection: 'column', gap: 16 }}
+                                >
+                                    {cat.patternGroups.map((group, gi) => (
+                                        <div key={group.label} style={{ padding: '18px 22px', background: 'rgba(13,13,26,0.7)', border: '1px solid rgba(148,163,184,0.12)', borderRadius: 8, position: 'relative', overflow: 'hidden' }}>
+                                            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(148,163,184,0.35), transparent)' }} />
+                                            <p className="f-mono" style={{ color: '#94a3b8', fontSize: 11, marginBottom: 12, letterSpacing: '0.06em' }}>{group.label}</p>
+                                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                                                {group.items.map((item, ii) => (
+                                                    <motion.span
+                                                        key={item}
+                                                        initial={{ opacity: 0, scale: 0.88 }}
+                                                        animate={inView ? { opacity: 1, scale: 1 } : {}}
+                                                        transition={{ delay: 0.2 + gi * 0.1 + ii * 0.04 }}
+                                                        whileHover={{ scale: 1.05, y: -2, color: '#e2e8f0', borderColor: 'rgba(148,163,184,0.5)', background: 'rgba(148,163,184,0.08)' }}
+                                                        className="f-mono"
+                                                        style={{ fontSize: 11, padding: '6px 14px', borderRadius: 4, border: '1px solid rgba(148,163,184,0.28)', color: '#b0bac9', background: 'rgba(8,8,16,0.4)', transition: 'all 0.2s', cursor: 'default' }}
+                                                    >
+                                                        {item}
+                                                    </motion.span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
+                                    {/* Applied In + Credibility lines */}
+                                    {cat.appliedIn && (
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                                            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, padding: '14px 20px', background: 'rgba(148,163,184,0.04)', border: '1px solid rgba(148,163,184,0.1)', borderRadius: 6, borderLeft: '3px solid rgba(148,163,184,0.4)' }}>
+                                                <span className="f-mono" style={{ color: 'rgba(148,163,184,0.5)', fontSize: 10, flexShrink: 0, marginTop: 1 }}>⚡</span>
+                                                <p className="f-rajdhani" style={{ color: '#94a3b8', fontSize: 15, lineHeight: 1.6, fontStyle: 'italic' }}>
+                                                    {cat.appliedIn}
+                                                </p>
+                                            </div>
+                                            {cat.credibility && (
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '11px 18px', background: 'rgba(74,222,128,0.04)', border: '1px solid rgba(74,222,128,0.18)', borderRadius: 6 }}>
+                                                    <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#4ade80', boxShadow: '0 0 6px #4ade80', flexShrink: 0 }} />
+                                                    <p className="f-mono" style={{ color: '#4ade80', fontSize: 11 }}>{cat.credibility}</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
                                 </motion.div>
                             )}
                         </motion.div>
