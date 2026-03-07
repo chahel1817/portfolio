@@ -24,7 +24,7 @@ export default function Footer() {
     const year = new Date().getFullYear();
 
     return (
-        <footer style={{ position: 'relative', background: '#080810', borderTop: '1px solid rgba(245,197,24,0.1)', overflow: 'hidden' }}>
+        <footer style={{ position: 'relative', background: 'rgba(8,8,16,0.55)', borderTop: '1px solid rgba(245,197,24,0.1)', overflow: 'hidden' }}>
             <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, rgba(245,197,24,0.4), rgba(0,245,255,0.4), transparent)' }} />
 
             <div style={{ maxWidth: 1280, margin: '0 auto', padding: '64px 24px 32px' }}>
@@ -100,4 +100,5 @@ export default function Footer() {
         </footer>
     );
 }
+
 

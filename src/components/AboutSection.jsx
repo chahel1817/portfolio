@@ -8,7 +8,7 @@ const CC = '#00f5ff';
 
 const stats = [
     { value: '∞', label: 'Constant Learning', code: 'LRN', color: C },
-    { value: '25+', label: 'Projects Shipped', code: 'PRJ', color: CC },
+    { value: '3', label: 'Projects Shipped', code: 'PRJ', color: CC },
     { value: '15+', label: 'APIs Designed', code: 'API', color: '#a855f7' },
     { value: '10+', label: 'Technologies Mastered', code: 'STK', color: '#4ade80' },
 ];
@@ -31,7 +31,7 @@ export default function AboutSection() {
     const inView = useInView(ref, { once: true, margin: '-80px' });
 
     return (
-        <section id="about" style={{ position: 'relative', padding: '120px 0', background: '#0d0d1a', overflow: 'hidden' }}>
+        <section id="about" style={{ position: 'relative', padding: '120px 0', background: 'rgba(13,13,26,0.46)', overflow: 'hidden' }}>
 
             {/* Bg accents */}
             <div className="grid-bg" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }} />
@@ -258,4 +258,6 @@ export default function AboutSection() {
         </section>
     );
 }
+
+
 

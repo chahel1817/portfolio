@@ -86,7 +86,7 @@ export default function HeroSection() {
     useEffect(() => { if (inView) controls.start('visible'); }, [inView, controls]);
 
     return (
-        <section id="hero" style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', background: 'linear-gradient(160deg, #060608 0%, #0a0a14 50%, #0d0e22 100%)' }}>
+        <section id="hero" style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', background: 'linear-gradient(160deg, rgba(6,6,8,0.38) 0%, rgba(10,10,20,0.44) 50%, rgba(13,14,34,0.5) 100%)' }}>
             <MouseGlow />
             <Grain />
 
@@ -95,8 +95,8 @@ export default function HeroSection() {
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
                 style={{ position: 'absolute', top: '38%', left: '50%', transform: 'translate(-50%, -50%)', width: 640, height: 380, background: 'radial-gradient(circle at center, rgba(255,208,0,0.065), transparent 62%)', borderRadius: '50%', pointerEvents: 'none', zIndex: 1 }}
             />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(6,6,10,0.55) 0%, transparent 28%, transparent 72%, rgba(6,6,10,0.55) 100%)', pointerEvents: 'none', zIndex: 1 }} />
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '35%', background: 'linear-gradient(180deg, rgba(6,6,10,0.4) 0%, transparent 100%)', pointerEvents: 'none', zIndex: 1 }} />
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(6,6,10,0.32) 0%, transparent 28%, transparent 72%, rgba(6,6,10,0.32) 100%)', pointerEvents: 'none', zIndex: 1 }} />
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '35%', background: 'linear-gradient(180deg, rgba(6,6,10,0.24) 0%, transparent 100%)', pointerEvents: 'none', zIndex: 1 }} />
             <div style={{ position: 'absolute', bottom: 0, right: '8%', width: 400, height: 400, background: 'radial-gradient(circle, rgba(0,245,255,0.035), transparent 70%)', borderRadius: '50%', pointerEvents: 'none', zIndex: 1 }} />
 
             {[10, 30, 70, 90].map((pct, i) => (
@@ -195,3 +195,4 @@ export default function HeroSection() {
         </section>
     );
 }
+

@@ -139,14 +139,14 @@ function ProjectCard({ p, i }) {
                         objectPosition: 'top center',
                         transform: hov ? 'scale(1.06)' : 'scale(1)',
                         transition: 'transform 0.6s cubic-bezier(0.23,1,0.32,1)',
-                        opacity: hov ? 1 : 0.88,
+                        opacity: 1,
                     }}
                     onError={(e) => { e.target.style.display = 'none'; }}
                 />
                 {/* Gradient overlay on image */}
                 <div style={{
                     position: 'absolute', bottom: 0, left: 0, right: 0, height: '55%',
-                    background: 'linear-gradient(to top, rgba(13,13,26,0.98) 0%, rgba(13,13,26,0.4) 60%, transparent 100%)',
+                    background: 'linear-gradient(to top, rgba(13,13,26,0.82) 0%, rgba(13,13,26,0.22) 60%, transparent 100%)',
                     pointerEvents: 'none',
                 }} />
                 {/* Corner glows */}
@@ -294,7 +294,7 @@ export default function ProjectsSection() {
         <section
             id="projects"
             style={{
-                position: 'relative', padding: '130px 0 140px', background: '#0d0d1a', overflow: 'hidden',
+                position: 'relative', padding: '130px 0 140px', background: 'rgba(13,13,26,0.46)', overflow: 'hidden',
             }}
         >
             <style>{`
@@ -382,7 +382,7 @@ export default function ProjectsSection() {
 
                     {/* Subtitle */}
                     <p className="f-rajdhani" style={{
-                        color: 'rgba(200,200,220,0.45)', fontSize: 16, maxWidth: 520, margin: '0 auto',
+                        color: 'rgba(220,228,240,0.82)', fontSize: 16, maxWidth: 620, margin: '0 auto',
                         lineHeight: 1.6,
                     }}>
                         Real-world full-stack applications deployed and live — each one engineered to solve actual problems.
@@ -445,3 +445,4 @@ export default function ProjectsSection() {
         </section>
     );
 }
+

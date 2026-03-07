@@ -1,0 +1,41 @@
+CHAHEL TANNA
+Ahmedabad, Gujarat, India | +91-XXXXXXXXXX | chahel1817@gmail.com
+LinkedIn: https://www.linkedin.com/in/chahel-tanna-87300a269/
+GitHub: https://github.com/chahel1817
+Portfolio: https://your-portfolio-url.com
+
+FULL STACK DEVELOPER (BACKEND-FOCUSED)
+Full Stack Developer focused on scalable web apps, robust APIs, and production-ready user experiences using React/Next.js, Node.js, and MongoDB.
+
+CORE SKILLS
+Languages: JavaScript, TypeScript, Java, Python, C++
+Frontend: React.js, Next.js, HTML5, CSS3, Tailwind CSS, Framer Motion
+Backend: Node.js, Express.js, REST APIs, JWT Authentication, Socket.io
+Databases: MongoDB, MySQL, Redis
+Tools: Git, GitHub, Postman, Vercel, Render, Netlify, GitHub Actions
+
+PROJECTS
+1) VivaMate (AI-Powered Mock Interview Platform)
+Tech: React, Node.js, Express, MongoDB, Socket.io, OpenAI/OpenRouter API, JWT
+- Built a full-stack interview simulator with AI-generated questions.
+- Implemented speech-to-text response flow and structured evaluation.
+- Designed backend APIs and data models for session and report handling.
+
+2) EduTrack (Smart Learning & Quiz Platform)
+Tech: React, Node.js, Express, MongoDB, Tailwind CSS, Recharts, JWT, AI API
+- Built role-based student/teacher workflows with analytics.
+- Developed AI-assisted quiz generation and dashboard features.
+- Implemented maintainable backend services for feature scaling.
+
+3) Kickoff Arena (Football Career Simulation Game)
+Tech: Next.js, CSS Modules, Framer Motion, Vercel
+- Built an interactive game-style user experience with responsive design.
+- Created reusable UI components and state-driven multi-step flows.
+
+EDUCATION
+B.Tech in Computer Science & Engineering | Rai University x CodingGita | 2025 - Present
+Diploma in Computer Engineering | Marwadi University | 2022 - 2025 | CGPA: 9.02/10
+
+ACHIEVEMENTS
+- 3rd Prize, TechHack 2025 State Level Hackathon
+- Solved 130+ DSA problems

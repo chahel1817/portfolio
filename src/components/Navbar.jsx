@@ -121,6 +121,31 @@ export default function Navbar() {
                         })}
                     </nav>
 
+                    <motion.a
+                        href="/Chahel_Tanna_Resume.txt"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{
+                            y: -2,
+                            color: C,
+                            boxShadow: '0 0 16px rgba(245,197,24,0.4)',
+                            background: 'rgba(245,197,24,0.08)',
+                            borderColor: 'rgba(245,197,24,0.8)',
+                        }}
+                        whileTap={{ scale: 0.96 }}
+                        style={{
+                            fontFamily: "'Orbitron', monospace", fontSize: 11, fontWeight: 700,
+                            letterSpacing: '0.13em', textTransform: 'uppercase',
+                            background: 'transparent', color: 'rgba(245,197,24,0.8)',
+                            padding: '9px 20px', borderRadius: 2, textDecoration: 'none',
+                            border: '1px solid rgba(245,197,24,0.4)',
+                            transition: 'all 0.25s',
+                        }}
+                        className="nav-desktop"
+                    >
+                        Resume
+                    </motion.a>
+
                     <button onClick={() => setMenu(!menu)} style={{ background: 'none', border: 'none', color: C, display: 'none' }} className="nav-mobile">
                         {menu ? <FiX size={22} /> : <FiMenu size={22} />}
                     </button>

@@ -69,7 +69,7 @@ export default function ContactSection() {
     };
 
     return (
-        <section id="contact" style={{ position: 'relative', padding: '120px 0', background: '#0d0d1a', overflow: 'hidden' }}>
+        <section id="contact" style={{ position: 'relative', padding: '120px 0', background: 'rgba(13,13,26,0.46)', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: 1, height: '100%', background: 'linear-gradient(180deg, rgba(245,197,24,0.06), transparent)', pointerEvents: 'none' }} />
 
             <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px' }}>
@@ -168,3 +168,4 @@ export default function ContactSection() {
         </section>
     );
 }
+

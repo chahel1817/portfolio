@@ -8,16 +8,16 @@ import ProjectsSection from '@/components/ProjectsSection';
 import ExperienceSection from '@/components/ExperienceSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import GothamBackground from '@/components/GothamBackground';
 
 const CustomCursor = dynamic(() => import('@/components/CustomCursor'), { ssr: false });
-const ParticlesBackground = dynamic(() => import('@/components/ParticlesBackground'), { ssr: false });
 
 export default function Home() {
   return (
     <>
       <CustomCursor />
-      <ParticlesBackground />
-      <div style={{ position: 'relative', zIndex: 1 }}>
+      <GothamBackground />
+      <div style={{ position: 'relative', zIndex: 2 }}>
         <Navbar />
         <HeroSection />
         <AboutSection />

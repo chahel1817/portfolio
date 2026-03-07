@@ -157,8 +157,8 @@ function SkillCard({ skill, color, delay, inView }) {
             style={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
                 padding: '16px 10px', borderRadius: 10,
-                background: hov ? `${skill.color}18` : 'rgba(13,13,26,0.75)',
-                border: `1px solid ${hov ? `${skill.color}65` : 'rgba(255,255,255,0.1)'}`,
+                background: hov ? `${skill.color}20` : 'rgba(18,18,34,0.9)',
+                border: `1px solid ${hov ? `${skill.color}70` : 'rgba(255,255,255,0.2)'}`,
                 boxShadow: hov ? `0 0 22px ${skill.color}35, 0 6px 24px rgba(0,0,0,0.5)` : '0 1px 4px rgba(0,0,0,0.3)',
                 transform: hov ? 'translateY(-5px)' : 'translateY(0)',
                 transition: 'all 0.28s cubic-bezier(0.23,1,0.32,1)',
@@ -167,16 +167,16 @@ function SkillCard({ skill, color, delay, inView }) {
         >
             <div style={{
                 width: 44, height: 44, borderRadius: 10,
-                background: hov ? `${skill.color}18` : 'rgba(8,8,16,0.6)',
-                border: `1px solid ${hov ? `${skill.color}40` : 'rgba(255,255,255,0.06)'}`,
+                background: hov ? `${skill.color}18` : 'rgba(10,10,22,0.85)',
+                border: `1px solid ${hov ? `${skill.color}40` : 'rgba(255,255,255,0.16)'}`,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 transition: 'all 0.28s',
                 boxShadow: hov ? `0 0 12px ${skill.color}40` : 'none',
             }}>
-                <skill.icon size={22} style={{ color: hov ? skill.color : '#8b95a8', transition: 'color 0.25s' }} />
+                <skill.icon size={22} style={{ color: hov ? skill.color : '#d4dde9', transition: 'color 0.25s' }} />
             </div>
             <span className="f-mono" style={{
-                fontSize: 10, color: hov ? '#f1f5f9' : '#8b95a8',
+                fontSize: 10, color: hov ? '#f1f5f9' : '#d4dde9',
                 textAlign: 'center', lineHeight: 1.2,
                 transition: 'color 0.25s',
                 whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%',
@@ -194,7 +194,7 @@ export default function SkillsSection() {
     const cat = CATS.find(c => c.id === active);
 
     return (
-        <section id="skills" style={{ position: 'relative', padding: '120px 0', background: 'linear-gradient(180deg, #080810 0%, #0d0d1a 100%)', overflow: 'hidden' }}>
+        <section id="skills" style={{ position: 'relative', padding: '120px 0', background: 'linear-gradient(180deg, rgba(8,8,16,0.46) 0%, rgba(13,13,26,0.5) 100%)', overflow: 'hidden' }}>
             {/* Scanline */}
             <div className="scanline" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }} />
             <div style={{ position: 'absolute', top: '40%', left: '50%', transform: 'translate(-50%,-50%)', width: 600, height: 400, background: 'radial-gradient(ellipse, rgba(0,245,255,0.04), transparent 70%)', pointerEvents: 'none', borderRadius: '50%' }} />
@@ -209,7 +209,7 @@ export default function SkillsSection() {
                     <h2 className="f-orbitron" style={{ fontSize: 'clamp(32px,5vw,54px)', fontWeight: 900, color: '#fff', lineHeight: 1.1 }}>
                         TECH <span style={{ color: CC, textShadow: '0 0 20px rgba(0,245,255,0.55)' }}>ARSENAL</span>
                     </h2>
-                    <p className="f-rajdhani" style={{ color: '#6b7280', fontSize: 17, marginTop: 10 }}>The tools in the utility belt</p>
+                    <p className="f-rajdhani" style={{ color: '#b6c1d3', fontSize: 17, marginTop: 10 }}>Technologies I use to build production-ready products</p>
                 </div>
 
                 {/* ── Category pills ──────────────────────── */}
@@ -227,8 +227,8 @@ export default function SkillsSection() {
                                     letterSpacing: '0.08em', textTransform: 'uppercase',
                                     padding: '10px 16px', borderRadius: 4,
                                     background: isOn ? c.color : 'transparent',
-                                    color: isOn ? '#080810' : '#6b7280',
-                                    border: isOn ? `1px solid ${c.color}` : '1px solid rgba(255,255,255,0.09)',
+                                    color: isOn ? '#080810' : '#c4cedd',
+                                    border: isOn ? `1px solid ${c.color}` : '1px solid rgba(255,255,255,0.2)',
                                     boxShadow: isOn ? `0 0 20px ${c.color}50` : 'none',
                                     transition: 'all 0.3s', whiteSpace: 'nowrap',
                                 }}
@@ -257,7 +257,7 @@ export default function SkillsSection() {
                                     <div style={{ width: 4, height: 28, borderRadius: 2, background: cat.color, boxShadow: `0 0 10px ${cat.color}` }} />
                                     <div>
                                         <h3 className="f-orbitron" style={{ color: '#e2e8f0', fontWeight: 700, fontSize: 14 }}>{cat.label}</h3>
-                                        <p className="f-mono" style={{ color: '#6b7280', fontSize: 10, marginTop: 3 }}>{cat.desc}</p>
+                                        <p className="f-mono" style={{ color: '#a8b4c7', fontSize: 10, marginTop: 3 }}>{cat.desc}</p>
                                     </div>
                                 </div>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -302,7 +302,7 @@ export default function SkillsSection() {
                                                 transition={{ delay: 0.25 + i * 0.05 }}
                                                 whileHover={{ scale: 1.06, y: -2, color: cat.color, borderColor: `${cat.color}70`, background: `${cat.color}12` }}
                                                 className="f-mono"
-                                                style={{ fontSize: 11, padding: '7px 16px', borderRadius: 4, border: `1px solid ${cat.color}28`, color: '#9ca3af', background: 'rgba(8,8,16,0.5)', transition: 'all 0.22s', cursor: 'default' }}
+                                                style={{ fontSize: 11, padding: '7px 16px', borderRadius: 4, border: `1px solid ${cat.color}35`, color: '#d4dde9', background: 'rgba(8,8,16,0.62)', transition: 'all 0.22s', cursor: 'default' }}
                                             >
                                                 {p}
                                             </motion.span>
@@ -388,7 +388,7 @@ export default function SkillsSection() {
                             </motion.span>
                         ))}
                     </div>
-                    <p className="f-rajdhani" style={{ color: '#374151', fontSize: 14, marginTop: 18, borderLeft: '2px solid rgba(245,197,24,0.2)', paddingLeft: 12 }}>
+                    <p className="f-rajdhani" style={{ color: '#b6c1d3', fontSize: 14, marginTop: 18, borderLeft: '2px solid rgba(245,197,24,0.35)', paddingLeft: 12 }}>
                         Focused trajectory: <span style={{ color: '#f5c518' }}>Backend → AI Systems → Neural Engineering.</span> Depth over breadth.
                     </p>
                 </div>
@@ -396,3 +396,4 @@ export default function SkillsSection() {
         </section>
     );
 }
+

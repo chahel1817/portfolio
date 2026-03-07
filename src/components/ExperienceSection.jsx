@@ -58,7 +58,7 @@ export default function ExperienceSection() {
     const inView = useInView(ref, { once: true, margin: '-80px' });
 
     return (
-        <section id="experience" style={{ position: 'relative', padding: '140px 0', background: 'linear-gradient(180deg, #0d0d1a, #080810)', overflow: 'hidden' }}>
+        <section id="experience" style={{ position: 'relative', padding: '140px 0', background: 'linear-gradient(180deg, rgba(13,13,26,0.5), rgba(8,8,16,0.45))', overflow: 'hidden' }}>
             <div className="grid-bg" style={{ position: 'absolute', inset: 0 }} />
 
             {/* Background Accents */}
@@ -108,7 +108,7 @@ export default function ExperienceSection() {
                                     width: 16,
                                     height: 16,
                                     borderRadius: '50%',
-                                    background: '#0d0d1a',
+                                    background: 'rgba(13,13,26,0.46)',
                                     border: `2px solid ${edu.color}`,
                                     boxShadow: `0 0 10px ${edu.color}80`,
                                     zIndex: 2
@@ -199,4 +199,5 @@ export default function ExperienceSection() {
         </section>
     );
 }
+
 
