@@ -1,8 +1,10 @@
 CHAHEL TANNA
-Ahmedabad, Gujarat, India | +91-XXXXXXXXXX | chahel1817@gmail.com
+Ahmedabad, Gujarat, India | +91-9328764005 | chahel1817@gmail.com
 LinkedIn: https://www.linkedin.com/in/chahel-tanna-87300a269/
 GitHub: https://github.com/chahel1817
-Portfolio: https://your-portfolio-url.com
+LeetCode: https://leetcode.com/u/Chahel/
+X: https://x.com/chahel1817
+Portfolio: https://chaheltanna.vercel.app/
 
 FULL STACK DEVELOPER (BACKEND-FOCUSED)
 Full Stack Developer focused on scalable web apps, robust APIs, and production-ready user experiences using React/Next.js, Node.js, and MongoDB.
@@ -17,14 +19,15 @@ Tools: Git, GitHub, Postman, Vercel, Render, Netlify, GitHub Actions
 PROJECTS
 1) VivaMate (AI-Powered Mock Interview Platform)
 Tech: React, Node.js, Express, MongoDB, Socket.io, OpenAI/OpenRouter API, JWT
-- Built a full-stack interview simulator with AI-generated questions.
-- Implemented speech-to-text response flow and structured evaluation.
-- Designed backend APIs and data models for session and report handling.
+- Built a full-stack interview simulator with AI-generated questions, interview readiness tracking, and daily challenge flow.
+- Added Redis caching in authentication flow to speed up login/session performance for returning users.
+- Implemented real-time features with Socket.io and detailed analysis reporting for user feedback.
 
 2) EduTrack (Smart Learning & Quiz Platform)
 Tech: React, Node.js, Express, MongoDB, Tailwind CSS, Recharts, JWT, AI API
 - Built role-based student/teacher workflows with analytics.
 - Developed AI-assisted quiz generation and dashboard features.
+- Added test notification system and timer-pressure mode to simulate realistic exam conditions.
 - Implemented maintainable backend services for feature scaling.
 
 3) Kickoff Arena (Football Career Simulation Game)

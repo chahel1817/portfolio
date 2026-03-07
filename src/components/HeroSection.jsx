@@ -12,8 +12,8 @@ const social = [
     { icon: FiGithub, href: 'https://github.com/chahel1817', label: 'GitHub', glow: '0 0 12px rgba(255,255,255,0.6)', hColor: '#ffffff' },
     { icon: FiLinkedin, href: 'https://www.linkedin.com/in/chahel-tanna-87300a269/', label: 'LinkedIn', glow: `0 0 12px rgba(0,245,255,0.7)`, hColor: CC },
     { icon: FiMail, href: 'mailto:chahel1817@gmail.com', label: 'Email', glow: `0 0 12px rgba(245,197,24,0.7)`, hColor: C },
-    { icon: FiTwitter, href: '#', label: 'Twitter', glow: `0 0 12px rgba(0,245,255,0.7)`, hColor: CC },
-    { icon: SiLeetcode, href: '#', label: 'LeetCode', glow: `0 0 12px rgba(245,159,11,0.7)`, hColor: '#f59e0b' },
+    { icon: FiTwitter, href: 'https://x.com/chahel1817', label: 'X', glow: `0 0 12px rgba(0,245,255,0.7)`, hColor: CC },
+    { icon: SiLeetcode, href: 'https://leetcode.com/u/Chahel/', label: 'LeetCode', glow: `0 0 12px rgba(245,159,11,0.7)`, hColor: '#f59e0b' },
 ];
 
 function useTypewriter(text, speed = 55, delay = 600) {

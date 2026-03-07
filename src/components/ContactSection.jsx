@@ -1,7 +1,8 @@
 'use client';
 import { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { FiSend, FiMail, FiMapPin, FiGithub, FiLinkedin, FiTwitter } from 'react-icons/fi';
+import { FiSend, FiMail, FiMapPin, FiGithub, FiLinkedin, FiTwitter, FiGlobe } from 'react-icons/fi';
+import { SiLeetcode } from 'react-icons/si';
 
 const C = '#f5c518';
 const CC = '#00f5ff';
@@ -11,6 +12,9 @@ const INFO = [
     { icon: FiMapPin, label: 'Location', value: 'Ahmedabad, Gujarat, India', href: null, color: CC },
     { icon: FiGithub, label: 'GitHub', value: 'github.com/chahel1817', href: 'https://github.com/chahel1817', color: '#a855f7' },
     { icon: FiLinkedin, label: 'LinkedIn', value: 'linkedin.com/in/chahel-tanna-87300a269/', href: 'https://www.linkedin.com/in/chahel-tanna-87300a269/', color: '#3b82f6' },
+    { icon: FiTwitter, label: 'X', value: 'x.com/chahel1817', href: 'https://x.com/chahel1817', color: '#60a5fa' },
+    { icon: SiLeetcode, label: 'LeetCode', value: 'leetcode.com/u/Chahel/', href: 'https://leetcode.com/u/Chahel/', color: '#f59e0b' },
+    { icon: FiGlobe, label: 'Portfolio', value: 'chaheltanna.vercel.app', href: 'https://chaheltanna.vercel.app/', color: '#22c55e' },
 ];
 
 function Field({ label, name, value, onChange, type = 'text' }) {
@@ -118,7 +122,7 @@ export default function ContactSection() {
                         <div>
                             <p className="f-mono" style={{ color: '#8b95a8', fontSize: 10, letterSpacing: '0.2em', marginBottom: 14 }}>// SOCIAL</p>
                             <div style={{ display: 'flex', gap: 12 }}>
-                                {[{ icon: FiGithub, href: 'https://github.com/chahel1817', h: '#fff' }, { icon: FiLinkedin, href: 'https://www.linkedin.com/in/chahel-tanna-87300a269/', h: CC }, { icon: FiTwitter, href: '#', h: CC }].map(({ icon: I, href, h }, i) => (
+                                {[{ icon: FiGithub, href: 'https://github.com/chahel1817', h: '#fff' }, { icon: FiLinkedin, href: 'https://www.linkedin.com/in/chahel-tanna-87300a269/', h: CC }, { icon: FiTwitter, href: 'https://x.com/chahel1817', h: '#60a5fa' }, { icon: SiLeetcode, href: 'https://leetcode.com/u/Chahel/', h: '#f59e0b' }].map(({ icon: I, href, h }, i) => (
                                     <motion.a key={i} href={href} target="_blank" rel="noopener noreferrer"
                                         whileHover={{ y: -4, scale: 1.2, color: h }}
                                         style={{ width: 40, height: 40, borderRadius: 8, background: 'rgba(8,8,16,0.5)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9aa8bf', transition: 'color 0.2s' }}
@@ -158,7 +162,7 @@ export default function ContactSection() {
                                 >
                                     {status === 'idle' && <><FiSend size={15} /> SEND MESSAGE</>}
                                     {status === 'sending' && <><motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }} style={{ width: 16, height: 16, border: '2px solid rgba(245,197,24,0.3)', borderTopColor: C, borderRadius: '50%' }} /> SENDING...</>}
-                                    {status === 'sent' && '? MESSAGE SENT SUCCESSFULLY'}
+                                    {status === 'sent' && 'MESSAGE SENT SUCCESSFULLY'}
                                 </motion.button>
                             </form>
                         </div>

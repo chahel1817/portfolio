@@ -1,6 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
-import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiMail, FiTwitter } from 'react-icons/fi';
+import { SiLeetcode } from 'react-icons/si';
 
 const C = '#f5c518';
 const CC = '#00f5ff';
@@ -39,8 +40,11 @@ export default function Footer() {
                         <p className="f-rajdhani" style={{ color: '#a8b4c7', fontSize: 15, lineHeight: 1.7, maxWidth: 280, marginBottom: 20 }}>
                             Full stack developer building reliable and high-performance web applications.
                         </p>
+                        <a href="https://chaheltanna.vercel.app/" target="_blank" rel="noopener noreferrer" className="f-mono" style={{ color: '#d6deea', fontSize: 12, display: 'inline-block', marginBottom: 14 }}>
+                            Portfolio: chaheltanna.vercel.app
+                        </a>
                         <div style={{ display: 'flex', gap: 10 }}>
-                            {[{ icon: FiGithub, href: 'https://github.com/chahel1817', h: '#fff' }, { icon: FiLinkedin, href: 'https://www.linkedin.com/in/chahel-tanna-87300a269/', h: CC }, { icon: FiMail, href: 'mailto:chahel1817@gmail.com', h: C }].map(({ icon: I, href, h }, i) => (
+                            {[{ icon: FiGithub, href: 'https://github.com/chahel1817', h: '#fff' }, { icon: FiLinkedin, href: 'https://www.linkedin.com/in/chahel-tanna-87300a269/', h: CC }, { icon: FiTwitter, href: 'https://x.com/chahel1817', h: '#60a5fa' }, { icon: SiLeetcode, href: 'https://leetcode.com/u/Chahel/', h: '#f59e0b' }, { icon: FiMail, href: 'mailto:chahel1817@gmail.com', h: C }].map(({ icon: I, href, h }, i) => (
                                 <motion.a key={i} href={href} target="_blank" rel="noopener noreferrer"
                                     whileHover={{ y: -3, color: h }}
                                     style={{ width: 36, height: 36, borderRadius: 6, background: 'rgba(13,13,26,0.8)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#a8b4c7', transition: 'color 0.2s' }}

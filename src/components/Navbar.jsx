@@ -122,7 +122,7 @@ export default function Navbar() {
                     </nav>
 
                     <motion.a
-                        href="/Chahel_Tanna_Resume.txt"
+                        href="https://drive.google.com/drive/folders/1ZHoSMw8iKHs5zo_PTQy6CJOM3sffOdJq?usp=drive_link"
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{
