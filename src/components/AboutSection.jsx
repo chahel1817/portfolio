@@ -7,17 +7,17 @@ const C = '#f5c518';
 const CC = '#00f5ff';
 
 const stats = [
-    { value: '2+', label: 'Years Experience', code: 'EXP', color: C },
-    { value: '20+', label: 'Projects Shipped', code: 'PRJ', color: CC },
+    { value: '∞', label: 'Constant Learning', code: 'LRN', color: C },
+    { value: '25+', label: 'Projects Shipped', code: 'PRJ', color: CC },
     { value: '15+', label: 'APIs Designed', code: 'API', color: '#a855f7' },
-    { value: '5+', label: 'Production Deployments', code: 'DEP', color: '#4ade80' },
+    { value: '10+', label: 'Technologies Mastered', code: 'STK', color: '#4ade80' },
 ];
 
 const principles = [
     { icon: FiZap, color: C, title: 'Performance-First', desc: 'Optimized backend workflows and efficient data handling for scalable, high-throughput systems.' },
-    { icon: FiShield, color: CC, title: 'Secure by Design', desc: 'API auth layers, JWT token rotation, and input validation built in from day one — not patched in later.' },
-    { icon: FiCpu, color: '#a855f7', title: 'AI Systems Integration', desc: 'Embedding intelligent pipelines — LLM APIs, RAG, and prompt engineering — into production-grade applications.' },
-    { icon: FiCode, color: '#4ade80', title: 'Modular Architecture', desc: 'Service-oriented, maintainable code structures designed for teams and long-term product growth.' },
+    { icon: FiCpu, color: CC, title: 'Deep Learning & ML', desc: 'Currently expanding into neural networks, predictive modeling, and intelligent data pipelines.' },
+    { icon: FiZap, color: '#a855f7', title: 'AI Implementation', desc: 'Embedding intelligent features — LLM APIs, RAG, and prompt engineering — into production-grade apps.' },
+    { icon: FiCode, color: '#4ade80', title: 'Full-Stack Excellence', desc: 'Bridging the gap between robust backend systems and immersive, high-fidelity user interfaces.' },
 ];
 
 const signals = [
@@ -47,7 +47,7 @@ export default function AboutSection() {
                     <h2 className="f-orbitron" style={{ fontSize: 'clamp(32px,5vw,54px)', fontWeight: 900, color: '#fff', lineHeight: 1.1 }}>
                         ABOUT <span style={{ color: C, textShadow: '0 0 20px rgba(245,197,24,0.55)' }}>ME</span>
                     </h2>
-                    <p className="f-rajdhani" style={{ color: '#6b7280', fontSize: 17, marginTop: 10 }}>The engineer behind the mask</p>
+                    <p className="f-rajdhani" style={{ color: '#6b7280', fontSize: 17, marginTop: 10 }}>A practical developer focused on real outcomes</p>
                 </div>
 
                 <div ref={ref} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 40, alignItems: 'stretch' }}>
@@ -102,7 +102,7 @@ export default function AboutSection() {
                             {/* Quick facts */}
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                                 {[
-                                    { icon: FiMapPin, label: 'Base', value: 'Ahmedabad, India', color: C },
+                                    { icon: FiMapPin, label: 'Base', value: 'Ahmedabad, Gujarat, India', color: C },
                                     { icon: FiMail, label: 'Email', value: 'chahel1817@gmail.com', color: CC },
                                     { icon: FiCode, label: 'Focus', value: 'Full Stack Engineering | AI Systems', color: '#a855f7' },
                                 ].map(({ icon: Icon, label, value, color }) => (
@@ -168,7 +168,7 @@ export default function AboutSection() {
                                     <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ffbd2e' }} />
                                     <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#27c93f' }} />
                                 </div>
-                                <span className="f-mono" style={{ color: '#374151', fontSize: 11, marginLeft: 6 }}>chahel@gotham:~$ cat about.md</span>
+                                <span className="f-mono" style={{ color: '#374151', fontSize: 11, marginLeft: 6 }}>chahel@portfolio:~$ cat about.md</span>
                             </div>
 
                             {/* Lead statement */}
@@ -258,3 +258,4 @@ export default function AboutSection() {
         </section>
     );
 }
+

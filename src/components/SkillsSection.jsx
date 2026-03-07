@@ -64,10 +64,10 @@ const CATS = [
             'Middleware Architecture',
             'MVC Pattern',
             'API Error Handling',
-            'Modular Structure',
-            'Route Guards',
             'Rate Limiting',
             'Data Validation',
+            'Socket.io Streams',
+            'Performance Tuning',
         ],
     },
     {
@@ -91,8 +91,8 @@ const CATS = [
             'OpenRouter API',
             'Speech-to-Text Integration',
             'Cookie & Session Auth',
-            'OAuth2 Concepts',
             'API Key Management',
+            'Webhook Integration',
         ],
     },
     {
@@ -115,7 +115,7 @@ const CATS = [
             },
             {
                 label: '🏗️ Design & Architecture',
-                items: ['OOP Principles', 'SOLID Principles', 'Modular Design', 'Clean Code Practices'],
+                items: ['Distributed Systems', 'Data Modeling & Schema Theory', 'Event-Driven Patterns', 'Clean Code Practices'],
             },
             {
                 label: '🗄️ Database Foundations',
@@ -372,12 +372,12 @@ export default function SkillsSection() {
                     </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
                         {[
-                            { name: 'Python', color: '#3776ab' },
+                            { name: 'Machine Learning', color: C },
+                            { name: 'Neural Networks', color: CC },
+                            { name: 'Distributed Systems', color: '#a855f7' },
                             { name: 'AWS Fundamentals', color: '#ff9900' },
                             { name: 'CI/CD Pipelines', color: '#2088ff' },
-                            { name: 'Distributed Systems', color: '#00f5ff' },
-                            { name: 'AI Workflow Automation', color: '#f5c518' },
-                            { name: 'Data Engineering Basics', color: '#4ade80' },
+                            { name: 'AI Workflow Automation', color: C },
                         ].map(t => (
                             <motion.span key={t.name}
                                 whileHover={{ scale: 1.08, y: -3, borderColor: t.color, color: t.color, background: `${t.color}0d` }}
@@ -389,7 +389,7 @@ export default function SkillsSection() {
                         ))}
                     </div>
                     <p className="f-rajdhani" style={{ color: '#374151', fontSize: 14, marginTop: 18, borderLeft: '2px solid rgba(245,197,24,0.2)', paddingLeft: 12 }}>
-                        Focused trajectory: <span style={{ color: '#f5c518' }}>Backend → Cloud → AI Systems.</span> Depth over breadth.
+                        Focused trajectory: <span style={{ color: '#f5c518' }}>Backend → AI Systems → Neural Engineering.</span> Depth over breadth.
                     </p>
                 </div>
             </div>

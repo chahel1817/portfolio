@@ -1,18 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
 @import "tailwindcss";
 
-/* ─── Batman Design Tokens ─────────────────────────────── */
+/* ─── Theme Design Tokens ─────────────────────────────── */
 @theme {
-  --color-bat-black: #080810;
-  --color-bat-dark: #0d0d1a;
-  --color-bat-navy: #0f0f20;
-  --color-bat-gray: #1a1a2e;
-  --color-bat-yellow: #f5c518;
-  --color-bat-gold: #ffd700;
-  --color-bat-amber: #f59e0b;
-  --color-bat-cyan: #00f5ff;
-  --color-bat-purple: #7c3aed;
-  --color-bat-red: #dc2626;
+  --color-core-black: #080810;
+  --color-core-dark: #0d0d1a;
+  --color-core-navy: #0f0f20;
+  --color-core-gray: #1a1a2e;
+  --color-core-yellow: #f5c518;
+  --color-core-gold: #ffd700;
+  --color-core-amber: #f59e0b;
+  --color-core-cyan: #00f5ff;
+  --color-core-purple: #7c3aed;
+  --color-core-red: #dc2626;
 
   --font-orbitron: 'Orbitron', monospace;
   --font-rajdhani: 'Rajdhani', sans-serif;
@@ -57,7 +57,7 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   background-color: var(--c-black);
-  color: #cbd5e1;
+  color: #d6deea;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -94,7 +94,7 @@ a {
 /* ─── Custom Cursor ──────────────────────────────────────── */
 *,
 *:hover {
-  cursor: none;
+  cursor: auto;
 }
 
 /* ─── Font Helpers ───────────────────────────────────────── */
@@ -105,13 +105,13 @@ a {
 .f-rajdhani {
   font-family: 'Rajdhani', sans-serif;
   /* Global base brightness lift — all Rajdhani copy gets this minimum */
-  color: #b0bac9;
+  color: #c4cedd;
 }
 
 .f-mono {
   font-family: 'Share Tech Mono', monospace;
   /* Mono elements default to a readable mid-grey, not near-invisible dark */
-  color: #8b95a8;
+  color: #9aa8bf;
 }
 
 /* ─── Global Brightness Lift ─────────────────────────────── */
@@ -127,13 +127,13 @@ section span {
 
 /* Sec-label overline text */
 .sec-label span {
-  color: rgba(245, 197, 24, 0.65) !important;
+  color: rgba(245, 197, 24, 0.75) !important;
 }
 
 /* Any inline muted label that uses Tailwind #374151 */
 [style*='color: rgb(55, 65, 81)'],
 [style*="color: '#374151'"] {
-  color: #6b7280 !important;
+  color: #94a3b8 !important;
 }
 
 /* ─── Neon Glow Text ─────────────────────────────────────── */
@@ -226,8 +226,8 @@ section span {
   border-right: 2px solid var(--c-yellow);
 }
 
-/* ─── Bat Logo SVG (no filter, clean shape) ──────────────── */
-.bat-logo-svg {
+/* ─── Logo SVG ──────────────── */
+.core-logo-svg {
   overflow: visible;
   display: block;
 }
@@ -382,7 +382,7 @@ section span {
   animation: glitch2 3.5s infinite;
 }
 
-/* ─── Batman Title Pulse Glow ─────────────────────────────── */
+/* ─── Title Pulse Glow ─────────────────────────────── */
 @keyframes pulseGlow {
 
   0%,
@@ -402,11 +402,11 @@ section span {
   }
 }
 
-.batman-title {
+.title-pulse {
   animation: pulseGlow 3s ease-in-out infinite;
 }
 
-/* ─── Batman Glitch Title ─────────────────────────────────── */
+/* ─── Glitch Title ─────────────────────────────────── */
 .glitch-title {
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(3rem, 8vw, 7rem);
@@ -520,3 +520,5 @@ section span {
   background: rgba(245, 197, 24, 0.06);
   animation: scan 5s linear infinite;
 }
+
+
