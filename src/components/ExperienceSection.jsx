@@ -65,7 +65,7 @@ export default function ExperienceSection() {
             <div style={{ position: 'absolute', top: '10%', right: '5%', width: 500, height: 500, background: 'radial-gradient(circle, rgba(245,197,24,0.03), transparent 70%)', borderRadius: '50%', pointerEvents: 'none' }} />
             <div style={{ position: 'absolute', bottom: '10%', left: '5%', width: 400, height: 400, background: 'radial-gradient(circle, rgba(0,245,255,0.035), transparent 70%)', borderRadius: '50%', pointerEvents: 'none' }} />
 
-            <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 2 }}>
+            <div className="experience-container" style={{ maxWidth: 1000, margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 2 }}>
 
                 {/* Header */}
                 <div style={{ textAlign: 'center', marginBottom: 80 }}>
@@ -78,7 +78,7 @@ export default function ExperienceSection() {
                     <p className="f-rajdhani" style={{ color: '#6b7280', fontSize: 17, marginTop: 12 }}>Education and growth timeline</p>
                 </div>
 
-                <div ref={ref} style={{ position: 'relative', paddingLeft: 'min(20px, 4vw)' }}>
+                <div ref={ref} className="experience-timeline" style={{ position: 'relative', paddingLeft: 'min(20px, 4vw)' }}>
 
                     {/* Vertical Timeline Line */}
                     <div style={{
@@ -98,7 +98,7 @@ export default function ExperienceSection() {
                                 initial={{ opacity: 0, x: -30 }}
                                 animate={inView ? { opacity: 1, x: 0 } : {}}
                                 transition={{ duration: 0.6, delay: i * 0.2, ease: 'easeOut' }}
-                                style={{ position: 'relative', paddingLeft: 40 }}
+                                className="experience-item" style={{ position: 'relative', paddingLeft: 40 }}
                             >
                                 {/* Timeline Node (Glowy Dot) */}
                                 <div style={{
@@ -116,6 +116,7 @@ export default function ExperienceSection() {
 
                                 {/* Content Card */}
                                 <motion.div
+                                    className="experience-card"
                                     whileHover={{ y: -5, boxShadow: `0 10px 30px -10px rgba(0,0,0,0.5), 0 0 20px -5px ${edu.color}20` }}
                                     style={{
                                         background: 'rgba(13,13,26,0.8)',
@@ -196,6 +197,15 @@ export default function ExperienceSection() {
                     <p className="f-mono" style={{ color: '#374151', fontSize: 10, letterSpacing: '0.2em' }}>END OF ACADEMIC TRANSCRIPT // SYSTEM SECURE</p>
                 </div>
             </div>
+            <style>{`
+                @media (max-width: 640px) {
+                    #experience { padding: 80px 0 !important; }
+                    .experience-container { padding: 0 16px !important; }
+                    .experience-timeline { padding-left: 10px !important; }
+                    .experience-item { padding-left: 20px !important; }
+                    .experience-card { padding: 20px !important; }
+                }
+            `}</style>
         </section>
     );
 }

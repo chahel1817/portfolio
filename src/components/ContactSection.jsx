@@ -1,8 +1,7 @@
 'use client';
 import { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { FiSend, FiMail, FiMapPin, FiGithub, FiLinkedin, FiTwitter, FiGlobe } from 'react-icons/fi';
-import { SiLeetcode } from 'react-icons/si';
+import { FiSend, FiMail, FiMapPin, FiGithub, FiLinkedin, FiTwitter } from 'react-icons/fi';
 
 const C = '#f5c518';
 const CC = '#00f5ff';
@@ -10,11 +9,6 @@ const CC = '#00f5ff';
 const INFO = [
     { icon: FiMail, label: 'Email', value: 'chahel1817@gmail.com', href: 'mailto:chahel1817@gmail.com', color: C },
     { icon: FiMapPin, label: 'Location', value: 'Ahmedabad, Gujarat, India', href: null, color: CC },
-    { icon: FiGithub, label: 'GitHub', value: 'github.com/chahel1817', href: 'https://github.com/chahel1817', color: '#a855f7' },
-    { icon: FiLinkedin, label: 'LinkedIn', value: 'linkedin.com/in/chahel-tanna-87300a269/', href: 'https://www.linkedin.com/in/chahel-tanna-87300a269/', color: '#3b82f6' },
-    { icon: FiTwitter, label: 'X', value: 'x.com/chahel1817', href: 'https://x.com/chahel1817', color: '#60a5fa' },
-    { icon: SiLeetcode, label: 'LeetCode', value: 'leetcode.com/u/Chahel/', href: 'https://leetcode.com/u/Chahel/', color: '#f59e0b' },
-    { icon: FiGlobe, label: 'Portfolio', value: 'chaheltanna.vercel.app', href: 'https://chaheltanna.vercel.app/', color: '#22c55e' },
 ];
 
 function Field({ label, name, value, onChange, type = 'text' }) {
@@ -45,7 +39,7 @@ function TextArea({ label, name, value, onChange }) {
 export default function ContactSection() {
     const ref = useRef(null);
     const inView = useInView(ref, { once: true, margin: '-80px' });
-    const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+    const [form, setForm] = useState({ name: '', email: '', message: '' });
     const [status, setStatus] = useState('idle');
 
     const handleChange = (e) => setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
@@ -60,7 +54,7 @@ export default function ContactSection() {
             });
             if (res.ok) {
                 setStatus('sent');
-                setForm({ name: '', email: '', subject: '', message: '' });
+                setForm({ name: '', email: '', message: '' });
             } else {
                 setStatus('idle');
                 alert('Failed to send message. Please check your environment variables.');
@@ -76,7 +70,7 @@ export default function ContactSection() {
         <section id="contact" style={{ position: 'relative', padding: '120px 0', background: 'rgba(13,13,26,0.46)', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: 1, height: '100%', background: 'linear-gradient(180deg, rgba(245,197,24,0.06), transparent)', pointerEvents: 'none' }} />
 
-            <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px' }}>
+            <div className="contact-container" style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px' }}>
                 <div style={{ textAlign: 'center', marginBottom: 64 }}>
                     <div className="sec-label">
                         <span className="f-mono" style={{ color: 'rgba(245,197,24,0.65)', fontSize: 11, letterSpacing: '0.24em' }}>05 // CONTACT</span>
@@ -87,7 +81,7 @@ export default function ContactSection() {
                     <p className="f-rajdhani" style={{ color: '#a8b4c7', fontSize: 18, marginTop: 12 }}>Share your project details and I&apos;ll get back to you.</p>
                 </div>
 
-                <div ref={ref} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px,1fr))', gap: 64, alignItems: 'start' }}>
+                <div ref={ref} className="contact-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px,1fr))', gap: 64, alignItems: 'start' }}>
                     <div>
                         <motion.div
                             initial={{ opacity: 0, scale: 0.85 }}
@@ -122,7 +116,11 @@ export default function ContactSection() {
                         <div>
                             <p className="f-mono" style={{ color: '#8b95a8', fontSize: 10, letterSpacing: '0.2em', marginBottom: 14 }}>// SOCIAL</p>
                             <div style={{ display: 'flex', gap: 12 }}>
-                                {[{ icon: FiGithub, href: 'https://github.com/chahel1817', h: '#fff' }, { icon: FiLinkedin, href: 'https://www.linkedin.com/in/chahel-tanna-87300a269/', h: CC }, { icon: FiTwitter, href: 'https://x.com/chahel1817', h: '#60a5fa' }, { icon: SiLeetcode, href: 'https://leetcode.com/u/Chahel/', h: '#f59e0b' }].map(({ icon: I, href, h }, i) => (
+                                {[
+                                    { icon: FiGithub, href: 'https://github.com/chahel1817', h: '#fff' },
+                                    { icon: FiLinkedin, href: 'https://www.linkedin.com/in/chahel-tanna-87300a269/', h: CC },
+                                    { icon: FiTwitter, href: 'https://x.com/chahel1817', h: '#60a5fa' }
+                                ].map(({ icon: I, href, h }, i) => (
                                     <motion.a key={i} href={href} target="_blank" rel="noopener noreferrer"
                                         whileHover={{ y: -4, scale: 1.2, color: h }}
                                         style={{ width: 40, height: 40, borderRadius: 8, background: 'rgba(8,8,16,0.5)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9aa8bf', transition: 'color 0.2s' }}
@@ -135,18 +133,17 @@ export default function ContactSection() {
                     </div>
 
                     <motion.div initial={{ opacity: 0, x: 28 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.55, delay: 0.2 }}>
-                        <div style={{ position: 'relative', background: 'rgba(13,13,26,0.75)', backdropFilter: 'blur(18px)', border: '1px solid rgba(245,197,24,0.16)', borderRadius: 8, padding: 36 }}>
+                        <div className="contact-card" style={{ position: 'relative', background: 'rgba(13,13,26,0.75)', backdropFilter: 'blur(18px)', border: '1px solid rgba(245,197,24,0.16)', borderRadius: 8, padding: 36 }}>
                             <div className="corner-tl" /><div className="corner-tr" /><div className="corner-bl" /><div className="corner-br" />
                             <div style={{ marginBottom: 28 }}>
                                 <h3 className="f-orbitron" style={{ color: C, fontWeight: 700, fontSize: 13, letterSpacing: '0.14em', marginBottom: 4 }}>SEND A MESSAGE</h3>
                                 <p className="f-rajdhani" style={{ color: '#b6c1d3', fontSize: 15 }}>Fill out the form and I&apos;ll reply soon.</p>
                             </div>
                             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                                <div className="form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                                     <Field label="Name" name="name" value={form.name} onChange={handleChange} type="text" />
                                     <Field label="Email" name="email" value={form.email} onChange={handleChange} type="email" />
                                 </div>
-                                <Field label="Subject" name="subject" value={form.subject} onChange={handleChange} type="text" />
                                 <TextArea label="Message" name="message" value={form.message} onChange={handleChange} />
                                 <motion.button type="submit" disabled={status !== 'idle'}
                                     whileHover={status === 'idle' ? { scale: 1.02, boxShadow: '0 0 28px rgba(245,197,24,0.5)' } : {}}
@@ -169,6 +166,22 @@ export default function ContactSection() {
                     </motion.div>
                 </div>
             </div>
+            <style>{`
+                @media (max-width: 640px) {
+                    #contact { padding: 80px 0 !important; }
+                    .contact-container { padding: 0 16px !important; }
+                    .contact-grid { 
+                        grid-template-columns: 1fr !important;
+                        gap: 40px !important;
+                    }
+                    .form-grid {
+                        grid-template-columns: 1fr !important;
+                    }
+                    .contact-card {
+                        padding: 24px !important;
+                    }
+                }
+            `}</style>
         </section>
     );
 }

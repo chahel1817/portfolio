@@ -242,7 +242,7 @@ function ProjectCard({ p, i }) {
                 <div style={{ height: 1, background: `linear-gradient(90deg, ${p.accentColor}30, transparent)`, marginBottom: 18 }} />
 
                 {/* Action buttons */}
-                <div style={{ display: 'flex', gap: 12 }}>
+                <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                     <motion.a
                         href={p.live} target="_blank" rel="noopener noreferrer"
                         whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
@@ -343,7 +343,7 @@ export default function ProjectsSection() {
                 backgroundSize: '60px 60px',
             }} />
 
-            <div style={{ maxWidth: 1240, margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 1 }}>
+            <div className="projects-container" style={{ maxWidth: 1240, margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 1 }}>
 
                 {/* ── Section Header ── */}
                 <motion.div
@@ -397,9 +397,9 @@ export default function ProjectsSection() {
                 </motion.div>
 
                 {/* ── Cards Grid ── */}
-                <div style={{
+                <div className="projects-grid" style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(370px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 370px), 1fr))',
                     gap: 28,
                 }}>
                     {PROJECTS.map((p, i) => (
@@ -442,6 +442,16 @@ export default function ProjectsSection() {
                     </motion.a>
                 </motion.div>
             </div>
+            <style>{`
+                @media (max-width: 640px) {
+                    #projects { padding: 80px 0 100px !important; }
+                    .projects-container { padding: 0 16px !important; }
+                    .projects-grid { 
+                        grid-template-columns: 1fr !important;
+                        gap: 20px !important;
+                    }
+                }
+            `}</style>
         </section>
     );
 }
