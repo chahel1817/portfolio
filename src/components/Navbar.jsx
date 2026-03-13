@@ -7,12 +7,13 @@ const C = '#f5c518';
 const CC = '#00f5ff';
 
 const LINKS = [
-    { href: '#hero', label: 'Home', code: '00' },
-    { href: '#about', label: 'About', code: '01' },
-    { href: '#skills', label: 'Skills', code: '02' },
-    { href: '#projects', label: 'Projects', code: '03' },
-    { href: '#experience', label: 'Experience', code: '04' },
-    { href: '#contact', label: 'Contact', code: '05' },
+    { href: '#hero', label: 'Home' },
+    { href: '#about', label: 'About' },
+    { href: '#skills', label: 'Skills' },
+    { href: '#projects', label: 'Projects' },
+    { href: '#experience', label: 'Education' },
+    { href: '#interests', label: 'Interests' },
+    { href: '#contact', label: 'Contact' },
 ];
 
 function scrollTo(id) {
@@ -26,168 +27,199 @@ export default function Navbar() {
     const [hovered, setHovered] = useState(null);
 
     useEffect(() => {
+        const observerOptions = {
+            root: null,
+            rootMargin: '-40% 0px -40% 0px',
+            threshold: 0
+        };
+
+        const observerCallback = (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    setActive(entry.target.id);
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        LINKS.forEach((link) => {
+            const el = document.getElementById(link.href.slice(1));
+            if (el) observer.observe(el);
+        });
+
         const onScroll = () => {
             setScrolled(window.scrollY > 50);
-            const ids = LINKS.map((l) => l.href.slice(1));
-            for (let i = ids.length - 1; i >= 0; i--) {
-                const el = document.getElementById(ids[i]);
-                if (el && window.scrollY >= el.offsetTop - 180) {
-                    setActive(ids[i]);
-                    break;
-                }
-            }
         };
         window.addEventListener('scroll', onScroll, { passive: true });
-        return () => window.removeEventListener('scroll', onScroll);
-    }, []);
 
-    const navStyle = scrolled
-        ? {
-            background: 'rgba(6,6,12,0.86)',
-            backdropFilter: 'blur(18px)',
-            WebkitBackdropFilter: 'blur(18px)',
-            borderBottom: '1px solid rgba(245,197,24,0.18)',
-            boxShadow: '0 4px 28px rgba(0,0,0,0.5)',
-        }
-        : {
-            background: 'transparent',
-            backdropFilter: 'none',
-            borderBottom: '1px solid transparent',
+        return () => {
+            observer.disconnect();
+            window.removeEventListener('scroll', onScroll);
         };
+    }, []);
 
     return (
         <>
-            <motion.nav
-                initial={{ y: -72, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            <motion.div
+                initial={{ y: -100, x: '-50%', opacity: 0 }}
+                animate={{ y: 0, x: '-50%', opacity: 1 }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
                 style={{
                     position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    zIndex: 50,
-                    transition: 'background 0.45s, border-color 0.45s, box-shadow 0.45s, backdrop-filter 0.45s',
-                    ...navStyle,
+                    top: 24,
+                    left: '50%',
+                    zIndex: 100,
+                    width: 'fit-content',
+                    pointerEvents: 'auto',
                 }}
             >
-                <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 28px', height: 70, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <button onClick={() => scrollTo('#hero')} style={{ background: 'none', border: 'none' }}>
-                        <span className="f-orbitron" style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.12em', lineHeight: 1 }}>
-                            <span style={{ color: C }}>CHAHEL</span>
-                            <span style={{ color: CC, marginLeft: 6 }}>TANNA</span>
-                        </span>
-                    </button>
-
-                    <nav style={{ display: 'flex', gap: 38, alignItems: 'center' }} className="nav-desktop">
-                        {LINKS.map((l) => {
-                            const isActive = active === l.href.slice(1);
-                            const isHov = hovered === l.href;
-                            return (
-                                <button
-                                    key={l.href}
-                                    onClick={() => scrollTo(l.href)}
-                                    onMouseEnter={() => setHovered(l.href)}
-                                    onMouseLeave={() => setHovered(null)}
-                                    style={{ background: 'none', border: 'none', position: 'relative', padding: '4px 0' }}
-                                >
-                                    <span className="f-rajdhani" style={{
-                                        fontSize: 13,
-                                        fontWeight: 600,
-                                        letterSpacing: '0.12em',
-                                        textTransform: 'uppercase',
-                                        color: isActive ? C : (isHov ? 'rgba(245,197,24,0.8)' : '#b0bac9'),
-                                        textShadow: isActive ? `0 0 10px rgba(245,197,24,0.55)` : 'none',
-                                        transition: 'color 0.2s, text-shadow 0.2s',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: 5,
-                                    }}>
-                                        <span className="f-mono" style={{ color: isActive ? 'rgba(245,197,24,0.6)' : 'rgba(255,255,255,0.32)', fontSize: 10 }}>{l.code}</span>
-                                        {l.label}
-                                    </span>
-                                    <motion.span
-                                        animate={{ scaleX: (isActive || isHov) ? 1 : 0, opacity: (isActive || isHov) ? 1 : 0 }}
-                                        transition={{ duration: 0.25, ease: 'easeOut' }}
+                <nav
+                    style={{
+                        padding: '12px 14px',
+                        background: 'rgba(13,13,26,0.65)',
+                        backdropFilter: 'blur(20px)',
+                        border: '1px solid rgba(255,255,255,0.12)',
+                        borderRadius: '100px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 8,
+                        boxShadow: '0 10px 40px rgba(0,0,0,0.5)',
+                    }}
+                    className="nav-pill"
+                >
+                    {LINKS.map((l) => {
+                        const isActive = active === l.href.slice(1);
+                        const isHov = hovered === l.href;
+                        return (
+                            <motion.button
+                                key={l.href}
+                                onClick={() => scrollTo(l.href)}
+                                onMouseEnter={() => setHovered(l.href)}
+                                onMouseLeave={() => setHovered(null)}
+                                whileHover={{ scale: 1.05, y: -1 }}
+                                whileTap={{ scale: 0.96 }}
+                                style={{
+                                    background: isActive ? 'rgba(245,197,24,0.12)' : 'transparent',
+                                    border: 'none',
+                                    borderRadius: '100px',
+                                    padding: '10px 24px',
+                                    cursor: 'pointer',
+                                    position: 'relative',
+                                    transition: 'all 0.4s cubic-bezier(0.23,1,0.32,1)',
+                                }}
+                            >
+                                <span className="f-rajdhani" style={{
+                                    fontSize: 14.5,
+                                    fontWeight: 700,
+                                    letterSpacing: '0.05em',
+                                    textTransform: 'uppercase',
+                                    color: isActive ? C : (isHov ? '#fff' : 'rgba(255,255,255,0.5)'),
+                                    transition: 'color 0.4s',
+                                    display: 'block',
+                                    zIndex: 2,
+                                    position: 'relative'
+                                }}>
+                                    {l.label}
+                                </span>
+                                {isActive && (
+                                    <motion.div
+                                        layoutId="nav-glow"
                                         style={{
-                                            position: 'absolute', left: 0, right: 0, bottom: -2, height: 1,
-                                            background: C,
-                                            boxShadow: `0 0 6px ${C}, 0 0 12px rgba(245,197,24,0.4)`,
-                                            transformOrigin: 'left',
+                                            position: 'absolute',
+                                            inset: 0,
+                                            borderRadius: '100px',
+                                            border: `1px solid ${C}50`,
+                                            boxShadow: `0 0 15px ${C}30`,
+                                            background: `linear-gradient(180deg, ${C}05, ${C}10)`,
+                                            zIndex: 1,
                                         }}
+                                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                                     />
-                                </button>
-                            );
-                        })}
-                    </nav>
+                                )}
+                            </motion.button>
+                        );
+                    })}
+                </nav>
+            </motion.div>
 
-                    <motion.a
-                        href="https://drive.google.com/drive/folders/1ZHoSMw8iKHs5zo_PTQy6CJOM3sffOdJq?usp=drive_link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{
-                            y: -2,
-                            color: C,
-                            boxShadow: '0 0 16px rgba(245,197,24,0.4)',
-                            background: 'rgba(245,197,24,0.08)',
-                            borderColor: 'rgba(245,197,24,0.8)',
-                        }}
-                        whileTap={{ scale: 0.96 }}
-                        style={{
-                            fontFamily: "'Orbitron', monospace", fontSize: 11, fontWeight: 700,
-                            letterSpacing: '0.13em', textTransform: 'uppercase',
-                            background: 'transparent', color: 'rgba(245,197,24,0.8)',
-                            padding: '9px 20px', borderRadius: 2, textDecoration: 'none',
-                            border: '1px solid rgba(245,197,24,0.4)',
-                            transition: 'all 0.25s',
-                        }}
-                        className="nav-desktop"
-                    >
-                        Resume
-                    </motion.a>
-
-                    <button onClick={() => setMenu(!menu)} style={{ background: 'none', border: 'none', color: C, display: 'none' }} className="nav-mobile">
-                        {menu ? <FiX size={22} /> : <FiMenu size={22} />}
-                    </button>
+            {/* Mobile Top Bar */}
+            <motion.div
+                initial={{ y: -50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                className="nav-mobile-bar"
+                style={{
+                    position: 'fixed', top: 0, left: 0, right: 0, zIndex: 101,
+                    padding: '16px 24px', display: 'none', alignItems: 'center', justifyContent: 'space-between',
+                    background: scrolled ? 'rgba(8,8,16,0.8)' : 'transparent',
+                    backdropFilter: scrolled ? 'blur(16px)' : 'none',
+                    borderBottom: scrolled ? '1px solid rgba(255,255,255,0.08)' : 'none',
+                    transition: 'all 0.4s ease'
+                }}
+            >
+                <div className="f-orbitron" style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.1em' }}>
+                    <span style={{ color: C }}>CHAHEL</span> <span style={{ color: '#fff' }}>TANNA</span>
                 </div>
-            </motion.nav>
+                <button
+                    onClick={() => setMenu(!menu)}
+                    style={{ background: 'none', border: 'none', color: C, cursor: 'pointer', padding: 4 }}
+                >
+                    {menu ? <FiX size={24} /> : <FiMenu size={24} />}
+                </button>
+            </motion.div>
 
             <AnimatePresence>
                 {menu && (
                     <motion.div
-                        initial={{ opacity: 0, x: '100%' }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: '100%' }}
-                        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                        initial={{ opacity: 0, backdropFilter: 'blur(0px)' }}
+                        animate={{ opacity: 1, backdropFilter: 'blur(24px)' }}
+                        exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
                         style={{
-                            position: 'fixed', inset: 0, zIndex: 48,
-                            background: 'rgba(6,6,12,0.97)', backdropFilter: 'blur(28px)',
-                            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 36,
+                            position: 'fixed', inset: 0, zIndex: 99,
+                            background: 'rgba(6,6,12,0.9)',
+                            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 32,
                         }}
                     >
                         {LINKS.map((l, i) => (
                             <motion.button
                                 key={l.href}
-                                initial={{ opacity: 0, y: 22 }}
+                                initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: i * 0.07 }}
+                                transition={{ delay: i * 0.05 }}
                                 onClick={() => { scrollTo(l.href); setMenu(false); }}
                                 style={{ background: 'none', border: 'none' }}
                             >
-                                <span className="f-orbitron" style={{ fontSize: 24, fontWeight: 700, letterSpacing: '0.12em', color: C, textTransform: 'uppercase' }}>
-                                    <span style={{ color: 'rgba(0,245,255,0.45)', fontSize: 13, marginRight: 8 }}>{l.code}.</span>
+                                <span className="f-orbitron" style={{ fontSize: 28, fontWeight: 900, letterSpacing: '0.05em', color: active === l.href.slice(1) ? C : '#fff', textTransform: 'uppercase' }}>
                                     {l.label}
                                 </span>
                             </motion.button>
                         ))}
+
+                        {/* Resume Link instead of Download */}
+                        <motion.a
+                            href="https://drive.google.com/drive/folders/1ZHoSMw8iKHs5zo_PTQy6CJOM3sffOdJq?usp=drive_link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: LINKS.length * 0.05 }}
+                            style={{
+                                marginTop: 24, padding: '12px 36px', borderRadius: '100px',
+                                background: 'transparent', border: `1px solid ${C}`, color: C,
+                                fontFamily: "'Orbitron', sans-serif", fontWeight: 700, fontSize: 13,
+                                textDecoration: 'none', letterSpacing: '0.1em'
+                            }}
+                        >
+                            RESUME
+                        </motion.a>
                     </motion.div>
                 )}
             </AnimatePresence>
 
             <style>{`
-                @media (max-width: 768px) {
-                  .nav-desktop { display: none !important; }
-                  .nav-mobile  { display: block !important; }
+                @media (max-width: 900px) {
+                  .nav-pill { display: none !important; }
+                  .nav-mobile-bar { display: flex !important; }
                 }
             `}</style>
         </>

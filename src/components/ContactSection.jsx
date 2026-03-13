@@ -73,7 +73,7 @@ export default function ContactSection() {
             <div className="contact-container" style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px' }}>
                 <div style={{ textAlign: 'center', marginBottom: 64 }}>
                     <div className="sec-label">
-                        <span className="f-mono" style={{ color: 'rgba(245,197,24,0.65)', fontSize: 11, letterSpacing: '0.24em' }}>05 // CONTACT</span>
+                        <span className="f-mono" style={{ color: 'rgba(245,197,24,0.65)', fontSize: 11, letterSpacing: '0.24em' }}>06 // CONTACT</span>
                     </div>
                     <h2 className="f-orbitron" style={{ fontSize: 'clamp(32px,5vw,52px)', fontWeight: 900, color: '#fff' }}>
                         LET&apos;S <span style={{ color: C, textShadow: '0 0 20px rgba(245,197,24,0.6)' }}>WORK TOGETHER</span>
