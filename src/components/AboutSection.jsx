@@ -66,16 +66,12 @@ export default function AboutSection() {
                             {/* Avatar + name */}
                             <div style={{ display: 'flex', gap: 18, alignItems: 'center', marginBottom: 24, paddingBottom: 22, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                                 <div style={{ position: 'relative', flexShrink: 0 }}>
-                                    <div style={{ width: 68, height: 68, borderRadius: '50%', background: 'linear-gradient(135deg, #1a1a2e, #0d0d1a)', border: `2px solid rgba(245,197,24,0.28)`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                        <svg width="36" height="22" viewBox="0 0 200 124" fill="none">
-                                            <ellipse cx="100" cy="82" rx="68" ry="28" fill={C} />
-                                            <ellipse cx="46" cy="56" rx="35" ry="44" fill={C} />
-                                            <ellipse cx="154" cy="56" rx="35" ry="44" fill={C} />
-                                            <ellipse cx="100" cy="93" rx="38" ry="22" fill="#1a1a2e" />
-                                            <circle cx="100" cy="64" r="21" fill="#1a1a2e" />
-                                            <path d="M24 42 L9 16 L46 52" fill={C} />
-                                            <path d="M176 42 L191 16 L154 52" fill={C} />
-                                        </svg>
+                                    <div style={{ width: 68, height: 68, borderRadius: '50%', overflow: 'hidden', border: `2px solid rgba(245,197,24,0.28)`, background: 'linear-gradient(135deg, #1a1a2e, #0d0d1a)' }}>
+                                        <img
+                                            src="/portfolio.jpg"
+                                            alt="Chahel Tanna"
+                                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                        />
                                     </div>
                                     <motion.div
                                         animate={{ scale: [1, 1.3, 1] }}
