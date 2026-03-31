@@ -150,21 +150,37 @@ export default function Navbar() {
                 className="nav-mobile-bar"
                 style={{
                     position: 'fixed', top: 0, left: 0, right: 0, zIndex: 101,
-                    padding: '16px 24px', display: 'none', alignItems: 'center', justifyContent: 'space-between',
-                    background: scrolled ? 'rgba(8,8,16,0.8)' : 'transparent',
-                    backdropFilter: scrolled ? 'blur(16px)' : 'none',
-                    borderBottom: scrolled ? '1px solid rgba(255,255,255,0.08)' : 'none',
+                    height: 80, // Fixed height for reliable alignment
+                    padding: '0 24px', // Use height + flex for vertical centering
+                    display: 'none', alignItems: 'center', justifyContent: 'space-between',
+                    background: menu ? 'transparent' : (scrolled ? 'rgba(8,8,16,0.85)' : 'transparent'),
+                    backdropFilter: (menu || !scrolled) ? 'none' : 'blur(16px)',
+                    borderBottom: menu ? 'none' : (scrolled ? '1px solid rgba(255,255,255,0.08)' : 'none'),
                     transition: 'all 0.4s ease'
                 }}
             >
-                <div className="f-orbitron" style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.1em' }}>
-                    <span style={{ color: C }}>CHAHEL</span> <span style={{ color: '#fff' }}>TANNA</span>
+                <div className="f-orbitron" style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.1em', display: 'flex', alignItems: 'center' }}>
+                    <span style={{ color: C }}>CHAHEL</span> <span style={{ color: '#fff', marginLeft: 4 }}>TANNA</span>
                 </div>
                 <button
                     onClick={() => setMenu(!menu)}
-                    style={{ background: 'none', border: 'none', color: C, cursor: 'pointer', padding: 4 }}
+                    style={{
+                        background: menu ? 'rgba(245,197,24,0.1)' : 'none',
+                        border: menu ? `1px solid ${C}50` : 'none',
+                        color: C,
+                        cursor: 'pointer',
+                        width: 44,
+                        height: 44,
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'all 0.3s ease',
+                        boxShadow: menu ? `0 0 20px ${C}40` : 'none', // Enhanced glow when menu is open
+                        padding: 0,
+                    }}
                 >
-                    {menu ? <FiX size={24} /> : <FiMenu size={24} />}
+                    {menu ? <FiX size={22} /> : <FiMenu size={24} />}
                 </button>
             </motion.div>
 
@@ -197,7 +213,7 @@ export default function Navbar() {
 
                         {/* Resume Link instead of Download */}
                         <motion.a
-                            href="https://drive.google.com/drive/folders/1ZHoSMw8iKHs5zo_PTQy6CJOM3sffOdJq?usp=drive_link"
+                            href="https://drive.google.com/drive/u/0/folders/1ZHoSMw8iKHs5zo_PTQy6CJOM3sffOdJq"
                             target="_blank"
                             rel="noopener noreferrer"
                             initial={{ opacity: 0, y: 20 }}

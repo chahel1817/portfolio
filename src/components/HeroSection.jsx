@@ -1,7 +1,7 @@
 'use client';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
-import { FiGithub, FiLinkedin, FiMail, FiTwitter } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiMail, FiTwitter, FiInstagram, FiYoutube } from 'react-icons/fi';
 import { SiLeetcode } from 'react-icons/si';
 
 const C = '#f5c518';
@@ -13,6 +13,8 @@ const social = [
     { icon: FiLinkedin, href: 'https://www.linkedin.com/in/chahel-tanna-87300a269/', label: 'LinkedIn', glow: `0 0 12px rgba(0,245,255,0.7)`, hColor: CC },
     { icon: FiMail, href: 'mailto:chahel1817@gmail.com', label: 'Email', glow: `0 0 12px rgba(245,197,24,0.7)`, hColor: C },
     { icon: FiTwitter, href: 'https://x.com/chahel1817', label: 'X', glow: `0 0 12px rgba(0,245,255,0.7)`, hColor: CC },
+    { icon: FiInstagram, href: 'https://www.instagram.com/chahel_1817/', label: 'Instagram', glow: `0 0 12px rgba(225,48,108,0.7)`, hColor: '#e1306c' },
+    { icon: FiYoutube, href: 'https://www.youtube.com/@Chahel-1817', label: 'YouTube', glow: `0 0 12px rgba(255,0,0,0.7)`, hColor: '#ff0000' },
     { icon: SiLeetcode, href: 'https://leetcode.com/u/Chahel/', label: 'LeetCode', glow: `0 0 12px rgba(245,159,11,0.7)`, hColor: '#f59e0b' },
 ];
 
@@ -158,6 +160,16 @@ export default function HeroSection() {
                     >
                         View My Work
                     </motion.button>
+                    <motion.a
+                        href="https://drive.google.com/drive/u/0/folders/1ZHoSMw8iKHs5zo_PTQy6CJOM3sffOdJq"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ y: -4, boxShadow: '0 0 22px rgba(255,255,255,0.3), 0 8px 24px rgba(0,0,0,0.5)', background: 'rgba(255,255,255,0.1)' }}
+                        whileTap={{ scale: 0.96, y: 0 }}
+                        style={{ fontFamily: "'Orbitron', monospace", fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', background: 'transparent', color: '#fff', padding: '15px 34px', borderRadius: 2, border: '1px solid rgba(255,255,255,0.4)', cursor: 'pointer', transition: 'all 0.25s', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+                    >
+                        Resume
+                    </motion.a>
                     <motion.button
                         whileHover={{ y: -4, boxShadow: '0 0 18px rgba(0,245,255,0.45), 0 8px 24px rgba(0,0,0,0.5)', background: 'rgba(0,245,255,0.07)' }}
                         whileTap={{ scale: 0.96, y: 0 }}

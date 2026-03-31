@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { FiGithub, FiLinkedin, FiMail, FiTwitter } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiMail, FiTwitter, FiInstagram, FiYoutube } from 'react-icons/fi';
 import { SiLeetcode } from 'react-icons/si';
 
 const C = '#f5c518';

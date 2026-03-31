@@ -200,7 +200,7 @@ export default function AboutSection() {
                             <div>
                                 <p className="f-mono" style={{ color: '#374151', fontSize: 10, letterSpacing: '0.2em', marginBottom: 14 }}>// CORE STACK</p>
                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                                    {['Node.js', 'Express.js', 'React', 'Next.js', 'MongoDB', 'PostgreSQL', 'Redis', 'OpenAI API', 'Docker', 'Vercel'].map((tech, i) => {
+                                    {['Node.js', 'Express.js', 'React', 'Next.js', 'MongoDB', 'MySQL', 'Redis', 'OpenAI API', 'Docker', 'Vercel'].map((tech, i) => {
                                         const colors = [C, CC, '#a855f7', '#4ade80'];
                                         const c = colors[i % colors.length];
                                         return (
