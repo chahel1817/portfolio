@@ -88,6 +88,21 @@ export default function Navbar() {
                     }}
                     className="nav-pill"
                 >
+                    {/* Circle Logo (Favicon) */}
+                    <div style={{
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        paddingLeft: 4, paddingRight: 6, marginRight: 4,
+                        borderRight: '1px solid rgba(255,255,255,0.1)'
+                    }}>
+                        <div style={{
+                            width: 30, height: 30, borderRadius: '50%', overflow: 'hidden',
+                            border: `1px solid ${C}40`, boxShadow: `0 0 15px ${C}30`,
+                            background: '#0d0d1a', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                        }}>
+                            <img src="/favicon.ico" style={{ width: '100%', height: '100%', objectFit: 'contain' }} alt="Logo" />
+                        </div>
+                    </div>
+
                     {LINKS.map((l) => {
                         const isActive = active === l.href.slice(1);
                         const isHov = hovered === l.href;
@@ -159,8 +174,17 @@ export default function Navbar() {
                     transition: 'all 0.4s ease'
                 }}
             >
-                <div className="f-orbitron" style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.1em', display: 'flex', alignItems: 'center' }}>
-                    <span style={{ color: C }}>CHAHEL</span> <span style={{ color: '#fff', marginLeft: 4 }}>TANNA</span>
+                <div className="f-orbitron" style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.1em', display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <div style={{
+                        width: 32, height: 32, borderRadius: '50%', overflow: 'hidden',
+                        border: `1px solid ${C}40`, background: '#0d0d1a',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center'
+                    }}>
+                        <img src="/favicon.ico" style={{ width: '100%', height: '100%', objectFit: 'contain' }} alt="Logo" />
+                    </div>
+                    <div>
+                        <span style={{ color: C }}>CHAHEL</span> <span style={{ color: '#fff', marginLeft: 4 }}>TANNA</span>
+                    </div>
                 </div>
                 <button
                     onClick={() => setMenu(!menu)}
