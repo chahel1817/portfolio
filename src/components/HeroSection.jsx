@@ -13,7 +13,7 @@ const social = [
     { icon: FiLinkedin, href: 'https://www.linkedin.com/in/chahel-tanna-87300a269/', label: 'LinkedIn', glow: `0 0 12px rgba(0,245,255,0.7)`, hColor: CC },
     { icon: FiMail, href: 'mailto:chahel1817@gmail.com', label: 'Email', glow: `0 0 12px rgba(245,197,24,0.7)`, hColor: C },
     { icon: FiTwitter, href: 'https://x.com/chahel1817', label: 'X', glow: `0 0 12px rgba(0,245,255,0.7)`, hColor: CC },
-    { icon: FiInstagram, href: 'https://www.instagram.com/chahel_1817/', label: 'Instagram', glow: `0 0 12px rgba(225,48,108,0.7)`, hColor: '#e1306c' },
+    { icon: FiInstagram, href: 'https://www.instagram.com//', label: 'Instagram', glow: `0 0 12px rgba(225,48,108,0.7)`, hColor: '#e1306c' },
     { icon: FiYoutube, href: 'https://www.youtube.com/@Chahel-1817', label: 'YouTube', glow: `0 0 12px rgba(255,0,0,0.7)`, hColor: '#ff0000' },
     { icon: SiLeetcode, href: 'https://leetcode.com/u/Chahel/', label: 'LeetCode', glow: `0 0 12px rgba(245,159,11,0.7)`, hColor: '#f59e0b' },
 ];
