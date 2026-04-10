@@ -12,12 +12,14 @@ import Footer from '@/components/Footer';
 import GothamBackground from '@/components/GothamBackground';
 
 const CustomCursor = dynamic(() => import('@/components/CustomCursor'), { ssr: false });
+const ThreeDElement = dynamic(() => import('@/components/ThreeDElement'), { ssr: false });
 
 export default function Home() {
   return (
     <>
       <CustomCursor />
       <GothamBackground />
+      <ThreeDElement />
       <div style={{ position: 'relative', zIndex: 3 }}>
         <Navbar />
         <HeroSection />

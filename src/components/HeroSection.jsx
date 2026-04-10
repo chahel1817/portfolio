@@ -196,6 +196,31 @@ export default function HeroSection() {
                         </motion.a>
                     ))}
                 </motion.div>
+
+                {/* Flavor Text / Easter Egg for the Bats */}
+                <motion.div variants={item} style={{ display: 'flex', justifyContent: 'center', marginTop: -35, paddingBottom: 20 }}>
+                    <span
+                        className="f-rajdhani"
+                        style={{
+                            fontSize: 17,
+                            fontWeight: 600,
+                            color: '#cbd5e1',
+                            letterSpacing: '0.08em',
+                            fontStyle: 'italic',
+                            background: 'rgba(13, 13, 26, 0.5)',
+                            padding: '10px 24px',
+                            borderRadius: '30px',
+                            border: '1px solid rgba(0, 245, 255, 0.15)',
+                            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 12px rgba(0, 245, 255, 0.05)',
+                            backdropFilter: 'blur(8px)',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '8px'
+                        }}
+                    >
+                        Don't mind the bats. They're just here to <span style={{ color: '#00f5ff', textShadow: '0 0 12px rgba(0,245,255,0.7)', fontWeight: 700 }}>hunt down the bugs.</span>
+                    </span>
+                </motion.div>
             </motion.div>
 
             <style>{`
