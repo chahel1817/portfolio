@@ -15,25 +15,32 @@ export default function GlobalAudio() {
 
                 const audioCtx = new AudioContext();
                 const osc = audioCtx.createOscillator();
+                const subOsc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
 
-                // High-precision technical blip frequency
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(1000, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+                // Punchy Triangle wave for a gamified "pop" feel
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.06);
 
-                // Very soft volume to avoid being annoying
-                gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+                // Deep Sine wave for the "thump"
+                subOsc.type = 'sine';
+                subOsc.frequency.setValueAtTime(150, audioCtx.currentTime);
+                subOsc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.06);
+
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.06);
 
                 osc.connect(gain);
+                subOsc.connect(gain);
                 gain.connect(audioCtx.destination);
 
                 osc.start();
-                osc.stop(audioCtx.currentTime + 0.08);
+                subOsc.start();
+                osc.stop(audioCtx.currentTime + 0.06);
+                subOsc.stop(audioCtx.currentTime + 0.06);
             } catch (e) {
-                // Silently fail if audio context is blocked by browser policy
-                console.warn('Audio click effect blocked or failed:', e);
+                console.warn('Audio click effect failed:', e);
             }
         };
 

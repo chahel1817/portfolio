@@ -109,6 +109,7 @@ export default function Navbar() {
                         return (
                             <motion.button
                                 key={l.href}
+                                suppressHydrationWarning
                                 onClick={() => scrollTo(l.href)}
                                 onMouseEnter={() => setHovered(l.href)}
                                 onMouseLeave={() => setHovered(null)}
@@ -187,6 +188,7 @@ export default function Navbar() {
                     </div>
                 </div>
                 <button
+                    suppressHydrationWarning
                     onClick={() => setMenu(!menu)}
                     style={{
                         background: menu ? 'rgba(245,197,24,0.1)' : 'none',
