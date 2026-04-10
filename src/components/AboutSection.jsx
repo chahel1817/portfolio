@@ -7,17 +7,17 @@ const C = '#f5c518';
 const CC = '#00f5ff';
 
 const stats = [
-    { value: '∞', label: 'Constant Learning', code: 'LRN', color: C },
-    { value: '3', label: 'Projects Shipped', code: 'PRJ', color: CC },
+    { value: '100%', label: 'Data Integrity', code: 'ACID', color: C },
+    { value: '5', label: 'Projects Shipped', code: 'PRJ', color: CC },
     { value: '15+', label: 'APIs Designed', code: 'API', color: '#a855f7' },
     { value: '10+', label: 'Technologies Mastered', code: 'STK', color: '#4ade80' },
 ];
 
 const principles = [
     { icon: FiZap, color: C, title: 'Performance-First', desc: 'Optimized backend workflows and efficient data handling for scalable, high-throughput systems.' },
-    { icon: FiCpu, color: CC, title: 'Deep Learning & ML', desc: 'Currently expanding into neural networks, predictive modeling, and intelligent data pipelines.' },
-    { icon: FiZap, color: '#a855f7', title: 'AI Implementation', desc: 'Embedding intelligent features — LLM APIs, RAG, and prompt engineering — into production-grade apps.' },
-    { icon: FiCode, color: '#4ade80', title: 'Full-Stack Excellence', desc: 'Bridging the gap between robust backend systems and immersive, high-fidelity user interfaces.' },
+    { icon: FiCpu, color: CC, title: 'Data Engineering', desc: 'Mastered high-level SQL and currently advancing Python proficiency to architect robust, scalable data systems.' },
+    { icon: FiZap, color: '#a855f7', title: 'DevOps & Deployment Pipelines', desc: 'Designing automated CI/CD workflows, containerized deployments, and scalable infrastructure for reliable, production-grade applications' },
+    { icon: FiCode, color: '#4ade80', title: 'AI Integration & Automation', desc: 'Building intelligent features by integrating AI APIs, automating workflows, and enhancing applications with smart, data-driven capabilities' },
 ];
 
 const signals = [
@@ -100,7 +100,7 @@ export default function AboutSection() {
                                 {[
                                     { icon: FiMapPin, label: 'Base', value: 'Ahmedabad, Gujarat, India', color: C },
                                     { icon: FiMail, label: 'Email', value: 'chahel1817@gmail.com', color: CC },
-                                    { icon: FiCode, label: 'Focus', value: 'Full Stack Engineering | AI Systems', color: '#a855f7' },
+                                    { icon: FiCode, label: 'Focus', value: 'Full Stack | Data Engineering', color: '#a855f7' },
                                 ].map(({ icon: Icon, label, value, color }) => (
                                     <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                                         <div style={{ width: 34, height: 34, borderRadius: 8, background: `${color}10`, border: `1px solid ${color}25`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
@@ -179,7 +179,7 @@ export default function AboutSection() {
                                     <span style={{ color: C, fontWeight: 700 }}>performance, maintainability, and long-term growth</span> — not just to make things work, but to make them <em style={{ color: '#e2e8f0', fontStyle: 'normal', fontWeight: 600 }}>last</em>.
                                 </p>
                                 <p className="f-rajdhani" style={{ color: '#9ca3af', fontSize: 17, lineHeight: 1.85 }}>
-                                    From <span style={{ color: '#a855f7', fontWeight: 700 }}>AI-driven platforms</span> to production-ready REST APIs, every system I build is approached with{' '}
+                                    From <span style={{ color: '#a855f7', fontWeight: 700 }}>scalable data pipelines</span> to production-ready REST APIs, every system I build is approached with{' '}
                                     <span style={{ color: C, fontWeight: 700 }}>architectural discipline</span> — because great software isn't built by accident.{' '}
                                     <span style={{ color: '#e2e8f0', fontWeight: 700 }}>It's engineered.</span>
                                 </p>
@@ -200,7 +200,7 @@ export default function AboutSection() {
                             <div>
                                 <p className="f-mono" style={{ color: '#374151', fontSize: 10, letterSpacing: '0.2em', marginBottom: 14 }}>// CORE STACK</p>
                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                                    {['Node.js', 'Express.js', 'React', 'Next.js', 'MongoDB', 'MySQL', 'Redis', 'OpenAI API', 'Docker', 'Vercel'].map((tech, i) => {
+                                    {['Node.js', 'Express.js', 'React', 'Next.js', 'Python', 'MongoDB', 'MySQL', 'Redis', 'OpenAI API', 'Vercel'].map((tech, i) => {
                                         const colors = [C, CC, '#a855f7', '#4ade80'];
                                         const c = colors[i % colors.length];
                                         return (
