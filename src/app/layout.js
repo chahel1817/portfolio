@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
 
-              gtag('config', 'G-GP67VETFXS');
+              gtag('config', 'G-MT0GWSPXPL');
             `}
         </Script>
         <GlobalAudio />
