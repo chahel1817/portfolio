@@ -14,31 +14,59 @@ export default function GlobalAudio() {
                 if (!AudioContext) return;
 
                 const audioCtx = new AudioContext();
+                const now = audioCtx.currentTime;
+
+                // 1. Aggressive Sawtooth for the "grit"
                 const osc = audioCtx.createOscillator();
-                const subOsc = audioCtx.createOscillator();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(450, now);
+                osc.frequency.exponentialRampToValueAtTime(80, now + 0.12);
+
+                // 2. Heavy Square for the "punch"
+                const punch = audioCtx.createOscillator();
+                punch.type = 'square';
+                punch.frequency.setValueAtTime(120, now);
+                punch.frequency.exponentialRampToValueAtTime(30, now + 0.1);
+
+                // 3. Noise for the "crunchy impact"
+                const bufferSize = audioCtx.sampleRate * 0.1;
+                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = Math.random() * 2 - 1;
+                }
+                const noise = audioCtx.createBufferSource();
+                noise.buffer = buffer;
+
+                // Envelopes
                 const gain = audioCtx.createGain();
+                const noiseGain = audioCtx.createGain();
 
-                // Punchy Triangle wave for a gamified "pop" feel
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.06);
+                gain.gain.setValueAtTime(0, now);
+                gain.gain.linearRampToValueAtTime(0.25, now + 0.005); // Rapid attack
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
 
-                // Deep Sine wave for the "thump"
-                subOsc.type = 'sine';
-                subOsc.frequency.setValueAtTime(150, audioCtx.currentTime);
-                subOsc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.06);
+                noiseGain.gain.setValueAtTime(0.12, now);
+                noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 0.06);
 
-                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.06);
-
+                // Connections
                 osc.connect(gain);
-                subOsc.connect(gain);
+                punch.connect(gain);
+                noise.connect(noiseGain);
+
                 gain.connect(audioCtx.destination);
+                noiseGain.connect(audioCtx.destination);
 
                 osc.start();
-                subOsc.start();
-                osc.stop(audioCtx.currentTime + 0.06);
-                subOsc.stop(audioCtx.currentTime + 0.06);
+                punch.start();
+                noise.start();
+
+                osc.stop(now + 0.12);
+                punch.stop(now + 0.12);
+                noise.stop(now + 0.08);
+
+                // Cleanup ctx after sound
+                setTimeout(() => audioCtx.close(), 200);
             } catch (e) {
                 console.warn('Audio click effect failed:', e);
             }
