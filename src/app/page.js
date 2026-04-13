@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
-import TerminalSection from '@/components/TerminalSection';
+
 import SkillsSection from '@/components/SkillsSection';
 import ProjectsSection from '@/components/ProjectsSection';
 import ExperienceSection from '@/components/ExperienceSection';
@@ -14,6 +14,7 @@ import GothamBackground from '@/components/GothamBackground';
 
 const CustomCursor = dynamic(() => import('@/components/CustomCursor'), { ssr: false });
 const ThreeDElement = dynamic(() => import('@/components/ThreeDElement'), { ssr: false });
+const AchievementModal = dynamic(() => import('@/components/AchievementModal'), { ssr: false });
 
 export default function Home() {
   return (
@@ -21,11 +22,12 @@ export default function Home() {
       <CustomCursor />
       <GothamBackground />
       <ThreeDElement />
+      <AchievementModal />
       <div style={{ position: 'relative', zIndex: 3 }}>
         <Navbar />
         <HeroSection />
         <AboutSection />
-        <TerminalSection />
+
         <SkillsSection />
         <ProjectsSection />
         <ExperienceSection />
