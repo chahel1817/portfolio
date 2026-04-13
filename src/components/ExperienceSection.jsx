@@ -75,7 +75,7 @@ export default function ExperienceSection() {
                     <h2 className="f-orbitron" style={{ fontSize: 'clamp(32px,5vw,52px)', fontWeight: 900, color: '#fff', lineHeight: 1.1 }}>
                         EDUCATION <span style={{ color: C, textShadow: '0 0 20px rgba(245,197,24,0.5)' }}>HISTORY</span>
                     </h2>
-                    <p className="f-rajdhani" style={{ color: '#6b7280', fontSize: 17, marginTop: 12 }}>Education and growth timeline</p>
+                    <p className="f-rajdhani" style={{ color: 'rgba(220,228,240,0.82)', fontSize: 17, marginTop: 12 }}>Education and growth timeline</p>
                 </div>
 
                 <div ref={ref} className="experience-timeline" style={{ position: 'relative', paddingLeft: 'min(20px, 4vw)' }}>
@@ -153,7 +153,7 @@ export default function ExperienceSection() {
                                         )}
                                     </div>
 
-                                    <p className="f-rajdhani" style={{ color: '#6b7280', fontSize: 16, lineHeight: 1.6, marginBottom: 24, maxWidth: 700 }}>{edu.desc}</p>
+                                    <p className="f-rajdhani" style={{ color: 'rgba(200,210,225,0.7)', fontSize: 16, lineHeight: 1.6, marginBottom: 24, maxWidth: 700 }}>{edu.desc}</p>
 
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                                         {edu.bullets.map((bullet, j) => (
@@ -194,7 +194,7 @@ export default function ExperienceSection() {
 
                 {/* Footer Note */}
                 <div style={{ marginTop: 80, textAlign: 'center' }}>
-                    <p className="f-mono" style={{ color: '#374151', fontSize: 10, letterSpacing: '0.2em' }}>END OF ACADEMIC TRANSCRIPT // SYSTEM SECURE</p>
+                    <p className="f-mono" style={{ color: '#8b95a5', fontSize: 10, letterSpacing: '0.2em' }}>END OF ACADEMIC TRANSCRIPT // SYSTEM SECURE</p>
                 </div>
             </div>
             <style>{`

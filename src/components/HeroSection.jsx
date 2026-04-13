@@ -3,6 +3,7 @@ import { motion, useAnimation, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import { FiGithub, FiLinkedin, FiMail, FiTwitter, FiInstagram, FiYoutube } from 'react-icons/fi';
 import { SiLeetcode } from 'react-icons/si';
+import { useTheme } from '@/context/ThemeContext';
 
 const C = '#f5c518';
 const CC = '#00f5ff';
@@ -17,6 +18,47 @@ const social = [
     { icon: FiYoutube, href: 'https://www.youtube.com/@Chahel-1817', label: 'YouTube', glow: `0 0 12px rgba(255,0,0,0.7)`, hColor: '#ff0000' },
     { icon: SiLeetcode, href: 'https://leetcode.com/u/Chahel/', label: 'LeetCode', glow: `0 0 12px rgba(245,159,11,0.7)`, hColor: '#f59e0b' },
 ];
+
+function FlavorText() {
+    const { isLofi } = useTheme();
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.8, duration: 0.5 }}
+            style={{ display: 'flex', justifyContent: 'center', marginTop: -35, paddingBottom: 20 }}
+        >
+            <span
+                className="f-rajdhani"
+                style={{
+                    fontSize: 17,
+                    fontWeight: 600,
+                    color: isLofi ? '#5a6a7a' : '#cbd5e1',
+                    letterSpacing: '0.08em',
+                    fontStyle: 'italic',
+                    background: isLofi ? 'rgba(255,255,255,0.45)' : 'rgba(13, 13, 26, 0.5)',
+                    padding: '10px 24px',
+                    borderRadius: '30px',
+                    border: isLofi ? '1px solid rgba(245,197,24,0.25)' : '1px solid rgba(0, 245, 255, 0.15)',
+                    boxShadow: isLofi
+                        ? '0 4px 20px rgba(0,0,0,0.08), inset 0 0 10px rgba(255,220,150,0.08)'
+                        : '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 12px rgba(0, 245, 255, 0.05)',
+                    backdropFilter: 'blur(8px)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    transition: 'all 0.6s ease',
+                }}
+            >
+                {isLofi ? (
+                    <>☀️ Enjoying the sunshine? The code runs smoother in <span style={{ color: '#e89020', fontWeight: 700 }}>golden hour.</span></>
+                ) : (
+                    <>Don&apos;t mind the bats. They&apos;re just here to <span style={{ color: '#00f5ff', textShadow: '0 0 12px rgba(0,245,255,0.7)', fontWeight: 700 }}>hunt down the bugs.</span></>
+                )}
+            </span>
+        </motion.div>
+    );
+}
 
 function useTypewriter(text, speed = 55, delay = 600) {
     const [displayed, setDisplayed] = useState('');
@@ -197,30 +239,8 @@ export default function HeroSection() {
                     ))}
                 </motion.div>
 
-                {/* Flavor Text / Easter Egg for the Bats */}
-                <motion.div variants={item} style={{ display: 'flex', justifyContent: 'center', marginTop: -35, paddingBottom: 20 }}>
-                    <span
-                        className="f-rajdhani"
-                        style={{
-                            fontSize: 17,
-                            fontWeight: 600,
-                            color: '#cbd5e1',
-                            letterSpacing: '0.08em',
-                            fontStyle: 'italic',
-                            background: 'rgba(13, 13, 26, 0.5)',
-                            padding: '10px 24px',
-                            borderRadius: '30px',
-                            border: '1px solid rgba(0, 245, 255, 0.15)',
-                            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 12px rgba(0, 245, 255, 0.05)',
-                            backdropFilter: 'blur(8px)',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '8px'
-                        }}
-                    >
-                        Don't mind the bats. They're just here to <span style={{ color: '#00f5ff', textShadow: '0 0 12px rgba(0,245,255,0.7)', fontWeight: 700 }}>hunt down the bugs.</span>
-                    </span>
-                </motion.div>
+                {/* Flavor Text / Easter Egg */}
+                <FlavorText />
             </motion.div>
 
             <style>{`

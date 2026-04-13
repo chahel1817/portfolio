@@ -2,6 +2,7 @@ import { Orbitron, Rajdhani } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import GlobalAudio from "@/components/GlobalAudio";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"] });
 const rajdhani = Rajdhani({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"] });
@@ -29,8 +30,10 @@ export default function RootLayout({ children }) {
               gtag('config', 'G-MT0GWSPXPL');
             `}
         </Script>
-        <GlobalAudio />
-        {children}
+        <ThemeProvider>
+          <GlobalAudio />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

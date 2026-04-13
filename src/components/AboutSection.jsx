@@ -47,7 +47,7 @@ export default function AboutSection() {
                     <h2 className="f-orbitron" style={{ fontSize: 'clamp(32px,5vw,54px)', fontWeight: 900, color: '#fff', lineHeight: 1.1 }}>
                         ABOUT <span style={{ color: C, textShadow: '0 0 20px rgba(245,197,24,0.55)' }}>ME</span>
                     </h2>
-                    <p className="f-rajdhani" style={{ color: '#6b7280', fontSize: 17, marginTop: 10 }}>A practical developer focused on real outcomes</p>
+                    <p className="f-rajdhani" style={{ color: 'rgba(220,228,240,0.82)', fontSize: 17, marginTop: 10 }}>A practical developer focused on real outcomes</p>
                 </div>
 
                 <div ref={ref} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 40, alignItems: 'stretch' }}>
@@ -107,7 +107,7 @@ export default function AboutSection() {
                                             <Icon size={14} style={{ color }} />
                                         </div>
                                         <div>
-                                            <p className="f-mono" style={{ color: '#374151', fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase' }}>{label}</p>
+                                            <p className="f-mono" style={{ color: '#8b95a5', fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase' }}>{label}</p>
                                             <p className="f-rajdhani" style={{ color: '#d1d5db', fontSize: 15, fontWeight: 600 }}>{value}</p>
                                         </div>
                                     </div>
@@ -117,7 +117,7 @@ export default function AboutSection() {
 
                         {/* Micro credibility signals */}
                         <div style={{ background: 'rgba(13,13,26,0.7)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 10, padding: '18px 20px', marginBottom: 20 }}>
-                            <p className="f-mono" style={{ color: '#374151', fontSize: 10, letterSpacing: '0.2em', marginBottom: 14 }}>// CREDIBILITY SIGNALS</p>
+                            <p className="f-mono" style={{ color: '#8b95a5', fontSize: 10, letterSpacing: '0.2em', marginBottom: 14 }}>// CREDIBILITY SIGNALS</p>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                                 {signals.map(({ icon: Icon, label, color }) => (
                                     <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -141,7 +141,7 @@ export default function AboutSection() {
                                         <Icon size={14} style={{ color }} />
                                     </div>
                                     <p className="f-orbitron" style={{ color: '#e2e8f0', fontSize: 10, fontWeight: 700, marginBottom: 6, letterSpacing: '0.04em', lineHeight: 1.3 }}>{title}</p>
-                                    <p className="f-rajdhani" style={{ color: '#6b7280', fontSize: 13, lineHeight: 1.6, flex: 1 }}>{desc}</p>
+                                    <p className="f-rajdhani" style={{ color: 'rgba(200,210,225,0.7)', fontSize: 13, lineHeight: 1.6, flex: 1 }}>{desc}</p>
                                 </motion.div>
                             ))}
                         </div>
@@ -164,7 +164,7 @@ export default function AboutSection() {
                                     <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ffbd2e' }} />
                                     <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#27c93f' }} />
                                 </div>
-                                <span className="f-mono" style={{ color: '#374151', fontSize: 11, marginLeft: 6 }}>chahel@portfolio:~$ cat about.md</span>
+                                <span className="f-mono" style={{ color: '#8b95a5', fontSize: 11, marginLeft: 6 }}>chahel@portfolio:~$ cat about.md</span>
                             </div>
 
                             {/* Lead statement */}
@@ -187,7 +187,7 @@ export default function AboutSection() {
 
                             {/* Authority closer */}
                             <div style={{ borderLeft: `2px solid ${C}`, paddingLeft: 16, marginBottom: 28 }}>
-                                <p className="f-rajdhani" style={{ color: '#6b7280', fontSize: 15, lineHeight: 1.7, fontStyle: 'italic' }}>
+                                <p className="f-rajdhani" style={{ color: 'rgba(200,210,225,0.7)', fontSize: 15, lineHeight: 1.7, fontStyle: 'italic' }}>
                                     Focused on <span style={{ color: C, fontStyle: 'normal', fontWeight: 600 }}>backend architecture</span>,{' '}
                                     <span style={{ color: CC, fontStyle: 'normal', fontWeight: 600 }}>API design</span>, and scalable system engineering.
                                 </p>
@@ -198,7 +198,7 @@ export default function AboutSection() {
 
                             {/* Tech stack — MERN as supporting detail only */}
                             <div>
-                                <p className="f-mono" style={{ color: '#374151', fontSize: 10, letterSpacing: '0.2em', marginBottom: 14 }}>// CORE STACK</p>
+                                <p className="f-mono" style={{ color: '#8b95a5', fontSize: 10, letterSpacing: '0.2em', marginBottom: 14 }}>// CORE STACK</p>
                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                                     {['Node.js', 'Express.js', 'React', 'Next.js', 'Python', 'MongoDB', 'MySQL', 'Redis', 'OpenAI API', 'Vercel'].map((tech, i) => {
                                         const colors = [C, CC, '#a855f7', '#4ade80'];
@@ -227,7 +227,7 @@ export default function AboutSection() {
                                     <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, transparent, ${color}90, transparent)` }} />
                                     <span className="f-mono" style={{ position: 'absolute', top: 10, right: 12, color: `${color}35`, fontSize: 10 }}>{code}</span>
                                     <div className="f-orbitron" style={{ fontSize: 36, fontWeight: 900, color, textShadow: `0 0 16px ${color}55`, lineHeight: 1, marginBottom: 6 }}>{value}</div>
-                                    <div className="f-rajdhani" style={{ color: '#6b7280', fontSize: 13, fontWeight: 500, lineHeight: 1.3 }}>{label}</div>
+                                    <div className="f-rajdhani" style={{ color: 'rgba(200,210,225,0.7)', fontSize: 13, fontWeight: 500, lineHeight: 1.3 }}>{label}</div>
                                 </motion.div>
                             ))}
                         </div>

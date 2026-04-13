@@ -2,6 +2,7 @@
 import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { useTheme } from '@/context/ThemeContext';
 
 function Bat({ startPos, speed, flapSpeed, offset, batMaterial }) {
     const groupRef = useRef();
@@ -99,6 +100,8 @@ function Bat({ startPos, speed, flapSpeed, offset, batMaterial }) {
 }
 
 export default function ThreeDElement() {
+    const { isLofi } = useTheme();
+
     // A glowing, ultra high-level Cybernetic Neon material
     const cyberBatMaterial = useMemo(() => new THREE.MeshPhysicalMaterial({
         color: '#f5c518',             // Base neon gold
@@ -125,6 +128,8 @@ export default function ThreeDElement() {
             offset: Math.random() * 100,
         }));
     }, []);
+
+    if (isLofi) return null;
 
     return (
         <div style={{ position: 'fixed', inset: 0, zIndex: 1, pointerEvents: 'none', opacity: 1 }}>

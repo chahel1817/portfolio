@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
-
+import SectionDivider from '@/components/SectionDivider';
 import SkillsSection from '@/components/SkillsSection';
 import ProjectsSection from '@/components/ProjectsSection';
 import ExperienceSection from '@/components/ExperienceSection';
@@ -26,12 +26,17 @@ export default function Home() {
       <div style={{ position: 'relative', zIndex: 3 }}>
         <Navbar />
         <HeroSection />
+        <SectionDivider variant="gold" />
         <AboutSection />
-
+        <SectionDivider variant="cyan" flip />
         <SkillsSection />
+        <SectionDivider variant="mixed" />
         <ProjectsSection />
+        <SectionDivider variant="gold" flip />
         <ExperienceSection />
+        <SectionDivider variant="cyan" />
         <InterestsSection />
+        <SectionDivider variant="mixed" flip />
         <ContactSection />
         <Footer />
       </div>

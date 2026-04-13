@@ -1,7 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { FiMenu, FiX, FiSun, FiMoon } from 'react-icons/fi';
+import { useTheme } from '@/context/ThemeContext';
 
 const C = '#f5c518';
 const CC = '#00f5ff';
@@ -25,6 +26,7 @@ export default function Navbar() {
     const [active, setActive] = useState('hero');
     const [menu, setMenu] = useState(false);
     const [hovered, setHovered] = useState(null);
+    const { theme, toggleTheme, isLofi } = useTheme();
 
     useEffect(() => {
         const observerOptions = {
@@ -156,6 +158,43 @@ export default function Navbar() {
                             </motion.button>
                         );
                     })}
+
+                    {/* Theme Toggle — at the end */}
+                    <div style={{ borderLeft: '1px solid rgba(255,255,255,0.1)', paddingLeft: 8, marginLeft: 4 }}>
+                        <motion.button
+                            onClick={toggleTheme}
+                            whileHover={{ scale: 1.15, rotate: 15 }}
+                            whileTap={{ scale: 0.9 }}
+                            title={isLofi ? 'Switch to Dark Mode' : 'Switch to Lofi Mode'}
+                            style={{
+                                background: isLofi ? 'rgba(255, 180, 100, 0.15)' : 'rgba(0, 245, 255, 0.08)',
+                                border: isLofi ? '1px solid rgba(255, 180, 100, 0.4)' : '1px solid rgba(0, 245, 255, 0.2)',
+                                borderRadius: '50%',
+                                width: 32,
+                                height: 32,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                color: isLofi ? '#ffb060' : CC,
+                                transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
+                                boxShadow: isLofi ? '0 0 14px rgba(255, 180, 100, 0.35)' : `0 0 10px rgba(0, 245, 255, 0.2)`,
+                            }}
+                        >
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={theme}
+                                    initial={{ scale: 0, rotate: -90, opacity: 0 }}
+                                    animate={{ scale: 1, rotate: 0, opacity: 1 }}
+                                    exit={{ scale: 0, rotate: 90, opacity: 0 }}
+                                    transition={{ duration: 0.25 }}
+                                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                >
+                                    {isLofi ? <FiSun size={14} /> : <FiMoon size={14} />}
+                                </motion.div>
+                            </AnimatePresence>
+                        </motion.button>
+                    </div>
                 </nav>
             </motion.div>
 
@@ -187,27 +226,53 @@ export default function Navbar() {
                         <span style={{ color: C }}>CHAHEL</span> <span style={{ color: '#fff', marginLeft: 4 }}>TANNA</span>
                     </div>
                 </div>
-                <button
-                    suppressHydrationWarning
-                    onClick={() => setMenu(!menu)}
-                    style={{
-                        background: menu ? 'rgba(245,197,24,0.1)' : 'none',
-                        border: menu ? `1px solid ${C}50` : 'none',
-                        color: C,
-                        cursor: 'pointer',
-                        width: 44,
-                        height: 44,
-                        borderRadius: '50%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        transition: 'all 0.3s ease',
-                        boxShadow: menu ? `0 0 20px ${C}40` : 'none', // Enhanced glow when menu is open
-                        padding: 0,
-                    }}
-                >
-                    {menu ? <FiX size={22} /> : <FiMenu size={24} />}
-                </button>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    {/* Mobile Theme Toggle */}
+                    <motion.button
+                        onClick={toggleTheme}
+                        whileTap={{ scale: 0.85 }}
+                        title={isLofi ? 'Switch to Dark Mode' : 'Switch to Lofi Mode'}
+                        style={{
+                            background: isLofi ? 'rgba(255, 180, 100, 0.12)' : 'rgba(0, 245, 255, 0.08)',
+                            border: isLofi ? '1px solid rgba(255, 180, 100, 0.35)' : '1px solid rgba(0, 245, 255, 0.2)',
+                            borderRadius: '50%',
+                            width: 38,
+                            height: 38,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            color: isLofi ? '#ffb060' : CC,
+                            transition: 'all 0.4s ease',
+                            boxShadow: isLofi ? '0 0 12px rgba(255, 180, 100, 0.3)' : `0 0 10px rgba(0, 245, 255, 0.2)`,
+                            padding: 0,
+                        }}
+                    >
+                        {isLofi ? <FiSun size={16} /> : <FiMoon size={16} />}
+                    </motion.button>
+
+                    <button
+                        suppressHydrationWarning
+                        onClick={() => setMenu(!menu)}
+                        style={{
+                            background: menu ? 'rgba(245,197,24,0.1)' : 'none',
+                            border: menu ? `1px solid ${C}50` : 'none',
+                            color: C,
+                            cursor: 'pointer',
+                            width: 44,
+                            height: 44,
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            transition: 'all 0.3s ease',
+                            boxShadow: menu ? `0 0 20px ${C}40` : 'none',
+                            padding: 0,
+                        }}
+                    >
+                        {menu ? <FiX size={22} /> : <FiMenu size={24} />}
+                    </button>
+                </div>
             </motion.div>
 
             <AnimatePresence>
