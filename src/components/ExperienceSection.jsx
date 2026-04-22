@@ -194,7 +194,7 @@ export default function ExperienceSection() {
 
                 {/* Footer Note */}
                 <div style={{ marginTop: 80, textAlign: 'center' }}>
-                    <p className="f-mono" style={{ color: '#8b95a5', fontSize: 10, letterSpacing: '0.2em' }}>END OF ACADEMIC TRANSCRIPT // SYSTEM SECURE</p>
+                    <p className="f-mono" style={{ color: '#c9d5e7ff', fontSize: 10, letterSpacing: '0.2em' }}>END OF ACADEMIC TRANSCRIPT </p>
                 </div>
             </div>
             <style>{`

@@ -38,10 +38,26 @@ const PROJECTS = [
         highlights: ['Price Scrapers', 'Cron Jobs', 'Email Alerts', 'Trend History'],
     },
     {
+        id: 'P004',
+        title: 'MaxRate',
+        sub: 'Next-Gen API Rate Limiting & Traffic Analytics',
+        desc: 'A high-performance SaaS platform for API protection. Features intelligent rate-limiting, live traffic analytics with 5s polling, and an activity stream. Built with a premium glassmorphism UI and a robust Spring Boot backend.',
+        tech: ['Next.js 16', 'React 19', 'Tailwind CSS 4', 'Framer Motion', 'Spring Boot 4', 'Spring Security', 'Hibernate/JPA', 'MySQL 8'],
+        image: '/maxrate.png',
+        github: 'https://github.com/chahel1817/maxrate',
+        live: 'https://maxrate.vercel.app/',
+        accentColor: '#f5c518',
+        glowColor: 'rgba(245,197,24,0.35)',
+        glowColorSoft: 'rgba(245,197,24,0.08)',
+        status: 'LIVE',
+        statusColor: '#f5c518',
+        highlights: ['API Guard', 'Live Charts', 'SAAS Ready', 'Traffic Stream'],
+    },
+    {
         id: 'P003',
         title: 'EduTrack',
         sub: 'Smart Learning & Quiz Platform',
-        desc: 'An EdTech platform letting students take quizzes, track progress, and earn certificates. Teachers can build custom quizzes, generate AI-powered assessments from PDF uploads, and monitor live student performance via dashboards.',
+        desc: 'A comprehensive EdTech ecosystem enabling students to take interactive quizzes and earn certificates. Features AI-powered assessment generation from PDF uploads and real-time performance tracking for educators via dynamic dashboards.',
         tech: ['React', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS', 'Recharts', 'JWT', 'AI API'],
         image: '/edutrack_preview.png',
         github: 'https://github.com/chahel1817/EduTrack',
@@ -52,6 +68,22 @@ const PROJECTS = [
         status: 'LIVE',
         statusColor: '#06b6d4',
         highlights: ['AI Quiz Gen', 'PDF-to-Quiz', 'Certificates', 'Live Dashboard'],
+    },
+    {
+        id: 'P005',
+        title: 'Kickoff Arena',
+        sub: 'Ultimate Football Manager & Squad Builder',
+        desc: 'An immersive sports management platform where users build their dream squads and manage tactics. Features dynamic player cards, real-time squad valuation, and tactical lineup configurations with a high-fidelity glassmorphism interface.',
+        tech: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion', 'Lucide Icons'],
+        image: '/kickoff.png',
+        github: 'https://github.com/chahel1817/kickoff-arena',
+        live: 'https://kickoff-arena.vercel.app/',
+        accentColor: '#22c55e',
+        glowColor: 'rgba(34,197,94,0.35)',
+        glowColorSoft: 'rgba(34,197,94,0.08)',
+        status: 'LIVE',
+        statusColor: '#22c55e',
+        highlights: ['Squad Builder', 'Tactical UI', 'Player Stats', 'Dream Team'],
     },
 ];
 
@@ -361,7 +393,7 @@ export default function ProjectsSection() {
                     }}>
                         <div style={{ width: 4, height: 4, borderRadius: '50%', background: '#f5c518', boxShadow: '0 0 6px rgba(245,197,24,0.8)' }} />
                         <span className="f-mono" style={{ color: 'rgba(245,197,24,0.7)', fontSize: 10, letterSpacing: '0.24em' }}>
-                            03 // PROJECTS
+                            05 // PROJECTS
                         </span>
                         <div style={{ width: 4, height: 4, borderRadius: '50%', background: '#f5c518', boxShadow: '0 0 6px rgba(245,197,24,0.8)' }} />
                     </div>

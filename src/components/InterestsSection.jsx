@@ -116,7 +116,7 @@ export default function InterestsSection() {
 
                 {/* Motivational Quote or Footer */}
                 <div style={{ marginTop: 80, textAlign: 'center' }}>
-                    <div className="f-rajdhani" style={{ color: '#4b5563', fontSize: 14, fontStyle: 'italic', letterSpacing: '0.05em' }}>
+                    <div className="f-rajdhani" style={{ color: '#c9d5e7ff', fontSize: 14, fontStyle: 'italic', letterSpacing: '0.05em' }}>
                         "Balance is not something you find, it's something you create."
                     </div>
                 </div>
