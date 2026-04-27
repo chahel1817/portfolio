@@ -120,7 +120,7 @@ export default function ContactSection() {
                                     { icon: FiGithub, href: 'https://github.com/chahel1817', h: '#fff' },
                                     { icon: FiLinkedin, href: 'https://www.linkedin.com/in/chahel-tanna-87300a269/', h: CC },
                                     { icon: FiTwitter, href: 'https://x.com/chahel1817', h: '#60a5fa' },
-                                    { icon: FiInstagram, href: 'https://www.instagram.com/chahel_1817/', h: '#e1306c' },
+                                    { icon: FiInstagram, href: 'https://www.instagram.com/chahel_9/', h: '#e1306c' },
                                     { icon: FiYoutube, href: 'https://www.youtube.com/@Chahel-1817', h: '#ff0000' }
                                 ].map(({ icon: I, href, h }, i) => (
                                     <motion.a key={i} href={href} target="_blank" rel="noopener noreferrer"

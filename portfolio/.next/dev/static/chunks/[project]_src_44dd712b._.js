@@ -7251,7 +7251,7 @@ function ContactSection() {
                                                     },
                                                     {
                                                         icon: FiInstagram,
-                                                        href: 'https://www.instagram.com/chahel_1817/',
+                                                        href: 'https://www.instagram.com/chahel_9/',
                                                         h: '#e1306c'
                                                     },
                                                     {

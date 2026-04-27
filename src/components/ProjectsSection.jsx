@@ -24,9 +24,17 @@ const PROJECTS = [
     {
         id: 'P006',
         title: 'SQLens',
-        sub: 'Ultimate SQL Performance Analyzer',
-        desc: 'An advanced, production-grade web application to analyze, optimize, and visualize SQL query performance in real time. Features private multi-schema sandboxes, an AI-powered query execution parser, and a live telemetry dashboard streaming via SSE.',
-        tech: ['Next.js 15', 'React', 'Node.js', 'PostgreSQL', 'Express', 'Monaco Editor', 'JWT'],
+        sub: 'Advanced Database Engine & AI Query Optimizer',
+        desc: 'SQLens is an advanced database engine that utilizes AST-based transpilation and AI Deep Analysis to optimize MySQL queries for PostgreSQL environments. It features a high-fidelity Visual Execution Tree and one-click "Auto-Fix" infrastructure to eliminate performance bottlenecks in real-time.',
+        tech: [
+            'Next.js 16 (App Router)',
+            'TypeScript',
+            'Gemini 1.5 Flash',
+            'node-sql-parser (AST)',
+            'PostgreSQL (Multi-tenant)',
+            'Node.js / Express',
+            'Monaco Editor'
+        ],
         image: '/SQLens.png',
         github: 'https://github.com/chahel1817/SQLens',
         live: 'https://sqlens-liard.vercel.app/',
@@ -35,7 +43,7 @@ const PROJECTS = [
         glowColorSoft: 'rgba(59,130,246,0.08)',
         status: 'LIVE',
         statusColor: '#3b82f6',
-        highlights: ['Private Sandboxes', 'AI Suggestions', 'Live Telemetry', 'Execution Parsing'],
+        highlights: ['AST Transpilation', 'Visual Execution Tree', 'AI Optimization', 'Auto-Fix Engine'],
     },
     {
         id: 'P002',
@@ -275,8 +283,8 @@ function ProjectCard({ p, i }) {
 
                 {/* Description */}
                 <p className="f-rajdhani" style={{
-                    color: 'rgba(200,200,220,0.6)', fontSize: 13.5, lineHeight: 1.7,
-                    marginBottom: 20, flex: 1,
+                    color: 'rgba(220,220,235,0.9)', fontSize: 14.5, lineHeight: 1.6,
+                    marginBottom: 22, flex: 1, fontWeight: 450,
                 }}>
                     {p.desc}
                 </p>
