@@ -4736,7 +4736,7 @@ var _s = __turbopack_context__.k.signature();
             'Recharts',
             'JWT'
         ],
-        image: '/vivamate.jpg',
+        image: '/vivamate.png',
         github: 'https://github.com/chahel1817/VivaMate',
         live: 'https://vivamate.vercel.app/',
         accentColor: '#a855f7',
