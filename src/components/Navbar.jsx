@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiMenu, FiX, FiSun, FiMoon } from 'react-icons/fi';
+import { FiMenu, FiX, FiSun, FiMoon, FiVolume2, FiVolumeX } from 'react-icons/fi';
 import { useTheme } from '@/context/ThemeContext';
 
 const C = '#f5c518';
@@ -26,7 +26,8 @@ export default function Navbar() {
     const [active, setActive] = useState('hero');
     const [menu, setMenu] = useState(false);
     const [hovered, setHovered] = useState(null);
-    const { theme, toggleTheme, isLofi } = useTheme();
+    const [scrollPct, setScrollPct] = useState(0);
+    const { theme, toggleTheme, isLofi, muted, toggleMute } = useTheme();
 
     useEffect(() => {
         const observerOptions = {
@@ -52,7 +53,10 @@ export default function Navbar() {
 
         const onScroll = () => {
             setScrolled(window.scrollY > 50);
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            setScrollPct(max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0);
         };
+        onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
 
         return () => {
@@ -63,6 +67,24 @@ export default function Navbar() {
 
     return (
         <>
+            {/* Bat-signal scroll progress beam */}
+            <div
+                aria-hidden="true"
+                style={{
+                    position: 'fixed', top: 0, left: 0, right: 0, height: 2, zIndex: 102,
+                    background: 'rgba(255,255,255,0.04)', pointerEvents: 'none',
+                }}
+            >
+                <div
+                    style={{
+                        height: '100%', width: `${scrollPct}%`,
+                        background: 'linear-gradient(90deg, #f5c518, #00f5ff)',
+                        boxShadow: '0 0 10px rgba(245,197,24,0.7), 0 0 4px rgba(0,245,255,0.6)',
+                        transition: 'width 0.1s linear',
+                    }}
+                />
+            </div>
+
             <motion.div
                 initial={{ y: -100, x: '-50%', opacity: 0 }}
                 animate={{ y: 0, x: '-50%', opacity: 1 }}
@@ -159,8 +181,30 @@ export default function Navbar() {
                         );
                     })}
 
-                    {/* Theme Toggle — at the end */}
-                    <div style={{ borderLeft: '1px solid rgba(255,255,255,0.1)', paddingLeft: 8, marginLeft: 4 }}>
+                    {/* Sound + Theme Toggle — at the end */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, borderLeft: '1px solid rgba(255,255,255,0.1)', paddingLeft: 8, marginLeft: 4 }}>
+                        <motion.button
+                            onClick={toggleMute}
+                            whileHover={{ scale: 1.15 }}
+                            whileTap={{ scale: 0.9 }}
+                            title={muted ? 'Unmute Sound' : 'Mute Sound'}
+                            aria-label={muted ? 'Unmute Sound' : 'Mute Sound'}
+                            style={{
+                                background: 'rgba(255,255,255,0.05)',
+                                border: '1px solid rgba(255,255,255,0.15)',
+                                borderRadius: '50%',
+                                width: 32,
+                                height: 32,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                color: muted ? 'rgba(255,255,255,0.35)' : '#c4cedd',
+                                transition: 'all 0.3s ease',
+                            }}
+                        >
+                            {muted ? <FiVolumeX size={14} /> : <FiVolume2 size={14} />}
+                        </motion.button>
                         <motion.button
                             onClick={toggleTheme}
                             whileHover={{ scale: 1.15, rotate: 15 }}
@@ -227,6 +271,30 @@ export default function Navbar() {
                     </div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    {/* Mobile Sound Toggle */}
+                    <motion.button
+                        onClick={toggleMute}
+                        whileTap={{ scale: 0.85 }}
+                        title={muted ? 'Unmute Sound' : 'Mute Sound'}
+                        aria-label={muted ? 'Unmute Sound' : 'Mute Sound'}
+                        style={{
+                            background: 'rgba(255,255,255,0.06)',
+                            border: '1px solid rgba(255,255,255,0.18)',
+                            borderRadius: '50%',
+                            width: 38,
+                            height: 38,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            color: muted ? 'rgba(255,255,255,0.35)' : '#c4cedd',
+                            transition: 'all 0.3s ease',
+                            padding: 0,
+                        }}
+                    >
+                        {muted ? <FiVolumeX size={16} /> : <FiVolume2 size={16} />}
+                    </motion.button>
+
                     {/* Mobile Theme Toggle */}
                     <motion.button
                         onClick={toggleTheme}

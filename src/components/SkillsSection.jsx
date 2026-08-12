@@ -12,6 +12,7 @@ import {
 } from 'react-icons/si';
 import { FaJava } from 'react-icons/fa';
 import { VscCode } from 'react-icons/vsc';
+import ScrambleText from '@/components/ScrambleText';
 
 const C = '#f5c518';
 const CC = '#00f5ff';
@@ -207,7 +208,7 @@ export default function SkillsSection() {
                         <span className="f-mono" style={{ color: 'rgba(0,245,255,0.5)', fontSize: 11, letterSpacing: '0.28em' }}>02 // ARSENAL</span>
                     </div>
                     <h2 className="f-orbitron" style={{ fontSize: 'clamp(32px,5vw,54px)', fontWeight: 900, color: '#fff', lineHeight: 1.1 }}>
-                        TECH <span style={{ color: CC, textShadow: '0 0 20px rgba(0,245,255,0.55)' }}>ARSENAL</span>
+                        TECH <ScrambleText as="span" text="ARSENAL" style={{ color: CC, textShadow: '0 0 20px rgba(0,245,255,0.55)' }} />
                     </h2>
                     <p className="f-rajdhani" style={{ color: '#b6c1d3', fontSize: 17, marginTop: 10 }}>Technologies I use to build production-ready products</p>
                 </div>

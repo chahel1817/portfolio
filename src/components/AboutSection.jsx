@@ -1,7 +1,10 @@
 'use client';
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { FiMapPin, FiMail, FiCode, FiZap, FiShield, FiCpu, FiAward } from 'react-icons/fi';
+import ScrambleText from '@/components/ScrambleText';
+import CountUp from '@/components/CountUp';
 
 const C = '#f5c518';
 const CC = '#00f5ff';
@@ -26,9 +29,27 @@ const signals = [
     { icon: FiCode, label: 'End-to-end MERN apps in production', color: '#a855f7' },
 ];
 
+function useTypewriterOnView(text, inView, speed = 26, startDelay = 350) {
+    const [out, setOut] = useState('');
+    useEffect(() => {
+        if (!inView) return;
+        let i = 0;
+        const start = setTimeout(() => {
+            const id = setInterval(() => {
+                i += 1;
+                setOut(text.slice(0, i));
+                if (i >= text.length) clearInterval(id);
+            }, speed);
+        }, startDelay);
+        return () => clearTimeout(start);
+    }, [inView, text, speed, startDelay]);
+    return out;
+}
+
 export default function AboutSection() {
     const ref = useRef(null);
     const inView = useInView(ref, { once: true, margin: '-80px' });
+    const cmdTyped = useTypewriterOnView('chahel@portfolio:~$ whoami && cat about.md', inView);
 
     return (
         <section id="about" style={{ position: 'relative', padding: '120px 0', background: 'rgba(13,13,26,0.46)', overflow: 'hidden' }}>
@@ -45,7 +66,7 @@ export default function AboutSection() {
                         <span className="f-mono" style={{ color: 'rgba(245,197,24,0.5)', fontSize: 11, letterSpacing: '0.28em' }}>01 // PROFILE</span>
                     </div>
                     <h2 className="f-orbitron" style={{ fontSize: 'clamp(32px,5vw,54px)', fontWeight: 900, color: '#fff', lineHeight: 1.1 }}>
-                        ABOUT <span style={{ color: C, textShadow: '0 0 20px rgba(245,197,24,0.55)' }}>ME</span>
+                        ABOUT <ScrambleText as="span" text="ME" style={{ color: C, textShadow: '0 0 20px rgba(245,197,24,0.55)' }} />
                     </h2>
                     <p className="f-rajdhani" style={{ color: 'rgba(220,228,240,0.82)', fontSize: 17, marginTop: 10 }}>A practical developer focused on real outcomes</p>
                 </div>
@@ -66,11 +87,13 @@ export default function AboutSection() {
                             {/* Avatar + name */}
                             <div style={{ display: 'flex', gap: 18, alignItems: 'center', marginBottom: 24, paddingBottom: 22, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                                 <div style={{ position: 'relative', flexShrink: 0 }}>
-                                    <div style={{ width: 68, height: 68, borderRadius: '50%', overflow: 'hidden', border: `2px solid rgba(245,197,24,0.28)`, background: 'linear-gradient(135deg, #1a1a2e, #0d0d1a)' }}>
-                                        <img
+                                    <div style={{ position: 'relative', width: 68, height: 68, borderRadius: '50%', overflow: 'hidden', border: `2px solid rgba(245,197,24,0.28)`, background: 'linear-gradient(135deg, #1a1a2e, #0d0d1a)' }}>
+                                        <Image
                                             src="/portfolio.jpg"
                                             alt="Chahel Tanna"
-                                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                            fill
+                                            sizes="68px"
+                                            style={{ objectFit: 'cover' }}
                                         />
                                     </div>
                                     <motion.div
@@ -164,7 +187,16 @@ export default function AboutSection() {
                                     <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ffbd2e' }} />
                                     <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#27c93f' }} />
                                 </div>
-                                <span className="f-mono" style={{ color: '#8b95a5', fontSize: 11, marginLeft: 6 }}>chahel@portfolio:~$ cat about.md</span>
+                                <span className="f-mono" style={{ color: '#8b95a5', fontSize: 11, marginLeft: 6 }}>
+                                    {cmdTyped}
+                                    <motion.span
+                                        animate={{ opacity: [1, 0] }}
+                                        transition={{ duration: 0.8, repeat: Infinity, repeatType: 'reverse' }}
+                                        style={{ marginLeft: 2 }}
+                                    >
+                                        _
+                                    </motion.span>
+                                </span>
                             </div>
 
                             {/* Lead statement */}
@@ -226,7 +258,7 @@ export default function AboutSection() {
                                 >
                                     <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, transparent, ${color}90, transparent)` }} />
                                     <span className="f-mono" style={{ position: 'absolute', top: 10, right: 12, color: `${color}35`, fontSize: 10 }}>{code}</span>
-                                    <div className="f-orbitron" style={{ fontSize: 36, fontWeight: 900, color, textShadow: `0 0 16px ${color}55`, lineHeight: 1, marginBottom: 6 }}>{value}</div>
+                                    <CountUp value={value} className="f-orbitron" style={{ display: 'block', fontSize: 36, fontWeight: 900, color, textShadow: `0 0 16px ${color}55`, lineHeight: 1, marginBottom: 6 }} />
                                     <div className="f-rajdhani" style={{ color: 'rgba(200,210,225,0.7)', fontSize: 13, fontWeight: 500, lineHeight: 1.3 }}>{label}</div>
                                 </motion.div>
                             ))}

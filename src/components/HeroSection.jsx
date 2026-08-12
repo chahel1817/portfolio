@@ -4,6 +4,9 @@ import { useRef, useEffect, useState } from 'react';
 import { FiGithub, FiLinkedin, FiMail, FiTwitter, FiInstagram, FiYoutube } from 'react-icons/fi';
 import { SiLeetcode } from 'react-icons/si';
 import { useTheme } from '@/context/ThemeContext';
+import Magnetic from '@/components/Magnetic';
+import CountUp from '@/components/CountUp';
+import BatmanScrollVideo from '@/components/BatmanScrollVideo';
 
 const C = '#f5c518';
 const CC = '#00f5ff';
@@ -14,7 +17,7 @@ const social = [
     { icon: FiLinkedin, href: 'https://www.linkedin.com/in/chahel-tanna-87300a269/', label: 'LinkedIn', glow: `0 0 12px rgba(0,245,255,0.7)`, hColor: CC },
     { icon: FiMail, href: 'mailto:chahel1817@gmail.com', label: 'Email', glow: `0 0 12px rgba(245,197,24,0.7)`, hColor: C },
     { icon: FiTwitter, href: 'https://x.com/chahel1817', label: 'X', glow: `0 0 12px rgba(0,245,255,0.7)`, hColor: CC },
-    { icon: FiInstagram, href: 'https://www.instagram.com//', label: 'Instagram', glow: `0 0 12px rgba(225,48,108,0.7)`, hColor: '#e1306c' },
+    { icon: FiInstagram, href: 'https://www.instagram.com/chahel_9/', label: 'Instagram', glow: `0 0 12px rgba(225,48,108,0.7)`, hColor: '#e1306c' },
     { icon: FiYoutube, href: 'https://www.youtube.com/@Chahel-1817', label: 'YouTube', glow: `0 0 12px rgba(255,0,0,0.7)`, hColor: '#ff0000' },
     { icon: SiLeetcode, href: 'https://leetcode.com/u/Chahel/', label: 'LeetCode', glow: `0 0 12px rgba(245,159,11,0.7)`, hColor: '#f59e0b' },
 ];
@@ -99,6 +102,105 @@ function MouseGlow() {
     );
 }
 
+function DossierTag() {
+    return (
+        <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1.4, duration: 0.6 }}
+            className="f-mono hero-dossier-tag"
+            style={{
+                position: 'absolute', top: 104, left: 24, zIndex: 4,
+                padding: '9px 16px', border: '1px solid rgba(245,197,24,0.35)', borderRadius: 4,
+                background: 'rgba(8,8,16,0.55)', backdropFilter: 'blur(8px)',
+                color: 'rgba(245,197,24,0.8)', fontSize: 10, letterSpacing: '0.14em',
+                transform: 'rotate(-1.5deg)', boxShadow: '0 6px 20px rgba(0,0,0,0.35)',
+            }}
+        >
+            FILE NO. GC-2026-001
+            <div style={{ opacity: 0.55, fontSize: 9, marginTop: 3, letterSpacing: '0.1em' }}>CLEARANCE: LEVEL 5 — VERIFIED</div>
+        </motion.div>
+    );
+}
+
+function LiveStatusTag() {
+    return (
+        <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1.4, duration: 0.6 }}
+            className="f-mono hero-status-tag"
+            style={{
+                position: 'absolute', top: 104, right: 24, zIndex: 4,
+                padding: '9px 16px', border: '1px solid rgba(0,245,255,0.35)', borderRadius: 4,
+                background: 'rgba(8,8,16,0.55)', backdropFilter: 'blur(8px)',
+                color: 'rgba(0,245,255,0.8)', fontSize: 10, letterSpacing: '0.14em',
+                display: 'flex', alignItems: 'center', gap: 9,
+                boxShadow: '0 6px 20px rgba(0,0,0,0.35)',
+            }}
+        >
+            <motion.span
+                animate={{ opacity: [1, 0.3, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                style={{ width: 6, height: 6, borderRadius: '50%', background: '#4ade80', boxShadow: '0 0 6px #4ade80', flexShrink: 0 }}
+            />
+            SYSTEM ONLINE
+        </motion.div>
+    );
+}
+
+function HudCorner({ position }) {
+    const posStyle = {
+        tl: { top: 8, left: 8, borderTop: '2px solid', borderLeft: '2px solid' },
+        tr: { top: 8, right: 8, borderTop: '2px solid', borderRight: '2px solid' },
+        bl: { bottom: 8, left: 8, borderBottom: '2px solid', borderLeft: '2px solid' },
+        br: { bottom: 8, right: 8, borderBottom: '2px solid', borderRight: '2px solid' },
+    }[position];
+    return (
+        <motion.div
+            animate={{ opacity: [0.45, 1, 0.45] }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            style={{
+                position: 'absolute', width: 34, height: 34, zIndex: 4,
+                borderColor: 'rgba(245,197,24,0.55)',
+                filter: 'drop-shadow(0 0 6px rgba(245,197,24,0.35))',
+                pointerEvents: 'none',
+                ...posStyle,
+            }}
+        />
+    );
+}
+
+function StatStrip() {
+    const STATS = [
+        { value: '5+', label: 'Projects Shipped', color: C },
+        { value: '170+', label: 'DSA Solved', color: CC },
+        { value: '9.02', label: 'CGPA', color: C },
+        { value: 'OPEN', label: 'To Work', color: '#4ade80' },
+    ];
+    return (
+        <motion.div
+            variants={item}
+            style={{
+                display: 'inline-flex', alignItems: 'stretch',
+                background: 'rgba(13,13,26,0.55)', border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: 10, padding: '16px 4px', backdropFilter: 'blur(10px)',
+                marginBottom: 44, boxShadow: '0 8px 28px rgba(0,0,0,0.35)', flexWrap: 'wrap', justifyContent: 'center',
+            }}
+        >
+            {STATS.map((s, i) => (
+                <div key={s.label} style={{ display: 'flex', alignItems: 'center' }}>
+                    {i > 0 && <div style={{ width: 1, alignSelf: 'stretch', background: 'rgba(255,255,255,0.12)', margin: '0 20px' }} />}
+                    <div style={{ textAlign: 'center', padding: '0 4px', minWidth: 74 }}>
+                        <CountUp value={s.value} className="f-orbitron" style={{ fontSize: 21, fontWeight: 800, color: s.color, textShadow: `0 0 14px ${s.color}70` }} />
+                        <div className="f-mono" style={{ fontSize: 9, letterSpacing: '0.13em', color: '#8b95a8', textTransform: 'uppercase', marginTop: 4, whiteSpace: 'nowrap' }}>{s.label}</div>
+                    </div>
+                </div>
+            ))}
+        </motion.div>
+    );
+}
+
 function Grain() {
     return (
         <div style={{
@@ -131,8 +233,11 @@ export default function HeroSection() {
 
     return (
         <section id="hero" style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', background: 'linear-gradient(160deg, rgba(6,6,8,0.38) 0%, rgba(10,10,20,0.44) 50%, rgba(13,14,34,0.5) 100%)' }}>
+            <BatmanScrollVideo />
             <MouseGlow />
             <Grain />
+            <DossierTag />
+            <LiveStatusTag />
 
             <motion.div
                 animate={{ opacity: [0.7, 1, 0.7], scale: [1, 1.06, 1] }}
@@ -158,6 +263,11 @@ export default function HeroSection() {
                 animate={controls}
                 style={{ position: 'relative', zIndex: 3, textAlign: 'center', padding: '130px 24px 100px', maxWidth: 940, margin: '0 auto', width: '100%' }}
             >
+                <HudCorner position="tl" />
+                <HudCorner position="tr" />
+                <HudCorner position="bl" />
+                <HudCorner position="br" />
+
                 <motion.div variants={item} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginBottom: 32 }}>
                     <div style={{ height: 1, width: 64, background: 'linear-gradient(90deg, transparent, #f5c518)', boxShadow: '0 0 6px #f5c518' }} />
                     <span className="f-mono" style={{ color: '#f5c518', fontSize: 11, letterSpacing: '0.3em', textTransform: 'uppercase' }}>
@@ -194,48 +304,59 @@ export default function HeroSection() {
                 </motion.div>
 
                 <motion.div variants={item} style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 52 }}>
-                    <motion.button
-                        whileHover={{ y: -4, boxShadow: '0 0 22px rgba(245,197,24,0.75), 0 8px 24px rgba(0,0,0,0.5)' }}
-                        whileTap={{ scale: 0.96, y: 0 }}
-                        onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
-                        style={{ fontFamily: "'Orbitron', monospace", fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', background: C, color: DARK, padding: '15px 34px', borderRadius: 2, border: 'none', cursor: 'pointer', transition: 'box-shadow 0.25s, transform 0.25s' }}
-                    >
-                        View My Work
-                    </motion.button>
-                    <motion.a
-                        href="https://drive.google.com/drive/u/0/folders/1ZHoSMw8iKHs5zo_PTQy6CJOM3sffOdJq"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ y: -4, boxShadow: '0 0 22px rgba(255,255,255,0.3), 0 8px 24px rgba(0,0,0,0.5)', background: 'rgba(255,255,255,0.1)' }}
-                        whileTap={{ scale: 0.96, y: 0 }}
-                        style={{ fontFamily: "'Orbitron', monospace", fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', background: 'transparent', color: '#fff', padding: '15px 34px', borderRadius: 2, border: '1px solid rgba(255,255,255,0.4)', cursor: 'pointer', transition: 'all 0.25s', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
-                    >
-                        Resume
-                    </motion.a>
-                    <motion.button
-                        whileHover={{ y: -4, boxShadow: '0 0 18px rgba(0,245,255,0.45), 0 8px 24px rgba(0,0,0,0.5)', background: 'rgba(0,245,255,0.07)' }}
-                        whileTap={{ scale: 0.96, y: 0 }}
-                        onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-                        style={{ fontFamily: "'Orbitron', monospace", fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', background: 'transparent', color: CC, padding: '15px 34px', borderRadius: 2, border: '1px solid rgba(0,245,255,0.45)', cursor: 'pointer', transition: 'all 0.25s' }}
-                    >
-                        Contact Me
-                    </motion.button>
+                    <Magnetic range={70} strength={0.3}>
+                        <motion.button
+                            suppressHydrationWarning
+                            whileHover={{ y: -4, boxShadow: '0 0 22px rgba(245,197,24,0.75), 0 8px 24px rgba(0,0,0,0.5)' }}
+                            whileTap={{ scale: 0.96, y: 0 }}
+                            onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
+                            style={{ fontFamily: "'Orbitron', monospace", fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', background: C, color: DARK, padding: '15px 34px', borderRadius: 2, border: 'none', cursor: 'pointer', transition: 'box-shadow 0.25s, transform 0.25s' }}
+                        >
+                            View My Work
+                        </motion.button>
+                    </Magnetic>
+                    <Magnetic range={70} strength={0.3}>
+                        <motion.a
+                            href="https://drive.google.com/drive/u/0/folders/1ZHoSMw8iKHs5zo_PTQy6CJOM3sffOdJq"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            whileHover={{ y: -4, boxShadow: '0 0 22px rgba(255,255,255,0.3), 0 8px 24px rgba(0,0,0,0.5)', background: 'rgba(255,255,255,0.1)' }}
+                            whileTap={{ scale: 0.96, y: 0 }}
+                            style={{ fontFamily: "'Orbitron', monospace", fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', background: 'transparent', color: '#fff', padding: '15px 34px', borderRadius: 2, border: '1px solid rgba(255,255,255,0.4)', cursor: 'pointer', transition: 'all 0.25s', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+                        >
+                            Resume
+                        </motion.a>
+                    </Magnetic>
+                    <Magnetic range={70} strength={0.3}>
+                        <motion.button
+                            suppressHydrationWarning
+                            whileHover={{ y: -4, boxShadow: '0 0 18px rgba(0,245,255,0.45), 0 8px 24px rgba(0,0,0,0.5)', background: 'rgba(0,245,255,0.07)' }}
+                            whileTap={{ scale: 0.96, y: 0 }}
+                            onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+                            style={{ fontFamily: "'Orbitron', monospace", fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', background: 'transparent', color: CC, padding: '15px 34px', borderRadius: 2, border: '1px solid rgba(0,245,255,0.45)', cursor: 'pointer', transition: 'all 0.25s' }}
+                        >
+                            Contact Me
+                        </motion.button>
+                    </Magnetic>
                 </motion.div>
+
+                <StatStrip />
 
                 <motion.div variants={item} style={{ display: 'flex', justifyContent: 'center', gap: 24, marginBottom: 72 }}>
                     {social.map(({ icon: Icon, href, label, glow, hColor }) => (
-                        <motion.a
-                            key={label}
-                            href={href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={label}
-                            whileHover={{ y: -7, scale: 1.35, color: hColor, filter: `drop-shadow(${glow}) drop-shadow(0 0 8px ${hColor}60)` }}
-                            whileTap={{ scale: 0.9 }}
-                            style={{ color: '#9aa8bf', transition: 'color 0.2s' }}
-                        >
-                            <Icon size={22} />
-                        </motion.a>
+                        <Magnetic key={label} range={46} strength={0.45}>
+                            <motion.a
+                                href={href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={label}
+                                whileHover={{ y: -7, scale: 1.35, color: hColor, filter: `drop-shadow(${glow}) drop-shadow(0 0 8px ${hColor}60)` }}
+                                whileTap={{ scale: 0.9 }}
+                                style={{ color: '#9aa8bf', transition: 'color 0.2s', display: 'inline-block' }}
+                            >
+                                <Icon size={22} />
+                            </motion.a>
+                        </Magnetic>
                     ))}
                 </motion.div>
 
@@ -247,6 +368,9 @@ export default function HeroSection() {
                 @keyframes blink {
                   0%, 100% { opacity: 1; }
                   50% { opacity: 0; }
+                }
+                @media (max-width: 860px) {
+                  .hero-dossier-tag, .hero-status-tag { display: none !important; }
                 }
             `}</style>
         </section>

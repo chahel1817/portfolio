@@ -107,6 +107,54 @@ export default function SectionDivider({ variant = 'gold', flip = false }) {
                 }}
             />
 
+            {/* Grapple hook — cable fires down from above and the claw lands at the glow line's tip */}
+            <div
+                style={{
+                    position: 'absolute',
+                    right: '20%',
+                    top: 0,
+                    bottom: 0,
+                    width: 48,
+                    transform: `translate(50%, 0) ${flip ? 'scaleY(-1)' : ''}`,
+                    pointerEvents: 'none',
+                }}
+            >
+                <svg
+                    width="48"
+                    height="80"
+                    viewBox="0 0 48 80"
+                    style={{ position: 'absolute', left: 0, top: 0, filter: `drop-shadow(0 0 7px ${c.glow})` }}
+                >
+                    {/* Cable */}
+                    <motion.line
+                        x1="24" y1="0" x2="24" y2="30"
+                        stroke={c.primary}
+                        strokeWidth="1.5"
+                        strokeDasharray="4 3"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        animate={inView ? { pathLength: 1, opacity: 0.8 } : {}}
+                        transition={{ duration: 0.55, delay: 0.95, ease: 'easeOut' }}
+                    />
+                    {/* Claw */}
+                    <motion.g
+                        initial={{ opacity: 0, scale: 0.3 }}
+                        animate={inView ? { opacity: 1, scale: 1 } : {}}
+                        transition={{ duration: 0.45, delay: 1.35, ease: 'backOut' }}
+                        style={{ transformOrigin: '24px 30px' }}
+                    >
+                        <path
+                            d="M24 30 L14 46 M24 30 L34 46 M24 30 L6 56 M24 30 L42 56"
+                            stroke={c.primary}
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            fill="none"
+                        />
+                        <circle cx="24" cy="30" r="5" fill={c.primary} />
+                        <circle cx="24" cy="30" r="2" fill="#080810" />
+                    </motion.g>
+                </svg>
+            </div>
+
             {/* Side ornaments — left */}
             <motion.div
                 initial={{ x: 30, opacity: 0 }}

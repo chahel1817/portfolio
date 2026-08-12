@@ -2,6 +2,8 @@
 import { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { FiSend, FiMail, FiMapPin, FiGithub, FiLinkedin, FiTwitter, FiInstagram, FiYoutube } from 'react-icons/fi';
+import ScrambleText from '@/components/ScrambleText';
+import IrisReveal from '@/components/IrisReveal';
 
 const C = '#f5c518';
 const CC = '#00f5ff';
@@ -10,6 +12,8 @@ const INFO = [
     { icon: FiMail, label: 'Email', value: 'chahel1817@gmail.com', href: 'mailto:chahel1817@gmail.com', color: C },
     { icon: FiMapPin, label: 'Location', value: 'Ahmedabad, Gujarat, India', href: null, color: CC },
 ];
+
+const INQUIRY_TYPES = ['Job Opportunity', 'Freelance Project', 'Collaboration', 'Just Saying Hi'];
 
 function Field({ label, name, value, onChange, type = 'text' }) {
     return (
@@ -20,6 +24,23 @@ function Field({ label, name, value, onChange, type = 'text' }) {
                 onFocus={(e) => { e.target.style.borderColor = 'rgba(245,197,24,0.5)'; }}
                 onBlur={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.14)'; }}
             />
+        </div>
+    );
+}
+function Select({ label, name, value, onChange, options }) {
+    return (
+        <div>
+            <label className="f-mono" style={{ display: 'block', color: 'rgba(245,197,24,0.65)', fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: 8 }}>{label}</label>
+            <select name={name} value={value} onChange={onChange} required
+                style={{ width: '100%', background: 'rgba(8,8,16,0.6)', border: '1px solid rgba(255,255,255,0.14)', borderRadius: 4, padding: '12px 16px', color: value ? '#e2e8f0' : 'rgba(226,232,240,0.45)', fontFamily: "'Rajdhani', sans-serif", fontSize: 15, outline: 'none', transition: 'border-color 0.2s', cursor: 'pointer' }}
+                onFocus={(e) => { e.target.style.borderColor = 'rgba(245,197,24,0.5)'; }}
+                onBlur={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.14)'; }}
+            >
+                <option value="" disabled style={{ color: '#080810' }}>Select an option</option>
+                {options.map((opt) => (
+                    <option key={opt} value={opt} style={{ color: '#080810' }}>{opt}</option>
+                ))}
+            </select>
         </div>
     );
 }
@@ -39,7 +60,11 @@ function TextArea({ label, name, value, onChange }) {
 export default function ContactSection() {
     const ref = useRef(null);
     const inView = useInView(ref, { once: true, margin: '-80px' });
-    const [form, setForm] = useState({ name: '', email: '', message: '' });
+    // Tracked outside IrisReveal's own clip-path wrapper — ancestor clipping would otherwise
+    // starve ScrambleText's own IntersectionObserver of any visible area to detect.
+    const headerRef = useRef(null);
+    const headerInView = useInView(headerRef, { once: true, margin: '-100px' });
+    const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
     const [status, setStatus] = useState('idle');
 
     const handleChange = (e) => setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
@@ -54,7 +79,7 @@ export default function ContactSection() {
             });
             if (res.ok) {
                 setStatus('sent');
-                setForm({ name: '', email: '', message: '' });
+                setForm({ name: '', email: '', subject: '', message: '' });
             } else {
                 setStatus('idle');
                 alert('Failed to send message. Please check your environment variables.');
@@ -71,14 +96,19 @@ export default function ContactSection() {
             <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: 1, height: '100%', background: 'linear-gradient(180deg, rgba(245,197,24,0.06), transparent)', pointerEvents: 'none' }} />
 
             <div className="contact-container" style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px' }}>
+                <div ref={headerRef}>
+                <IrisReveal>
                 <div style={{ textAlign: 'center', marginBottom: 64 }}>
                     <div className="sec-label">
                         <span className="f-mono" style={{ color: 'rgba(245,197,24,0.65)', fontSize: 11, letterSpacing: '0.24em' }}>06 // CONTACT</span>
                     </div>
                     <h2 className="f-orbitron" style={{ fontSize: 'clamp(32px,5vw,52px)', fontWeight: 900, color: '#fff' }}>
-                        LET&apos;S <span style={{ color: C, textShadow: '0 0 20px rgba(245,197,24,0.6)' }}>WORK TOGETHER</span>
+                        LET&apos;S{' '}
+                        <ScrambleText as="span" text="WORK TOGETHER" active={headerInView} style={{ color: C, textShadow: '0 0 20px rgba(245,197,24,0.6)' }} />
                     </h2>
                     <p className="f-rajdhani" style={{ color: '#a8b4c7', fontSize: 18, marginTop: 12 }}>Share your project details and I&apos;ll get back to you.</p>
+                </div>
+                </IrisReveal>
                 </div>
 
                 <div ref={ref} className="contact-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px,1fr))', gap: 64, alignItems: 'start' }}>
@@ -117,13 +147,13 @@ export default function ContactSection() {
                             <p className="f-mono" style={{ color: '#8b95a8', fontSize: 10, letterSpacing: '0.2em', marginBottom: 14 }}>// SOCIAL</p>
                             <div style={{ display: 'flex', gap: 12 }}>
                                 {[
-                                    { icon: FiGithub, href: 'https://github.com/chahel1817', h: '#fff' },
-                                    { icon: FiLinkedin, href: 'https://www.linkedin.com/in/chahel-tanna-87300a269/', h: CC },
-                                    { icon: FiTwitter, href: 'https://x.com/chahel1817', h: '#60a5fa' },
-                                    { icon: FiInstagram, href: 'https://www.instagram.com/chahel_9/', h: '#e1306c' },
-                                    { icon: FiYoutube, href: 'https://www.youtube.com/@Chahel-1817', h: '#ff0000' }
-                                ].map(({ icon: I, href, h }, i) => (
-                                    <motion.a key={i} href={href} target="_blank" rel="noopener noreferrer"
+                                    { icon: FiGithub, href: 'https://github.com/chahel1817', h: '#fff', label: 'GitHub' },
+                                    { icon: FiLinkedin, href: 'https://www.linkedin.com/in/chahel-tanna-87300a269/', h: CC, label: 'LinkedIn' },
+                                    { icon: FiTwitter, href: 'https://x.com/chahel1817', h: '#60a5fa', label: 'X' },
+                                    { icon: FiInstagram, href: 'https://www.instagram.com/chahel_9/', h: '#e1306c', label: 'Instagram' },
+                                    { icon: FiYoutube, href: 'https://www.youtube.com/@Chahel-1817', h: '#ff0000', label: 'YouTube' }
+                                ].map(({ icon: I, href, h, label }, i) => (
+                                    <motion.a key={i} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
                                         whileHover={{ y: -4, scale: 1.2, color: h }}
                                         style={{ width: 40, height: 40, borderRadius: 8, background: 'rgba(8,8,16,0.5)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9aa8bf', transition: 'color 0.2s' }}
                                     >
@@ -146,6 +176,7 @@ export default function ContactSection() {
                                     <Field label="Name" name="name" value={form.name} onChange={handleChange} type="text" />
                                     <Field label="Email" name="email" value={form.email} onChange={handleChange} type="email" />
                                 </div>
+                                <Select label="Inquiry Type" name="subject" value={form.subject} onChange={handleChange} options={INQUIRY_TYPES} />
                                 <TextArea label="Message" name="message" value={form.message} onChange={handleChange} />
                                 <motion.button type="submit" disabled={status !== 'idle'}
                                     whileHover={status === 'idle' ? { scale: 1.02, boxShadow: '0 0 28px rgba(245,197,24,0.5)' } : {}}

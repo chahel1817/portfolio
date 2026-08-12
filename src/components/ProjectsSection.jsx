@@ -1,7 +1,11 @@
 'use client';
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useRef } from 'react';
+import { motion, useReducedMotion, useInView } from 'framer-motion';
+import Image from 'next/image';
 import { FiGithub, FiExternalLink } from 'react-icons/fi';
+import Magnetic from '@/components/Magnetic';
+import ScrambleText from '@/components/ScrambleText';
+import IrisReveal from '@/components/IrisReveal';
 
 /* ─── Project Data ─────────────────────────────────────────────────────────── */
 const PROJECTS = [
@@ -151,15 +155,32 @@ function TechBadge({ label, accent }) {
 /* ─── Project Card ──────────────────────────────────────────────────────────── */
 function ProjectCard({ p, i }) {
     const [hov, setHov] = useState(false);
+    const [tilt, setTilt] = useState({ x: 0, y: 0, px: 50, py: 50 });
+    const cardRef = useRef(null);
+    const reducedMotion = useReducedMotion();
+
+    const handleMove = (e) => {
+        if (reducedMotion || !cardRef.current) return;
+        const rect = cardRef.current.getBoundingClientRect();
+        const px = ((e.clientX - rect.left) / rect.width) * 100;
+        const py = ((e.clientY - rect.top) / rect.height) * 100;
+        setTilt({ x: -((py - 50) / 50) * 6, y: ((px - 50) / 50) * 6, px, py });
+    };
+    const handleLeave = () => {
+        setHov(false);
+        setTilt({ x: 0, y: 0, px: 50, py: 50 });
+    };
 
     return (
         <motion.div
+            ref={cardRef}
             initial={{ opacity: 0, y: 48 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.55, delay: i * 0.15, ease: [0.23, 1, 0.32, 1] }}
             onHoverStart={() => setHov(true)}
-            onHoverEnd={() => setHov(false)}
+            onHoverEnd={handleLeave}
+            onMouseMove={handleMove}
             style={{
                 position: 'relative',
                 borderRadius: 16,
@@ -172,8 +193,9 @@ function ProjectCard({ p, i }) {
                 boxShadow: hov
                     ? `0 0 0 1px ${p.accentColor}25, 0 32px 64px rgba(0,0,0,0.6), 0 0 80px ${p.glowColor}, inset 0 1px 0 rgba(255,255,255,0.06)`
                     : `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03)`,
-                transform: hov ? 'translateY(-10px) scale(1.01)' : 'translateY(0) scale(1)',
-                transition: 'all 0.4s cubic-bezier(0.23,1,0.32,1)',
+                transform: `perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) ${hov ? 'translateY(-10px) scale(1.015)' : 'translateY(0) scale(1)'}`,
+                transformStyle: 'preserve-3d',
+                transition: 'background 0.4s, border-color 0.4s, box-shadow 0.4s, transform 0.15s cubic-bezier(0.23,1,0.32,1)',
                 display: 'flex',
                 flexDirection: 'column',
             }}
@@ -184,6 +206,15 @@ function ProjectCard({ p, i }) {
                     position: 'absolute', inset: 0, borderRadius: 16,
                     background: `radial-gradient(ellipse at 50% 0%, ${p.glowColor} 0%, transparent 65%)`,
                     pointerEvents: 'none', zIndex: 0,
+                }} />
+            )}
+
+            {/* Glare sweep — tracks cursor for a holographic sheen */}
+            {hov && !reducedMotion && (
+                <div style={{
+                    position: 'absolute', inset: 0, borderRadius: 16, zIndex: 3,
+                    background: `radial-gradient(circle at ${tilt.px}% ${tilt.py}%, rgba(255,255,255,0.14), transparent 45%)`,
+                    mixBlendMode: 'overlay', pointerEvents: 'none',
                 }} />
             )}
 
@@ -203,15 +234,16 @@ function ProjectCard({ p, i }) {
                 background: `linear-gradient(135deg, #0d0d1a, #140d28)`,
                 zIndex: 1,
             }}>
-                <img
+                <Image
                     src={p.image}
                     alt={`${p.title} screenshot`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 370px"
                     style={{
-                        width: '100%', height: '100%', objectFit: 'cover',
+                        objectFit: 'cover',
                         objectPosition: 'top center',
                         transform: hov ? 'scale(1.06)' : 'scale(1)',
                         transition: 'transform 0.6s cubic-bezier(0.23,1,0.32,1)',
-                        opacity: 1,
                     }}
                     onError={(e) => { e.target.style.display = 'none'; }}
                 />
@@ -315,45 +347,49 @@ function ProjectCard({ p, i }) {
 
                 {/* Action buttons */}
                 <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                    <motion.a
-                        href={p.live} target="_blank" rel="noopener noreferrer"
-                        whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                        style={{
-                            flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7,
-                            fontFamily: "'Orbitron', monospace", fontSize: 10, fontWeight: 700,
-                            letterSpacing: '0.12em', textTransform: 'uppercase',
-                            padding: '11px 16px', borderRadius: 8,
-                            background: hov
-                                ? `linear-gradient(135deg, ${p.accentColor}CC, ${p.accentColor}88)`
-                                : `linear-gradient(135deg, ${p.accentColor}99, ${p.accentColor}55)`,
-                            color: '#fff',
-                            textDecoration: 'none',
-                            boxShadow: hov ? `0 0 24px ${p.glowColor}, 0 4px 12px rgba(0,0,0,0.4)` : 'none',
-                            border: `1px solid ${p.accentColor}60`,
-                            transition: 'all 0.35s',
-                        }}
-                    >
-                        <FiExternalLink size={12} />
-                        Live Site
-                    </motion.a>
-                    <motion.a
-                        href={p.github} target="_blank" rel="noopener noreferrer"
-                        whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                        style={{
-                            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7,
-                            fontFamily: "'Orbitron', monospace", fontSize: 10, fontWeight: 700,
-                            letterSpacing: '0.12em', textTransform: 'uppercase',
-                            padding: '11px 18px', borderRadius: 8,
-                            background: 'rgba(255,255,255,0.04)',
-                            color: 'rgba(255,255,255,0.6)',
-                            textDecoration: 'none',
-                            border: '1px solid rgba(255,255,255,0.1)',
-                            transition: 'all 0.35s',
-                        }}
-                    >
-                        <FiGithub size={13} />
-                        Code
-                    </motion.a>
+                    <Magnetic range={50} strength={0.25} style={{ flex: 1 }}>
+                        <motion.a
+                            href={p.live} target="_blank" rel="noopener noreferrer"
+                            whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+                            style={{
+                                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7,
+                                fontFamily: "'Orbitron', monospace", fontSize: 10, fontWeight: 700,
+                                letterSpacing: '0.12em', textTransform: 'uppercase',
+                                padding: '11px 16px', borderRadius: 8,
+                                background: hov
+                                    ? `linear-gradient(135deg, ${p.accentColor}CC, ${p.accentColor}88)`
+                                    : `linear-gradient(135deg, ${p.accentColor}99, ${p.accentColor}55)`,
+                                color: '#fff',
+                                textDecoration: 'none',
+                                boxShadow: hov ? `0 0 24px ${p.glowColor}, 0 4px 12px rgba(0,0,0,0.4)` : 'none',
+                                border: `1px solid ${p.accentColor}60`,
+                                transition: 'all 0.35s',
+                            }}
+                        >
+                            <FiExternalLink size={12} />
+                            Live Site
+                        </motion.a>
+                    </Magnetic>
+                    <Magnetic range={50} strength={0.25}>
+                        <motion.a
+                            href={p.github} target="_blank" rel="noopener noreferrer"
+                            whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+                            style={{
+                                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7,
+                                fontFamily: "'Orbitron', monospace", fontSize: 10, fontWeight: 700,
+                                letterSpacing: '0.12em', textTransform: 'uppercase',
+                                padding: '11px 18px', borderRadius: 8,
+                                background: 'rgba(255,255,255,0.04)',
+                                color: 'rgba(255,255,255,0.6)',
+                                textDecoration: 'none',
+                                border: '1px solid rgba(255,255,255,0.1)',
+                                transition: 'all 0.35s',
+                            }}
+                        >
+                            <FiGithub size={13} />
+                            Code
+                        </motion.a>
+                    </Magnetic>
                 </div>
             </div>
         </motion.div>
@@ -362,6 +398,11 @@ function ProjectCard({ p, i }) {
 
 /* ─── Section ─────────────────────────────────────────────────────────────── */
 export default function ProjectsSection() {
+    // Tracked outside IrisReveal's own clip-path wrapper — ancestor clipping would otherwise
+    // starve ScrambleText's own IntersectionObserver of any visible area to detect.
+    const headerRef = useRef(null);
+    const headerInView = useInView(headerRef, { once: true, margin: '-100px' });
+
     return (
         <section
             id="projects"
@@ -418,6 +459,8 @@ export default function ProjectsSection() {
             <div className="projects-container" style={{ maxWidth: 1240, margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 1 }}>
 
                 {/* ── Section Header ── */}
+                <div ref={headerRef}>
+                <IrisReveal>
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -444,12 +487,15 @@ export default function ProjectsSection() {
                         lineHeight: 1.1, marginBottom: 14,
                     }}>
                         THINGS I&apos;VE{' '}
-                        <span style={{
-                            color: '#f5c518',
-                            textShadow: '0 0 30px rgba(245,197,24,0.7), 0 0 60px rgba(245,197,24,0.3)',
-                        }}>
-                            BUILT
-                        </span>
+                        <ScrambleText
+                            as="span"
+                            text="BUILT"
+                            active={headerInView}
+                            style={{
+                                color: '#f5c518',
+                                textShadow: '0 0 30px rgba(245,197,24,0.7), 0 0 60px rgba(245,197,24,0.3)',
+                            }}
+                        />
                     </h2>
 
                     {/* Subtitle */}
@@ -467,6 +513,8 @@ export default function ProjectsSection() {
                         <div style={{ width: 60, height: 1, background: 'linear-gradient(to left, transparent, rgba(245,197,24,0.4))' }} />
                     </div>
                 </motion.div>
+                </IrisReveal>
+                </div>
 
                 {/* ── Cards Grid ── */}
                 <div className="projects-grid" style={{

@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 const GOLD = '#f5c518';
 const CYAN = '#00f5ff';
@@ -271,19 +272,19 @@ export default function AchievementModal() {
                             <div
                                 style={{
                                     position: 'relative',
+                                    height: 200,
                                     borderRadius: 10,
                                     overflow: 'hidden',
                                     border: '1px solid rgba(245, 197, 24, 0.15)',
                                     boxShadow: '0 6px 24px rgba(0, 0, 0, 0.4)',
                                 }}
                             >
-                                <img
+                                <Image
                                     src="/hackathon_win.jpg"
                                     alt="TechHack 2025 - 3rd Place Win"
+                                    fill
+                                    sizes="440px"
                                     style={{
-                                        width: '100%',
-                                        height: 200,
-                                        display: 'block',
                                         objectFit: 'cover',
                                         objectPosition: 'center 30%',
                                     }}

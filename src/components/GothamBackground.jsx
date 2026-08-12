@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useReducedMotion } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
 
 /* ───── DARK MODE sub-components ───── */
@@ -39,35 +40,74 @@ function BatmanRooftopSilhouette() {
   );
 }
 
-function BatSignalClouds({ mouseX }) {
+function Batmobile({ reducedMotion }) {
+  if (reducedMotion) return null;
+  return (
+    <div
+      className="batmobile-drive"
+      style={{ position: 'absolute', left: 0, bottom: 14, width: 'min(48vw, 480px)', pointerEvents: 'none' }}
+    >
+      {/* Speed-trail streaks behind the car, selling the drive-by motion */}
+      <div style={{
+        position: 'absolute', right: '96%', top: '58%', width: 140, height: 30, transform: 'translateY(-50%)',
+        background: 'linear-gradient(90deg, transparent, rgba(245,197,24,0.22))',
+        filter: 'blur(4px)',
+      }} />
+      <svg
+        viewBox="0 0 320 100"
+        style={{ display: 'block', width: '100%', height: 'auto', filter: 'drop-shadow(0 0 12px rgba(245,197,24,0.45)) drop-shadow(0 0 28px rgba(245,197,24,0.2))' }}
+      >
+        {/* Low, wide silhouette — sleek nose, cockpit bubble, rear tailfin */}
+        <path
+          d="M10,70 L10,60 Q15,45 40,42 L70,40 Q85,20 110,18 L160,16 Q185,18 195,30 L220,38 Q250,36 265,45 L290,55 L300,70 L300,78 L10,78 Z"
+          fill="#04050a"
+          stroke="rgba(245,197,24,0.55)"
+          strokeWidth="1.6"
+        />
+        <circle cx="60" cy="78" r="14" fill="#020204" stroke="rgba(245,197,24,0.4)" strokeWidth="1.4" />
+        <circle cx="250" cy="78" r="14" fill="#020204" stroke="rgba(245,197,24,0.4)" strokeWidth="1.4" />
+        <ellipse cx="13" cy="63" rx="5" ry="4" fill="#fff3c4" opacity="0.95" />
+        <ellipse cx="297" cy="62" rx="4" ry="4" fill="#f5c518" opacity="0.9" />
+      </svg>
+    </div>
+  );
+}
+
+/* Classic Bat-Signal emblem — cast as a dark silhouette inside the searchlight beam,
+   the way the GCPD spotlight's bat-shaped lens blocks light to project the symbol. */
+const BAT_EMBLEM_PATH = 'M195 42 Q160 18 125 20 Q116 10 108 3 Q102 8 100 16 Q98 8 92 3 Q84 10 75 20 Q40 18 5 42 Q30 65 55 60 Q75 75 100 80 Q125 75 145 60 Q170 65 195 42 Z';
+
+function BatSignalClouds({ mouseX, reducedMotion, intensity = 0 }) {
+  const beamLeft = reducedMotion ? '50%' : `${mouseX - 8}%`;
+  const beamTransition = reducedMotion ? 'none' : 'left 0.25s ease-out, opacity 0.3s ease-out, box-shadow 0.3s ease-out';
   return (
     <>
       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 30% 20%, rgba(170,185,215,0.2), rgba(45,55,80,0.04) 45%, transparent 70%), radial-gradient(ellipse at 72% 18%, rgba(150,170,205,0.16), rgba(45,55,80,0.03) 48%, transparent 72%)', filter: 'blur(2px)' }} />
       <div
         style={{
           position: 'absolute',
-          left: `${mouseX - 8}%`,
+          left: beamLeft,
           bottom: 42,
           transform: 'translateX(-50%)',
           width: 18,
           height: 18,
           borderRadius: '50%',
           background: 'rgba(245,197,24,0.8)',
-          boxShadow: '0 0 14px rgba(245,197,24,0.75), 0 0 36px rgba(245,197,24,0.5)',
-          transition: 'left 0.25s ease-out',
+          boxShadow: `0 0 ${14 + intensity * 22}px rgba(245,197,24,${0.75 + intensity * 0.2}), 0 0 ${36 + intensity * 40}px rgba(245,197,24,${0.5 + intensity * 0.3})`,
+          transition: beamTransition,
         }}
       />
       <svg
         viewBox="0 0 600 900"
         style={{
           position: 'absolute',
-          left: `${mouseX - 8}%`,
+          left: beamLeft,
           bottom: 44,
           transform: 'translateX(-50%)',
           width: 520,
           height: 720,
-          opacity: 0.55,
-          transition: 'left 0.25s ease-out',
+          opacity: 0.55 + intensity * 0.3,
+          transition: beamTransition,
           filter: 'blur(0.3px)',
         }}
       >
@@ -85,6 +125,8 @@ function BatSignalClouds({ mouseX }) {
         </defs>
         <path d="M300 890 L284 500 L150 0 L450 0 L316 500 Z" fill="url(#beamSoft)" />
         <path d="M300 890 L292 540 L215 0 L385 0 L308 540 Z" fill="url(#beamCore)" />
+        {/* Bat emblem silhouette cast within the widest part of the beam */}
+        <path d={BAT_EMBLEM_PATH} transform="translate(150,20) scale(1.5)" fill="rgba(8,10,20,0.55)" />
       </svg>
     </>
   );
@@ -96,13 +138,20 @@ function BatSignalClouds({ mouseX }) {
 
 export default function GothamBackground() {
   const { isLofi } = useTheme();
+  const reducedMotion = useReducedMotion();
   const [mounted, setMounted] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [mouseX, setMouseX] = useState(52);
+  const [ripples, setRipples] = useState([]);
+  const [fastScroll, setFastScroll] = useState(false);
+  const lastSparkRef = useRef(0);
+  const lastScrollRef = useRef({ y: 0, t: 0 });
+  const fastScrollTimerRef = useRef(null);
 
   const rain = useMemo(
     () =>
-      Array.from({ length: 320 }).map((_, i) => ({
+      Array.from({ length: reducedMotion ? 0 : 320 }).map((_, i) => ({
         id: i,
         left: (i * 4.1) % 100,
         delay: (i * 0.07) % 2.8,
@@ -110,20 +159,62 @@ export default function GothamBackground() {
         opacity: 0.24 + ((i * 0.02) % 0.34),
         height: 15 + (i % 18),
       })),
-    []
+    [reducedMotion]
+  );
+
+  const motes = useMemo(
+    () =>
+      Array.from({ length: reducedMotion ? 0 : 26 }).map((_, i) => ({
+        id: i,
+        left: (i * 13.7) % 100,
+        top: (i * 19.3) % 88,
+        size: 2 + (i % 3),
+        depth: 0.5 + (i % 5) * 0.3,
+        dur: 6 + (i % 6),
+        delay: (i * 0.4) % 6,
+        color: i % 3 === 0 ? '#f5c518' : i % 3 === 1 ? '#00f5ff' : '#ffffff',
+      })),
+    [reducedMotion]
   );
 
   useEffect(() => {
     setMounted(true);
-    const onScroll = () => setScrollY(window.scrollY || 0);
-    const onMove = (e) => setMouseX((e.clientX / window.innerWidth) * 100);
+    const onScroll = () => {
+      const y = window.scrollY || 0;
+      setScrollY(y);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(max > 0 ? Math.min(1, y / max) : 0);
+
+      if (!reducedMotion) {
+        const now = performance.now();
+        const dt = now - lastScrollRef.current.t;
+        const dy = Math.abs(y - lastScrollRef.current.y);
+        if (dt > 0 && dt < 200 && dy / dt > 1.4) {
+          setFastScroll(true);
+          clearTimeout(fastScrollTimerRef.current);
+          fastScrollTimerRef.current = setTimeout(() => setFastScroll(false), 220);
+        }
+        lastScrollRef.current = { y, t: now };
+      }
+    };
+    const onMove = (e) => {
+      setMouseX((e.clientX / window.innerWidth) * 100);
+      const now = performance.now();
+      if (now - lastSparkRef.current > 140) {
+        lastSparkRef.current = now;
+        const id = now;
+        setRipples((r) => [...r.slice(-6), { id, x: e.clientX, y: e.clientY }]);
+        setTimeout(() => setRipples((r) => r.filter((p) => p.id !== id)), 900);
+      }
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('mousemove', onMove, { passive: true });
+    if (!reducedMotion) window.addEventListener('mousemove', onMove, { passive: true });
     return () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('mousemove', onMove);
+      clearTimeout(fastScrollTimerRef.current);
     };
-  }, []);
+  }, [reducedMotion]);
 
   if (!mounted) return null;
 
@@ -238,7 +329,7 @@ export default function GothamBackground() {
         {/* Rolling hills / landscape */}
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none" style={{
           position: 'absolute', left: 0, right: 0, bottom: 0, width: '100%', height: 320,
-          transform: `translateY(${scrollY * 0.03}px)`,
+          transform: reducedMotion ? 'none' : `translateY(${scrollY * 0.03}px)`,
         }}>
           {/* Far hills — light bluish green */}
           <path d="M0 320 L0 200 Q180 130, 360 180 Q540 120, 720 160 Q900 100, 1100 150 Q1280 120, 1440 170 L1440 320 Z" fill="rgba(140, 180, 160, 0.35)" />
@@ -278,13 +369,33 @@ export default function GothamBackground() {
 
   /* ── DARK GOTHAM MODE (original) ── */
   return (
-    <div style={{ position: 'fixed', inset: 0, zIndex: 1, pointerEvents: 'none', overflow: 'hidden' }}>
+    <div style={{ position: 'fixed', inset: 0, zIndex: 1, pointerEvents: 'none', overflow: 'hidden', filter: fastScroll ? 'contrast(1.1) saturate(1.3) brightness(1.05)' : 'none', transition: 'filter 0.15s ease-out' }}>
       {/* Rainy Gotham scenic base */}
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(6,9,18,0.58), rgba(7,10,22,0.66) 40%, rgba(6,8,18,0.78) 100%)' }} />
       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 30% 10%, rgba(190,210,255,0.11), transparent 38%), radial-gradient(circle at 75% 12%, rgba(170,195,245,0.1), transparent 42%)', filter: 'blur(1px)' }} />
 
-      {/* Bat-signal and cloud cover */}
-      <BatSignalClouds mouseX={mouseX} />
+      {/* Bat-signal and cloud cover — glows brighter as you scroll toward Contact */}
+      <BatSignalClouds mouseX={mouseX} reducedMotion={reducedMotion} intensity={scrollProgress} />
+
+      {/* Floating data motes — ambient depth with mouse parallax */}
+      <div style={{ position: 'absolute', inset: 0 }}>
+        {motes.map((m) => (
+          <div
+            key={m.id}
+            style={{
+              position: 'absolute', left: `${m.left}%`, top: `${m.top}%`,
+              transform: reducedMotion ? 'none' : `translateX(${((mouseX - 50) / 50) * m.depth * 14}px)`,
+              transition: 'transform 0.3s ease-out',
+            }}
+          >
+            <div style={{
+              width: m.size, height: m.size, borderRadius: '50%', background: m.color,
+              boxShadow: `0 0 ${m.size * 2}px ${m.color}`, opacity: 0.3,
+              animation: reducedMotion ? 'none' : `moteDrift ${m.dur}s ease-in-out ${m.delay}s infinite`,
+            }} />
+          </div>
+        ))}
+      </div>
 
       {/* Rain */}
       <div style={{ position: 'absolute', inset: 0, opacity: 1 }}>
@@ -304,18 +415,42 @@ export default function GothamBackground() {
         ))}
       </div>
 
+      {/* Cursor rain ripples */}
+      <div style={{ position: 'absolute', inset: 0 }}>
+        {ripples.map((r) => (
+          <span
+            key={r.id}
+            style={{
+              position: 'absolute', left: r.x, top: r.y, width: 14, height: 14, marginLeft: -7, marginTop: -7,
+              borderRadius: '50%', border: '1px solid rgba(180,220,255,0.5)',
+              animation: 'rippleExpand 0.9s ease-out forwards',
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Scroll-velocity glitch tint */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: 'linear-gradient(90deg, rgba(255,0,60,0.06), transparent 40%, transparent 60%, rgba(0,220,255,0.06))',
+        opacity: fastScroll ? 1 : 0, transition: 'opacity 0.2s ease-out', mixBlendMode: 'screen',
+      }} />
+
       {/* City with parallax */}
-      <div style={{ position: 'absolute', inset: 0, transform: `translateY(${scrollY * 0.035}px)` }}>
+      <div style={{ position: 'absolute', inset: 0, transform: reducedMotion ? 'none' : `translateY(${scrollY * 0.035}px)` }}>
         <GothamSkyline />
       </div>
-      <div style={{ position: 'absolute', inset: 0, transform: `translateY(${scrollY * 0.07}px)`, opacity: 0.38 }}>
+      <div style={{ position: 'absolute', inset: 0, transform: reducedMotion ? 'none' : `translateY(${scrollY * 0.07}px)`, opacity: 0.38 }}>
         <GothamSkyline />
       </div>
 
       {/* Rooftop silhouette */}
-      <div style={{ position: 'absolute', inset: 0, transform: `translateY(${scrollY * 0.05}px)` }}>
+      <div style={{ position: 'absolute', inset: 0, transform: reducedMotion ? 'none' : `translateY(${scrollY * 0.05}px)` }}>
         <BatmanRooftopSilhouette />
       </div>
+
+      {/* Batmobile — occasional drive-by along the street */}
+      <Batmobile reducedMotion={reducedMotion} />
 
       {/* Dark readable overlay */}
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(5,8,18,0.22), rgba(5,8,18,0.36) 58%, rgba(5,8,18,0.48) 100%)' }} />
@@ -324,6 +459,24 @@ export default function GothamBackground() {
         @keyframes rainFall {
           from { transform: translateY(-10vh) skewX(-12deg); }
           to { transform: translateY(118vh) skewX(-12deg); }
+        }
+        @keyframes moteDrift {
+          0%, 100% { transform: translateY(0) scale(1); opacity: 0.25; }
+          50% { transform: translateY(-16px) scale(1.3); opacity: 0.6; }
+        }
+        @keyframes rippleExpand {
+          0% { transform: scale(0.2); opacity: 0.55; }
+          100% { transform: scale(6); opacity: 0; }
+        }
+        @keyframes batmobileDrive {
+          0% { transform: translateX(-100%) translateX(-60px); opacity: 0; }
+          3% { opacity: 0.95; }
+          34% { transform: translateX(100vw) translateX(60px); opacity: 0.95; }
+          37% { opacity: 0; }
+          100% { transform: translateX(100vw) translateX(60px); opacity: 0; }
+        }
+        .batmobile-drive {
+          animation: batmobileDrive 16s linear infinite;
         }
       `}</style>
     </div>

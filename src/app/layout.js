@@ -2,6 +2,9 @@ import { Orbitron, Rajdhani } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import GlobalAudio from "@/components/GlobalAudio";
+import KonamiEasterEgg from "@/components/KonamiEasterEgg";
+import IntroScreen from "@/components/IntroScreen";
+import TabAttention from "@/components/TabAttention";
 import { ThemeProvider } from "@/context/ThemeContext";
 
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"] });
@@ -19,7 +22,7 @@ export default function RootLayout({ children }) {
       <body style={{ fontFamily: "'Rajdhani', sans-serif", background: "#080810", color: "#d6deea" }}>
         <Script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-GP67VETFXS"
+          src="https://www.googletagmanager.com/gtag/js?id=G-MT0GWSPXPL"
         />
         <Script id="google-analytics">
           {`
@@ -32,6 +35,9 @@ export default function RootLayout({ children }) {
         </Script>
         <ThemeProvider>
           <GlobalAudio />
+          <KonamiEasterEgg />
+          <IntroScreen />
+          <TabAttention />
           {children}
         </ThemeProvider>
       </body>

@@ -1,12 +1,17 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { useTheme } from '@/context/ThemeContext';
 
 /**
  * GlobalAudio component that attaches a click listener to the window
- * and plays a synthetic technical "blip" sound on every click to 
+ * and plays a synthetic technical "blip" sound on every click to
  * links or buttons.
  */
 export default function GlobalAudio() {
+    const { muted } = useTheme();
+    const mutedRef = useRef(muted);
+    mutedRef.current = muted;
+
     useEffect(() => {
         const playBlip = () => {
             try {
@@ -73,6 +78,7 @@ export default function GlobalAudio() {
         };
 
         const handleClick = (e) => {
+            if (mutedRef.current) return;
             // Only play sound for interactive elements
             const interactiveElements = ['BUTTON', 'A', 'INPUT', 'SELECT', 'TEXTAREA'];
             const target = e.target.closest('button, a, input[type="button"], input[type="submit"]');

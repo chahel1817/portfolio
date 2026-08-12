@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { FiCamera, FiBookOpen, FiMusic, FiCoffee, FiGlobe, FiUsers } from 'react-icons/fi';
 import { GiCricketBat, GiGamepad, GiSoccerBall, GiTennisRacket, GiWeightLiftingUp } from 'react-icons/gi';
+import ScrambleText from '@/components/ScrambleText';
 
 const C = '#f5c518';
 const CC = '#00f5ff';
@@ -62,7 +63,7 @@ export default function InterestsSection() {
                         <span className="f-mono" style={{ color: 'rgba(245,197,24,0.5)', fontSize: 11, letterSpacing: '0.28em' }}>05 // BEYOND THE CODE</span>
                     </div>
                     <h2 className="f-orbitron" style={{ fontSize: 'clamp(32px,5vw,52px)', fontWeight: 900, color: '#fff', lineHeight: 1.1 }}>
-                        OFFLINE <span style={{ color: C, textShadow: '0 0 20px rgba(245,197,24,0.5)' }}>MODE</span>
+                        OFFLINE <ScrambleText as="span" text="MODE" style={{ color: C, textShadow: '0 0 20px rgba(245,197,24,0.5)' }} />
                     </h2>
                     <p className="f-rajdhani" style={{ color: '#6b7280', fontSize: 17, marginTop: 12 }}>What I do when I'm not in front of a terminal</p>
                 </div>

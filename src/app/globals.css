@@ -503,6 +503,22 @@ section span {
   transform: translateY(-6px);
 }
 
+/* ─── Reduced Motion ─────────────────────────────────────── */
+/* Collapses every CSS animation/transition (rain, glitch, scanlines,   */
+/* pulse glows, etc.) to a near-instant single frame for visitors who   */
+/* have requested reduced motion at the OS level.                       */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* ─── Scanline overlay ───────────────────────────────────── */
 .scanline {
   position: absolute;

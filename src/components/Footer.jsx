@@ -17,8 +17,9 @@ const NAV = [
 
 const STATUS = [
     { label: 'Server: Online', dot: '#4ade80' },
-    { label: 'Systems: Active', dot: '#4ade80' },
+    { label: 'Bat-Signal: Standby', dot: C },
     { label: 'Open for Work', dot: C },
+    { label: 'Cheat Code: ↑↑↓↓←→←→ B A', dot: '#a855f7' },
 ];
 
 export default function Footer() {
@@ -44,8 +45,8 @@ export default function Footer() {
                             Portfolio: chaheltanna.vercel.app
                         </a>
                         <div style={{ display: 'flex', gap: 10 }}>
-                            {[{ icon: FiGithub, href: 'https://github.com/chahel1817', h: '#fff' }, { icon: FiLinkedin, href: 'https://www.linkedin.com/in/chahel-tanna-87300a269/', h: CC }, { icon: FiTwitter, href: 'https://x.com/chahel1817', h: '#60a5fa' }, { icon: SiLeetcode, href: 'https://leetcode.com/u/Chahel/', h: '#f59e0b' }, { icon: FiMail, href: 'mailto:chahel1817@gmail.com', h: C }].map(({ icon: I, href, h }, i) => (
-                                <motion.a key={i} href={href} target="_blank" rel="noopener noreferrer"
+                            {[{ icon: FiGithub, href: 'https://github.com/chahel1817', h: '#fff', label: 'GitHub' }, { icon: FiLinkedin, href: 'https://www.linkedin.com/in/chahel-tanna-87300a269/', h: CC, label: 'LinkedIn' }, { icon: FiTwitter, href: 'https://x.com/chahel1817', h: '#60a5fa', label: 'X' }, { icon: SiLeetcode, href: 'https://leetcode.com/u/Chahel/', h: '#f59e0b', label: 'LeetCode' }, { icon: FiMail, href: 'mailto:chahel1817@gmail.com', h: C, label: 'Email' }].map(({ icon: I, href, h, label }, i) => (
+                                <motion.a key={i} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
                                     whileHover={{ y: -3, color: h }}
                                     style={{ width: 36, height: 36, borderRadius: 6, background: 'rgba(13,13,26,0.8)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#a8b4c7', transition: 'color 0.2s' }}
                                 >

@@ -2,6 +2,7 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { FiAward, FiBookOpen, FiArrowUpRight } from 'react-icons/fi';
+import ScrambleText from '@/components/ScrambleText';
 
 const C = '#f5c518';
 const CC = '#00f5ff';
@@ -73,7 +74,7 @@ export default function ExperienceSection() {
                         <span className="f-mono" style={{ color: 'rgba(245,197,24,0.5)', fontSize: 11, letterSpacing: '0.28em' }}>04 // ACADEMIC GENESIS</span>
                     </div>
                     <h2 className="f-orbitron" style={{ fontSize: 'clamp(32px,5vw,52px)', fontWeight: 900, color: '#fff', lineHeight: 1.1 }}>
-                        EDUCATION <span style={{ color: C, textShadow: '0 0 20px rgba(245,197,24,0.5)' }}>HISTORY</span>
+                        EDUCATION <ScrambleText as="span" text="HISTORY" style={{ color: C, textShadow: '0 0 20px rgba(245,197,24,0.5)' }} />
                     </h2>
                     <p className="f-rajdhani" style={{ color: 'rgba(220,228,240,0.82)', fontSize: 17, marginTop: 12 }}>Education and growth timeline</p>
                 </div>
