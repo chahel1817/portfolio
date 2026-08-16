@@ -14,7 +14,6 @@ import GothamBackground from '@/components/GothamBackground';
 
 const CustomCursor = dynamic(() => import('@/components/CustomCursor'), { ssr: false });
 const ThreeDElement = dynamic(() => import('@/components/ThreeDElement'), { ssr: false });
-const AchievementModal = dynamic(() => import('@/components/AchievementModal'), { ssr: false });
 const ScrollToTop = dynamic(() => import('@/components/ScrollToTop'), { ssr: false });
 
 export default function Home() {
@@ -23,7 +22,6 @@ export default function Home() {
       <CustomCursor />
       <GothamBackground />
       <ThreeDElement />
-      <AchievementModal />
       <ScrollToTop />
       <div style={{ position: 'relative', zIndex: 3 }}>
         <Navbar />

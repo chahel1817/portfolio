@@ -106,19 +106,17 @@ function DossierTag() {
     return (
         <motion.div
             initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
+            animate={{ opacity: 0.6, x: 0 }}
             transition={{ delay: 1.4, duration: 0.6 }}
             className="f-mono hero-dossier-tag"
             style={{
                 position: 'absolute', top: 104, left: 24, zIndex: 4,
-                padding: '9px 16px', border: '1px solid rgba(245,197,24,0.35)', borderRadius: 4,
-                background: 'rgba(8,8,16,0.55)', backdropFilter: 'blur(8px)',
-                color: 'rgba(245,197,24,0.8)', fontSize: 10, letterSpacing: '0.14em',
-                transform: 'rotate(-1.5deg)', boxShadow: '0 6px 20px rgba(0,0,0,0.35)',
+                padding: '5px 11px', border: '1px solid rgba(245,197,24,0.18)', borderRadius: 4,
+                background: 'rgba(8,8,16,0.35)',
+                color: 'rgba(245,197,24,0.55)', fontSize: 9, letterSpacing: '0.1em',
             }}
         >
             FILE NO. GC-2026-001
-            <div style={{ opacity: 0.55, fontSize: 9, marginTop: 3, letterSpacing: '0.1em' }}>CLEARANCE: LEVEL 5 — VERIFIED</div>
         </motion.div>
     );
 }
@@ -127,23 +125,18 @@ function LiveStatusTag() {
     return (
         <motion.div
             initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
+            animate={{ opacity: 0.6, x: 0 }}
             transition={{ delay: 1.4, duration: 0.6 }}
             className="f-mono hero-status-tag"
             style={{
                 position: 'absolute', top: 104, right: 24, zIndex: 4,
-                padding: '9px 16px', border: '1px solid rgba(0,245,255,0.35)', borderRadius: 4,
-                background: 'rgba(8,8,16,0.55)', backdropFilter: 'blur(8px)',
-                color: 'rgba(0,245,255,0.8)', fontSize: 10, letterSpacing: '0.14em',
-                display: 'flex', alignItems: 'center', gap: 9,
-                boxShadow: '0 6px 20px rgba(0,0,0,0.35)',
+                padding: '5px 11px', border: '1px solid rgba(0,245,255,0.18)', borderRadius: 4,
+                background: 'rgba(8,8,16,0.35)',
+                color: 'rgba(0,245,255,0.55)', fontSize: 9, letterSpacing: '0.1em',
+                display: 'flex', alignItems: 'center', gap: 7,
             }}
         >
-            <motion.span
-                animate={{ opacity: [1, 0.3, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                style={{ width: 6, height: 6, borderRadius: '50%', background: '#4ade80', boxShadow: '0 0 6px #4ade80', flexShrink: 0 }}
-            />
+            <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#4ade80', boxShadow: '0 0 4px #4ade80', flexShrink: 0 }} />
             SYSTEM ONLINE
         </motion.div>
     );
@@ -157,13 +150,10 @@ function HudCorner({ position }) {
         br: { bottom: 8, right: 8, borderBottom: '2px solid', borderRight: '2px solid' },
     }[position];
     return (
-        <motion.div
-            animate={{ opacity: [0.45, 1, 0.45] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+        <div
             style={{
-                position: 'absolute', width: 34, height: 34, zIndex: 4,
+                position: 'absolute', width: 34, height: 34, zIndex: 4, opacity: 0.35,
                 borderColor: 'rgba(245,197,24,0.55)',
-                filter: 'drop-shadow(0 0 6px rgba(245,197,24,0.35))',
                 pointerEvents: 'none',
                 ...posStyle,
             }}
@@ -317,7 +307,7 @@ export default function HeroSection() {
                     </Magnetic>
                     <Magnetic range={70} strength={0.3}>
                         <motion.a
-                            href="https://drive.google.com/drive/u/0/folders/1ZHoSMw8iKHs5zo_PTQy6CJOM3sffOdJq"
+                            href="https://drive.google.com/file/d/1oq3uNYZfnftjkqnGN-nWsGcyyv8FZ2B4/view?usp=drive_link"
                             target="_blank"
                             rel="noopener noreferrer"
                             whileHover={{ y: -4, boxShadow: '0 0 22px rgba(255,255,255,0.3), 0 8px 24px rgba(0,0,0,0.5)', background: 'rgba(255,255,255,0.1)' }}

@@ -372,7 +372,7 @@ export default function Navbar() {
 
                         {/* Resume Link instead of Download */}
                         <motion.a
-                            href="https://drive.google.com/drive/u/0/folders/1ZHoSMw8iKHs5zo_PTQy6CJOM3sffOdJq"
+                            href="https://drive.google.com/file/d/1oq3uNYZfnftjkqnGN-nWsGcyyv8FZ2B4/view?usp=drive_link"
                             target="_blank"
                             rel="noopener noreferrer"
                             initial={{ opacity: 0, y: 20 }}
