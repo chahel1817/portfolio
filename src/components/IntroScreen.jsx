@@ -27,7 +27,12 @@ export default function IntroScreen() {
 
     useEffect(() => {
         const seen = sessionStorage.getItem('gotham_intro_seen');
-        if (seen || reducedMotion) return;
+        // Skip the cinematic on phones — straight to the homepage instead of a video intro.
+        const isMobile = window.matchMedia('(max-width: 767px)').matches;
+        if (seen || reducedMotion || isMobile) {
+            if (isMobile) sessionStorage.setItem('gotham_intro_seen', 'true');
+            return;
+        }
         setVisible(true);
         document.body.style.overflow = 'hidden';
         return () => { document.body.style.overflow = ''; };
