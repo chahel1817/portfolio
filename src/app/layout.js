@@ -3,7 +3,6 @@ import Script from "next/script";
 import "./globals.css";
 import GlobalAudio from "@/components/GlobalAudio";
 import KonamiEasterEgg from "@/components/KonamiEasterEgg";
-import IntroScreen from "@/components/IntroScreen";
 import TabAttention from "@/components/TabAttention";
 import { ThemeProvider } from "@/context/ThemeContext";
 
@@ -36,7 +35,6 @@ export default function RootLayout({ children }) {
         <ThemeProvider>
           <GlobalAudio />
           <KonamiEasterEgg />
-          <IntroScreen />
           <TabAttention />
           {children}
         </ThemeProvider>

@@ -1,10 +1,10 @@
 'use client';
 import { motion, useInView } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
-import { FiMapPin, FiMail, FiCode, FiZap, FiShield, FiCpu, FiAward } from 'react-icons/fi';
+import { FiMapPin, FiMail, FiCode, FiZap, FiCpu } from 'react-icons/fi';
 import ScrambleText from '@/components/ScrambleText';
 import CountUp from '@/components/CountUp';
+import ProfileCard from '@/components/ProfileCard';
 
 const C = '#f5c518';
 const CC = '#00f5ff';
@@ -21,12 +21,6 @@ const principles = [
     { icon: FiCpu, color: CC, title: 'Data Engineering', desc: 'Mastered high-level SQL and currently advancing Python proficiency to architect robust, scalable data systems.' },
     { icon: FiZap, color: '#a855f7', title: 'DevOps & Deployment Pipelines', desc: 'Designing automated CI/CD workflows, containerized deployments, and scalable infrastructure for reliable, production-grade applications' },
     { icon: FiCode, color: '#4ade80', title: 'AI Integration & Automation', desc: 'Building intelligent features by integrating AI APIs, automating workflows, and enhancing applications with smart, data-driven capabilities' },
-];
-
-const signals = [
-    { icon: FiAward, label: 'Deployed on Vercel & Render', color: C },
-    { icon: FiCpu, label: 'AI-Powered Interview Simulation Platform', color: CC },
-    { icon: FiCode, label: 'End-to-end MERN apps in production', color: '#a855f7' },
 ];
 
 function useTypewriterOnView(text, inView, speed = 26, startDelay = 350) {
@@ -78,93 +72,57 @@ export default function AboutSection() {
                         initial={{ opacity: 0, x: -32 }}
                         animate={inView ? { opacity: 1, x: 0 } : {}}
                         transition={{ duration: 0.6, ease: 'easeOut' }}
-                        style={{ display: 'flex', flexDirection: 'column' }}
+                        style={{ display: 'flex', flexDirection: 'column', gap: 24 }}
                     >
-                        {/* Identity card */}
-                        <div style={{ position: 'relative', background: 'rgba(13,13,26,0.92)', border: '1px solid rgba(245,197,24,0.18)', borderRadius: 10, padding: 32, marginBottom: 20 }}>
-                            <div className="corner-tl" /><div className="corner-tr" /><div className="corner-bl" /><div className="corner-br" />
-
-                            {/* Avatar + name */}
-                            <div style={{ display: 'flex', gap: 18, alignItems: 'center', marginBottom: 24, paddingBottom: 22, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                                <div style={{ position: 'relative', flexShrink: 0 }}>
-                                    <div style={{ position: 'relative', width: 68, height: 68, borderRadius: '50%', overflow: 'hidden', border: `2px solid rgba(245,197,24,0.28)`, background: 'linear-gradient(135deg, #1a1a2e, #0d0d1a)' }}>
-                                        <Image
-                                            src="/portfolio.jpg"
-                                            alt="Chahel Tanna"
-                                            fill
-                                            sizes="68px"
-                                            style={{ objectFit: 'cover' }}
-                                        />
-                                    </div>
-                                    <motion.div
-                                        animate={{ scale: [1, 1.3, 1] }}
-                                        transition={{ duration: 2, repeat: Infinity }}
-                                        style={{ position: 'absolute', bottom: 3, right: 3, width: 13, height: 13, borderRadius: '50%', background: '#4ade80', border: '2px solid #0d0d1a', boxShadow: '0 0 8px rgba(74,222,128,0.8)' }}
-                                    />
-                                </div>
-                                <div>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
-                                        <span className="f-mono" style={{ color: 'rgba(245,197,24,0.4)', fontSize: 10 }}>ID://</span>
-                                        <h3 className="f-orbitron" style={{ color: '#ffffff', fontWeight: 700, fontSize: 17 }}>Chahel Tanna</h3>
-                                    </div>
-                                    {/* Stronger positioning — no MERN repetition here */}
-                                    <p className="f-rajdhani" style={{ color: CC, fontWeight: 700, fontSize: 13, letterSpacing: '0.08em', textTransform: 'uppercase' }}>Full Stack Engineer</p>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 6 }}>
-                                        <motion.div animate={{ opacity: [1, 0.4, 1] }} transition={{ duration: 2, repeat: Infinity }}
-                                            style={{ width: 6, height: 6, borderRadius: '50%', background: '#4ade80', boxShadow: '0 0 6px #4ade80' }}
-                                        />
-                                        <span className="f-mono" style={{ color: '#4ade80', fontSize: 10 }}>Open to Internships &amp; Engineering Roles</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Quick facts */}
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                                {[
-                                    { icon: FiMapPin, label: 'Base', value: 'Ahmedabad, Gujarat, India', color: C },
-                                    { icon: FiMail, label: 'Email', value: 'chahel1817@gmail.com', color: CC },
-                                    { icon: FiCode, label: 'Focus', value: 'Full Stack | Data Engineering', color: '#a855f7' },
-                                ].map(({ icon: Icon, label, value, color }) => (
-                                    <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                                        <div style={{ width: 34, height: 34, borderRadius: 8, background: `${color}10`, border: `1px solid ${color}25`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                                            <Icon size={14} style={{ color }} />
-                                        </div>
-                                        <div>
-                                            <p className="f-mono" style={{ color: '#8b95a5', fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase' }}>{label}</p>
-                                            <p className="f-rajdhani" style={{ color: '#d1d5db', fontSize: 15, fontWeight: 600 }}>{value}</p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
+                        {/* Profile card — High level organic presentation */}
+                        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                            <ProfileCard
+                                avatarUrl="/pic-removebg-preview.png"
+                                name="Chahel Tanna"
+                                title="Software Engineer"
+                                handle="chahel1817"
+                                status="Open to Work"
+                                contactText="Contact Me"
+                                showUserInfo={true}
+                                enableTilt={true}
+                                enableMobileTilt={false}
+                                behindGlowColor="rgba(80, 180, 255, 0.45)"
+                                innerGradient="linear-gradient(145deg, rgba(20, 26, 48, 0.95) 0%, rgba(8, 11, 24, 0.98) 100%)"
+                                onContactClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+                            />
                         </div>
 
-                        {/* Micro credibility signals */}
-                        <div style={{ background: 'rgba(13,13,26,0.7)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 10, padding: '18px 20px', marginBottom: 20 }}>
-                            <p className="f-mono" style={{ color: '#8b95a5', fontSize: 10, letterSpacing: '0.2em', marginBottom: 14 }}>// CREDIBILITY SIGNALS</p>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                                {signals.map(({ icon: Icon, label, color }) => (
-                                    <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                                        <motion.div animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 2.5, repeat: Infinity }}
-                                            style={{ width: 5, height: 5, borderRadius: '50%', background: color, boxShadow: `0 0 5px ${color}`, flexShrink: 0 }}
-                                        />
-                                        <span className="f-rajdhani" style={{ color: '#9ca3af', fontSize: 14, fontWeight: 500 }}>{label}</span>
+                        {/* Quick facts */}
+                        <div style={{ background: 'rgba(13,13,26,0.75)', border: '1px solid rgba(245,197,24,0.15)', borderRadius: 14, padding: '20px 22px', display: 'flex', flexDirection: 'column', gap: 14, backdropFilter: 'blur(12px)' }}>
+                            {[
+                                { icon: FiMapPin, label: 'Base', value: 'Ahmedabad, Gujarat, India', color: C },
+                                { icon: FiMail, label: 'Email', value: 'chahel1817@gmail.com', color: CC },
+                                { icon: FiCode, label: 'Focus', value: 'Full Stack | Data Engineering', color: '#a855f7' },
+                            ].map(({ icon: Icon, label, value, color }) => (
+                                <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                                    <div style={{ width: 36, height: 36, borderRadius: 10, background: `${color}12`, border: `1px solid ${color}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                        <Icon size={15} style={{ color }} />
                                     </div>
-                                ))}
-                            </div>
+                                    <div>
+                                        <p className="f-mono" style={{ color: '#8b95a5', fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase' }}>{label}</p>
+                                        <p className="f-rajdhani" style={{ color: '#e2e8f0', fontSize: 15, fontWeight: 600 }}>{value}</p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
 
                         {/* Principle cards — flex:1 so left col matches right col height */}
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, flex: 1, alignContent: 'stretch' }}>
                             {principles.map(({ icon: Icon, color, title, desc }) => (
                                 <motion.div key={title}
-                                    whileHover={{ y: -4, borderColor: `${color}30` }}
-                                    style={{ background: 'rgba(13,13,26,0.7)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 10, padding: 18, transition: 'all 0.3s', display: 'flex', flexDirection: 'column' }}
+                                    whileHover={{ y: -4, borderColor: `${color}40`, boxShadow: `0 8px 24px ${color}15` }}
+                                    style={{ background: 'rgba(13,13,26,0.75)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 14, padding: 18, transition: 'all 0.3s', display: 'flex', flexDirection: 'column' }}
                                 >
-                                    <div style={{ width: 32, height: 32, borderRadius: 8, background: `${color}12`, border: `1px solid ${color}22`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 10 }}>
-                                        <Icon size={14} style={{ color }} />
+                                    <div style={{ width: 34, height: 34, borderRadius: 10, background: `${color}14`, border: `1px solid ${color}28`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
+                                        <Icon size={15} style={{ color }} />
                                     </div>
-                                    <p className="f-orbitron" style={{ color: '#e2e8f0', fontSize: 10, fontWeight: 700, marginBottom: 6, letterSpacing: '0.04em', lineHeight: 1.3 }}>{title}</p>
-                                    <p className="f-rajdhani" style={{ color: 'rgba(200,210,225,0.7)', fontSize: 13, lineHeight: 1.6, flex: 1 }}>{desc}</p>
+                                    <p className="f-orbitron" style={{ color: '#f1f5f9', fontSize: 11, fontWeight: 700, marginBottom: 8, letterSpacing: '0.04em', lineHeight: 1.3 }}>{title}</p>
+                                    <p className="f-rajdhani" style={{ color: 'rgba(200,210,225,0.75)', fontSize: 13, lineHeight: 1.6, flex: 1 }}>{desc}</p>
                                 </motion.div>
                             ))}
                         </div>
