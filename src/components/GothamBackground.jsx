@@ -140,6 +140,7 @@ export default function GothamBackground() {
   const { isLofi } = useTheme();
   const reducedMotion = useReducedMotion();
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [mouseX, setMouseX] = useState(52);
@@ -148,23 +149,24 @@ export default function GothamBackground() {
   const lastSparkRef = useRef(0);
   const lastScrollRef = useRef({ y: 0, t: 0 });
   const fastScrollTimerRef = useRef(null);
+  const rafIdRef = useRef(null);
 
   const rain = useMemo(
     () =>
-      Array.from({ length: reducedMotion ? 0 : 320 }).map((_, i) => ({
+      Array.from({ length: reducedMotion ? 0 : (isMobile ? 50 : 250) }).map((_, i) => ({
         id: i,
         left: (i * 4.1) % 100,
         delay: (i * 0.07) % 2.8,
         duration: 0.42 + ((i * 0.08) % 0.78),
-        opacity: 0.24 + ((i * 0.02) % 0.34),
-        height: 15 + (i % 18),
+        opacity: 0.2 + ((i * 0.02) % 0.3),
+        height: 14 + (i % 16),
       })),
-    [reducedMotion]
+    [reducedMotion, isMobile]
   );
 
   const motes = useMemo(
     () =>
-      Array.from({ length: reducedMotion ? 0 : 26 }).map((_, i) => ({
+      Array.from({ length: reducedMotion ? 0 : (isMobile ? 8 : 22) }).map((_, i) => ({
         id: i,
         left: (i * 13.7) % 100,
         top: (i * 19.3) % 88,
@@ -174,45 +176,64 @@ export default function GothamBackground() {
         delay: (i * 0.4) % 6,
         color: i % 3 === 0 ? '#f5c518' : i % 3 === 1 ? '#00f5ff' : '#ffffff',
       })),
-    [reducedMotion]
+    [reducedMotion, isMobile]
   );
 
   useEffect(() => {
     setMounted(true);
-    const onScroll = () => {
-      const y = window.scrollY || 0;
-      setScrollY(y);
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress(max > 0 ? Math.min(1, y / max) : 0);
-
-      if (!reducedMotion) {
-        const now = performance.now();
-        const dt = now - lastScrollRef.current.t;
-        const dy = Math.abs(y - lastScrollRef.current.y);
-        if (dt > 0 && dt < 200 && dy / dt > 1.4) {
-          setFastScroll(true);
-          clearTimeout(fastScrollTimerRef.current);
-          fastScrollTimerRef.current = setTimeout(() => setFastScroll(false), 220);
-        }
-        lastScrollRef.current = { y, t: now };
-      }
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches);
     };
+    checkMobile();
+    window.addEventListener('resize', checkMobile, { passive: true });
+
+    let lastY = window.scrollY || 0;
+    const onScroll = () => {
+      if (rafIdRef.current) return;
+      rafIdRef.current = requestAnimationFrame(() => {
+        rafIdRef.current = null;
+        const y = window.scrollY || 0;
+        if (Math.abs(y - lastY) > 8 || y === 0) {
+          lastY = y;
+          setScrollY(y);
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          setScrollProgress(max > 0 ? Math.min(1, y / max) : 0);
+        }
+
+        if (!reducedMotion) {
+          const now = performance.now();
+          const dt = now - lastScrollRef.current.t;
+          const dy = Math.abs(y - lastScrollRef.current.y);
+          if (dt > 0 && dt < 200 && dy / dt > 2.0) {
+            setFastScroll(true);
+            clearTimeout(fastScrollTimerRef.current);
+            fastScrollTimerRef.current = setTimeout(() => setFastScroll(false), 220);
+          }
+          lastScrollRef.current = { y, t: now };
+        }
+      });
+    };
+
     const onMove = (e) => {
+      if (window.innerWidth < 768) return;
       setMouseX((e.clientX / window.innerWidth) * 100);
       const now = performance.now();
-      if (now - lastSparkRef.current > 140) {
+      if (now - lastSparkRef.current > 160) {
         lastSparkRef.current = now;
         const id = now;
-        setRipples((r) => [...r.slice(-6), { id, x: e.clientX, y: e.clientY }]);
+        setRipples((r) => [...r.slice(-4), { id, x: e.clientX, y: e.clientY }]);
         setTimeout(() => setRipples((r) => r.filter((p) => p.id !== id)), 900);
       }
     };
+
     window.addEventListener('scroll', onScroll, { passive: true });
     if (!reducedMotion) window.addEventListener('mousemove', onMove, { passive: true });
     return () => {
+      window.removeEventListener('resize', checkMobile);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('mousemove', onMove);
       clearTimeout(fastScrollTimerRef.current);
+      if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
     };
   }, [reducedMotion]);
 

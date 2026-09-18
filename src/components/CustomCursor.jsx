@@ -10,8 +10,19 @@ export default function CustomCursor() {
     const lastSparkRef = useRef(0);
     const reducedMotion = useReducedMotion();
 
+    const [isMobile, setIsMobile] = useState(false);
+
     useEffect(() => {
-        if (reducedMotion) return;
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile, { passive: true });
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    useEffect(() => {
+        if (reducedMotion || isMobile) return;
         const move = (e) => {
             setPos({ x: e.clientX, y: e.clientY });
             setTimeout(() => setDot({ x: e.clientX, y: e.clientY }), 60);
@@ -38,9 +49,9 @@ export default function CustomCursor() {
             document.removeEventListener('mouseover', over);
             document.removeEventListener('mouseout', out);
         };
-    }, [reducedMotion]);
+    }, [reducedMotion, isMobile]);
 
-    if (reducedMotion) return null;
+    if (reducedMotion || isMobile) return null;
 
     return (
         <>

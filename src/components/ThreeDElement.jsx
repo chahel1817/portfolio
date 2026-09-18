@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useReducedMotion } from 'framer-motion';
 import * as THREE from 'three';
@@ -103,6 +103,16 @@ function Bat({ startPos, speed, flapSpeed, offset, batMaterial }) {
 export default function ThreeDElement() {
     const { isLofi } = useTheme();
     const reducedMotion = useReducedMotion();
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile, { passive: true });
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     // A glowing, ultra high-level Cybernetic Neon material
     const cyberBatMaterial = useMemo(() => new THREE.MeshPhysicalMaterial({
@@ -131,7 +141,7 @@ export default function ThreeDElement() {
         }));
     }, []);
 
-    if (isLofi || reducedMotion) return null;
+    if (isLofi || reducedMotion || isMobile) return null;
 
     return (
         <div style={{ position: 'fixed', inset: 0, zIndex: 1, pointerEvents: 'none', opacity: 1 }}>

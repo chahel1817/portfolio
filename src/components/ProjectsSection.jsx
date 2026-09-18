@@ -160,7 +160,7 @@ function ProjectCard({ p, i }) {
     const reducedMotion = useReducedMotion();
 
     const handleMove = (e) => {
-        if (reducedMotion || !cardRef.current) return;
+        if (reducedMotion || !cardRef.current || window.innerWidth < 768) return;
         const rect = cardRef.current.getBoundingClientRect();
         const px = ((e.clientX - rect.left) / rect.width) * 100;
         const py = ((e.clientY - rect.top) / rect.height) * 100;

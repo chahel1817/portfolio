@@ -29,34 +29,35 @@ function FlavorText() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.8, duration: 0.5 }}
-            style={{ display: 'flex', justifyContent: 'center', marginTop: -35, paddingBottom: 20 }}
+            style={{ display: 'flex', justifyContent: 'center', marginTop: -15, paddingBottom: 20 }}
         >
             <span
                 className="f-rajdhani"
                 style={{
-                    fontSize: 17,
+                    fontSize: 'clamp(13px, 3.5vw, 16px)',
                     fontWeight: 600,
                     color: isLofi ? '#5a6a7a' : '#cbd5e1',
-                    letterSpacing: '0.08em',
+                    letterSpacing: '0.04em',
                     fontStyle: 'italic',
-                    background: isLofi ? 'rgba(255,255,255,0.45)' : 'rgba(13, 13, 26, 0.5)',
-                    padding: '10px 24px',
+                    background: isLofi ? 'rgba(255,255,255,0.65)' : 'rgba(13, 13, 26, 0.65)',
+                    padding: '10px 20px',
                     borderRadius: '30px',
-                    border: isLofi ? '1px solid rgba(245,197,24,0.25)' : '1px solid rgba(0, 245, 255, 0.15)',
+                    border: isLofi ? '1px solid rgba(245,197,24,0.3)' : '1px solid rgba(0, 245, 255, 0.2)',
                     boxShadow: isLofi
                         ? '0 4px 20px rgba(0,0,0,0.08), inset 0 0 10px rgba(255,220,150,0.08)'
                         : '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 12px rgba(0, 245, 255, 0.05)',
                     backdropFilter: 'blur(8px)',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
+                    display: 'inline-block',
+                    textAlign: 'center',
+                    maxWidth: '92%',
+                    lineHeight: 1.55,
                     transition: 'all 0.6s ease',
                 }}
             >
                 {isLofi ? (
-                    <>☀️ Enjoying the sunshine? The code runs smoother in <span style={{ color: '#e89020', fontWeight: 700 }}>golden hour.</span></>
+                    <>☀️ Enjoying the sunshine? The code runs smoother in <span style={{ color: '#e89020', fontWeight: 700, fontStyle: 'normal' }}>golden hour.</span></>
                 ) : (
-                    <>Don&apos;t mind the bats. They&apos;re just here to <span style={{ color: '#00f5ff', textShadow: '0 0 12px rgba(0,245,255,0.7)', fontWeight: 700 }}>hunt down the bugs.</span></>
+                    <>Don&apos;t mind the bats. They&apos;re just here to <span style={{ color: '#00f5ff', textShadow: '0 0 12px rgba(0,245,255,0.7)', fontWeight: 700, fontStyle: 'normal' }}>hunt down the bugs.</span></>
                 )}
             </span>
         </motion.div>
@@ -171,20 +172,31 @@ function StatStrip() {
     return (
         <motion.div
             variants={item}
+            className="hero-stat-strip"
             style={{
-                display: 'inline-flex', alignItems: 'stretch',
-                background: 'rgba(13,13,26,0.55)', border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: 10, padding: '16px 4px', backdropFilter: 'blur(10px)',
-                marginBottom: 44, boxShadow: '0 8px 28px rgba(0,0,0,0.35)', flexWrap: 'wrap', justifyContent: 'center',
+                display: 'inline-grid',
+                gridTemplateColumns: 'repeat(4, 1fr)',
+                background: 'rgba(13,13,26,0.65)',
+                border: '1px solid rgba(255,255,255,0.12)',
+                borderRadius: 12,
+                padding: '16px 20px',
+                backdropFilter: 'blur(12px)',
+                marginBottom: 44,
+                boxShadow: '0 8px 28px rgba(0,0,0,0.4)',
+                gap: 16,
+                alignItems: 'center',
+                maxWidth: '100%',
             }}
         >
             {STATS.map((s, i) => (
-                <div key={s.label} style={{ display: 'flex', alignItems: 'center' }}>
-                    {i > 0 && <div style={{ width: 1, alignSelf: 'stretch', background: 'rgba(255,255,255,0.12)', margin: '0 20px' }} />}
-                    <div style={{ textAlign: 'center', padding: '0 4px', minWidth: 74 }}>
-                        <CountUp value={s.value} className="f-orbitron" style={{ fontSize: 21, fontWeight: 800, color: s.color, textShadow: `0 0 14px ${s.color}70` }} />
-                        <div className="f-mono" style={{ fontSize: 9, letterSpacing: '0.13em', color: '#8b95a8', textTransform: 'uppercase', marginTop: 4, whiteSpace: 'nowrap' }}>{s.label}</div>
-                    </div>
+                <div key={s.label} className="hero-stat-item" style={{
+                    textAlign: 'center',
+                    padding: '4px 12px',
+                    position: 'relative',
+                }}>
+                    {i > 0 && <div className="hero-stat-divider" style={{ position: 'absolute', left: -8, top: '15%', bottom: '15%', width: 1, background: 'rgba(255,255,255,0.12)' }} />}
+                    <CountUp value={s.value} className="f-orbitron" style={{ fontSize: 'clamp(18px, 4vw, 22px)', fontWeight: 800, color: s.color, textShadow: `0 0 14px ${s.color}70` }} />
+                    <div className="f-mono" style={{ fontSize: 9, letterSpacing: '0.12em', color: '#8b95a8', textTransform: 'uppercase', marginTop: 4, whiteSpace: 'nowrap' }}>{s.label}</div>
                 </div>
             ))}
         </motion.div>
@@ -206,23 +218,23 @@ function Grain() {
 
 const stagger = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.13, delayChildren: 0.4 } },
+    visible: { opacity: 1, transition: { staggerChildren: 0.13, delayChildren: 0.2 } },
 };
 const item = {
-    hidden: { y: 50, opacity: 0 },
+    hidden: { y: 30, opacity: 0 },
     visible: { y: 0, opacity: 1, transition: { type: 'spring', stiffness: 75, damping: 17 } },
 };
 
 export default function HeroSection() {
     const controls = useAnimation();
-    const ref = useRef(null);
-    const inView = useInView(ref, { once: true });
     const { displayed, done } = useTypewriter('> READY TO BUILD', 50, 700);
 
-    useEffect(() => { if (inView) controls.start('visible'); }, [inView, controls]);
+    useEffect(() => {
+        controls.start('visible');
+    }, [controls]);
 
     return (
-        <section id="hero" style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', background: 'linear-gradient(160deg, rgba(6,6,8,0.38) 0%, rgba(10,10,20,0.44) 50%, rgba(13,14,34,0.5) 100%)' }}>
+        <section id="hero" className="hero-container" style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', background: 'linear-gradient(160deg, rgba(6,6,8,0.38) 0%, rgba(10,10,20,0.44) 50%, rgba(13,14,34,0.5) 100%)' }}>
             <BatmanScrollVideo />
             <MouseGlow />
             <Grain />
@@ -247,10 +259,10 @@ export default function HeroSection() {
             ))}
 
             <motion.div
-                ref={ref}
                 variants={stagger}
                 initial="hidden"
                 animate={controls}
+                className="hero-content"
                 style={{ position: 'relative', zIndex: 3, textAlign: 'center', padding: '130px 24px 100px', maxWidth: 940, margin: '0 auto', width: '100%' }}
             >
                 <HudCorner position="tl" />
@@ -332,7 +344,7 @@ export default function HeroSection() {
 
                 <StatStrip />
 
-                <motion.div variants={item} style={{ display: 'flex', justifyContent: 'center', gap: 24, marginBottom: 72 }}>
+                <motion.div variants={item} style={{ display: 'flex', justifyContent: 'center', gap: 'clamp(14px, 3.5vw, 24px)', flexWrap: 'wrap', marginBottom: 60 }}>
                     {social.map(({ icon: Icon, href, label, glow, hColor }) => (
                         <Magnetic key={label} range={46} strength={0.45}>
                             <motion.a
@@ -361,6 +373,28 @@ export default function HeroSection() {
                 }
                 @media (max-width: 860px) {
                   .hero-dossier-tag, .hero-status-tag { display: none !important; }
+                  .hero-content { padding: 110px 16px 70px !important; }
+                }
+                @media (max-width: 640px) {
+                  .hero-stat-strip {
+                    grid-template-columns: repeat(2, 1fr) !important;
+                    gap: 12px 0 !important;
+                    padding: 14px 10px !important;
+                    width: 100% !important;
+                  }
+                  .hero-stat-divider {
+                    display: none !important;
+                  }
+                  .hero-stat-item {
+                    border-bottom: 1px solid rgba(255,255,255,0.08);
+                    padding: 10px 4px !important;
+                  }
+                  .hero-stat-item:nth-child(3), .hero-stat-item:nth-child(4) {
+                    border-bottom: none !important;
+                  }
+                  .hero-stat-item:nth-child(even) {
+                    border-left: 1px solid rgba(255,255,255,0.08);
+                  }
                 }
             `}</style>
         </section>
