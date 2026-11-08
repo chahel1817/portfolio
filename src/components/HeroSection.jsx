@@ -6,7 +6,6 @@ import { SiLeetcode } from 'react-icons/si';
 import { useTheme } from '@/context/ThemeContext';
 import Magnetic from '@/components/Magnetic';
 import CountUp from '@/components/CountUp';
-import BatmanScrollVideo from '@/components/BatmanScrollVideo';
 
 const C = '#f5c518';
 const CC = '#00f5ff';
@@ -165,7 +164,7 @@ function HudCorner({ position }) {
 function StatStrip() {
     const STATS = [
         { value: '5+', label: 'Projects Shipped', color: C },
-        { value: '170+', label: 'DSA Solved', color: CC },
+        { value: '230+', label: 'LeetCode Solved', color: CC },
         { value: '9.02', label: 'CGPA', color: C },
         { value: 'OPEN', label: 'To Work', color: '#4ade80' },
     ];
@@ -234,8 +233,7 @@ export default function HeroSection() {
     }, [controls]);
 
     return (
-        <section id="hero" className="hero-container" style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', background: 'linear-gradient(160deg, rgba(6,6,8,0.38) 0%, rgba(10,10,20,0.44) 50%, rgba(13,14,34,0.5) 100%)' }}>
-            <BatmanScrollVideo />
+        <section id="hero" className="hero-container" style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
             <MouseGlow />
             <Grain />
             <DossierTag />

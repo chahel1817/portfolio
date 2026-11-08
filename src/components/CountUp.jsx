@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useInView, useReducedMotion } from 'framer-motion';
 
-/** Animates a numeric-prefixed value ("170+", "9.02") counting up once it scrolls into view. */
+/** Animates a numeric-prefixed value ("230+", "9.02") counting up once it scrolls into view. */
 export default function CountUp({ value, duration = 1400, className, style }) {
     const match = typeof value === 'string' ? value.match(/^([\d.]+)(.*)$/) : null;
     const ref = useRef(null);

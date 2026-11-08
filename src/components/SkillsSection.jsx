@@ -124,7 +124,7 @@ const CATS = [
             },
         ],
         appliedIn: 'Applied in competitive coding, backend API development, and database schema design.',
-        credibility: 'Solved 170+ DSA problems across LeetCode and practice platforms.',
+        credibility: 'Solved 230+ DSA problems across LeetCode and practice platforms.',
     },
     {
         id: 'devops',

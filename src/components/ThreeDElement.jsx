@@ -107,7 +107,7 @@ export default function ThreeDElement() {
 
     useEffect(() => {
         const checkMobile = () => {
-            setIsMobile(window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches);
+            setIsMobile(window.innerWidth < 768);
         };
         checkMobile();
         window.addEventListener('resize', checkMobile, { passive: true });
@@ -128,10 +128,11 @@ export default function ThreeDElement() {
     }), []);
 
     const bats = useMemo(() => {
-        return Array.from({ length: 22 }).map((_, i) => ({
+        const count = isMobile ? 12 : 22;
+        return Array.from({ length: count }).map((_, i) => ({
             id: i,
             startPos: [
-                (Math.random() - 0.5) * 80, // Vast X spread
+                (Math.random() - 0.5) * (isMobile ? 45 : 80), // Vast X spread
                 (Math.random() - 0.5) * 60 - 20,
                 (Math.random() - 0.5) * 80 - 40
             ],
@@ -139,9 +140,9 @@ export default function ThreeDElement() {
             flapSpeed: 8 + Math.random() * 6, // Cinematic, deliberate flapping
             offset: Math.random() * 100,
         }));
-    }, []);
+    }, [isMobile]);
 
-    if (isLofi || reducedMotion || isMobile) return null;
+    if (isLofi || reducedMotion) return null;
 
     return (
         <div style={{ position: 'fixed', inset: 0, zIndex: 1, pointerEvents: 'none', opacity: 1 }}>
