@@ -104,17 +104,21 @@ function MouseGlow() {
 }
 
 function DossierTag() {
+    const { isLofi } = useTheme();
     return (
         <motion.div
             initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 0.6, x: 0 }}
+            animate={{ opacity: 0.85, x: 0 }}
             transition={{ delay: 1.4, duration: 0.6 }}
             className="f-mono hero-dossier-tag"
             style={{
                 position: 'absolute', top: 104, left: 24, zIndex: 4,
-                padding: '5px 11px', border: '1px solid rgba(245,197,24,0.18)', borderRadius: 4,
-                background: 'rgba(8,8,16,0.35)',
-                color: 'rgba(245,197,24,0.55)', fontSize: 9, letterSpacing: '0.1em',
+                padding: '5px 11px',
+                border: isLofi ? '1px solid rgba(15, 23, 42, 0.12)' : '1px solid rgba(245,197,24,0.18)',
+                borderRadius: 4,
+                background: isLofi ? 'rgba(255, 255, 255, 0.85)' : 'rgba(8,8,16,0.35)',
+                color: isLofi ? '#475569' : 'rgba(245,197,24,0.55)',
+                fontSize: 9, letterSpacing: '0.1em',
             }}
         >
             SYS ID: CT-2026-DEV
@@ -123,17 +127,21 @@ function DossierTag() {
 }
 
 function LiveStatusTag() {
+    const { isLofi } = useTheme();
     return (
         <motion.div
             initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 0.6, x: 0 }}
+            animate={{ opacity: 0.85, x: 0 }}
             transition={{ delay: 1.4, duration: 0.6 }}
             className="f-mono hero-status-tag"
             style={{
                 position: 'absolute', top: 104, right: 24, zIndex: 4,
-                padding: '5px 11px', border: '1px solid rgba(0,245,255,0.18)', borderRadius: 4,
-                background: 'rgba(8,8,16,0.35)',
-                color: 'rgba(0,245,255,0.55)', fontSize: 9, letterSpacing: '0.1em',
+                padding: '5px 11px',
+                border: isLofi ? '1px solid rgba(15, 23, 42, 0.12)' : '1px solid rgba(0,245,255,0.18)',
+                borderRadius: 4,
+                background: isLofi ? 'rgba(255, 255, 255, 0.85)' : 'rgba(8,8,16,0.35)',
+                color: isLofi ? '#475569' : 'rgba(0,245,255,0.55)',
+                fontSize: 9, letterSpacing: '0.1em',
                 display: 'flex', alignItems: 'center', gap: 7,
             }}
         >
@@ -144,6 +152,7 @@ function LiveStatusTag() {
 }
 
 function HudCorner({ position }) {
+    const { isLofi } = useTheme();
     const posStyle = {
         tl: { top: 8, left: 8, borderTop: '2px solid', borderLeft: '2px solid' },
         tr: { top: 8, right: 8, borderTop: '2px solid', borderRight: '2px solid' },
@@ -153,8 +162,8 @@ function HudCorner({ position }) {
     return (
         <div
             style={{
-                position: 'absolute', width: 34, height: 34, zIndex: 4, opacity: 0.35,
-                borderColor: 'rgba(245,197,24,0.55)',
+                position: 'absolute', width: 34, height: 34, zIndex: 4, opacity: isLofi ? 0.25 : 0.35,
+                borderColor: isLofi ? 'rgba(15, 23, 42, 0.25)' : 'rgba(245,197,24,0.55)',
                 pointerEvents: 'none',
                 ...posStyle,
             }}
@@ -164,6 +173,7 @@ function HudCorner({ position }) {
 
 function StatStrip() {
     const cardRef = useRef(null);
+    const { isLofi } = useTheme();
     const [tilt, setTilt] = useState({ rx: 0, ry: 0, glareX: 50, glareY: 50, isHover: false });
     const reducedMotion = useReducedMotion();
 
@@ -182,10 +192,10 @@ function StatStrip() {
     };
 
     const STATS = [
-        { value: '9+', label: 'Projects Shipped', color: C },
-        { value: '230+', label: 'LeetCode Solved', color: CC },
-        { value: '9.02', label: 'CGPA', color: C },
-        { value: 'OPEN', label: 'To Work', color: '#4ade80' },
+        { value: '9+', label: 'Projects Shipped', color: isLofi ? '#b45309' : C },
+        { value: '230+', label: 'LeetCode Solved', color: isLofi ? '#0284c7' : CC },
+        { value: '9.02', label: 'CGPA', color: isLofi ? '#b45309' : C },
+        { value: 'OPEN', label: 'To Work', color: isLofi ? '#15803d' : '#4ade80' },
     ];
 
     return (
@@ -204,15 +214,15 @@ function StatStrip() {
             style={{
                 display: 'inline-grid',
                 gridTemplateColumns: 'repeat(4, 1fr)',
-                background: 'rgba(12, 15, 26, 0.72)',
-                border: '1px solid rgba(255, 255, 255, 0.14)',
+                background: isLofi ? 'rgba(255, 255, 255, 0.88)' : 'rgba(12, 15, 26, 0.72)',
+                border: isLofi ? '1px solid rgba(15, 23, 42, 0.12)' : '1px solid rgba(255, 255, 255, 0.14)',
                 borderRadius: 14,
                 padding: '16px 20px',
                 backdropFilter: 'blur(16px)',
                 marginBottom: 44,
-                boxShadow: tilt.isHover
-                    ? '0 20px 45px rgba(0,0,0,0.65), 0 0 35px rgba(0, 245, 255, 0.18)'
-                    : '0 8px 28px rgba(0,0,0,0.4)',
+                boxShadow: isLofi
+                    ? (tilt.isHover ? '0 16px 36px rgba(15, 23, 42, 0.12), 0 0 25px rgba(2, 132, 199, 0.12)' : '0 6px 20px rgba(15, 23, 42, 0.08)')
+                    : (tilt.isHover ? '0 20px 45px rgba(0,0,0,0.65), 0 0 35px rgba(0, 245, 255, 0.18)' : '0 8px 28px rgba(0,0,0,0.4)'),
                 gap: 16,
                 alignItems: 'center',
                 maxWidth: '100%',
@@ -260,9 +270,9 @@ function StatStrip() {
                     position: 'relative',
                     transform: 'translateZ(15px)',
                 }}>
-                    {i > 0 && <div className="hero-stat-divider" style={{ position: 'absolute', left: -8, top: '15%', bottom: '15%', width: 1, background: 'rgba(255,255,255,0.12)' }} />}
-                    <CountUp value={s.value} className="f-orbitron" style={{ fontSize: 'clamp(18px, 4vw, 22px)', fontWeight: 800, color: s.color, textShadow: `0 0 14px ${s.color}70` }} />
-                    <div className="f-mono" style={{ fontSize: 9, letterSpacing: '0.12em', color: '#8b95a8', textTransform: 'uppercase', marginTop: 4, whiteSpace: 'nowrap' }}>{s.label}</div>
+                    {i > 0 && <div className="hero-stat-divider" style={{ position: 'absolute', left: -8, top: '15%', bottom: '15%', width: 1, background: isLofi ? 'rgba(15, 23, 42, 0.1)' : 'rgba(255,255,255,0.12)' }} />}
+                    <CountUp value={s.value} className="f-orbitron" style={{ fontSize: 'clamp(18px, 4vw, 22px)', fontWeight: 800, color: s.color, textShadow: isLofi ? 'none' : `0 0 14px ${s.color}70` }} />
+                    <div className="f-mono" style={{ fontSize: 9, letterSpacing: '0.12em', color: isLofi ? '#64748b' : '#8b95a8', textTransform: 'uppercase', marginTop: 4, whiteSpace: 'nowrap' }}>{s.label}</div>
                 </div>
             ))}
         </motion.div>
@@ -294,6 +304,7 @@ const item = {
 export default function HeroSection() {
     const controls = useAnimation();
     const { displayed, done } = useTypewriter('> READY TO BUILD', 50, 700);
+    const { isLofi } = useTheme();
 
     useEffect(() => {
         controls.start('visible');
@@ -311,15 +322,15 @@ export default function HeroSection() {
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
                 style={{ position: 'absolute', top: '38%', left: '50%', transform: 'translate(-50%, -50%)', width: 640, height: 380, background: 'radial-gradient(circle at center, rgba(255,208,0,0.065), transparent 62%)', borderRadius: '50%', pointerEvents: 'none', zIndex: 1 }}
             />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(6,6,10,0.32) 0%, transparent 28%, transparent 72%, rgba(6,6,10,0.32) 100%)', pointerEvents: 'none', zIndex: 1 }} />
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '35%', background: 'linear-gradient(180deg, rgba(6,6,10,0.24) 0%, transparent 100%)', pointerEvents: 'none', zIndex: 1 }} />
+            <div style={{ position: 'absolute', inset: 0, background: isLofi ? 'none' : 'linear-gradient(90deg, rgba(6,6,10,0.32) 0%, transparent 28%, transparent 72%, rgba(6,6,10,0.32) 100%)', pointerEvents: 'none', zIndex: 1 }} />
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '35%', background: isLofi ? 'none' : 'linear-gradient(180deg, rgba(6,6,10,0.24) 0%, transparent 100%)', pointerEvents: 'none', zIndex: 1 }} />
             <div style={{ position: 'absolute', bottom: 0, right: '8%', width: 400, height: 400, background: 'radial-gradient(circle, rgba(0,245,255,0.035), transparent 70%)', borderRadius: '50%', pointerEvents: 'none', zIndex: 1 }} />
 
             {[10, 30, 70, 90].map((pct, i) => (
                 <motion.div key={i}
                     animate={{ opacity: [0, 0.4, 0] }}
                     transition={{ duration: 5 + i, repeat: Infinity, delay: i * 0.9 }}
-                    style={{ position: 'absolute', top: 0, bottom: 0, width: 1, left: `${pct}%`, background: 'linear-gradient(180deg, transparent, rgba(245,197,24,0.04), transparent)', pointerEvents: 'none', zIndex: 1 }}
+                    style={{ position: 'absolute', top: 0, bottom: 0, width: 1, left: `${pct}%`, background: isLofi ? 'linear-gradient(180deg, transparent, rgba(15,23,42,0.04), transparent)' : 'linear-gradient(180deg, transparent, rgba(245,197,24,0.04), transparent)', pointerEvents: 'none', zIndex: 1 }}
                 />
             ))}
 
@@ -336,12 +347,12 @@ export default function HeroSection() {
                 <HudCorner position="br" />
 
                 <motion.div variants={item} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginBottom: 32 }}>
-                    <div style={{ height: 1, width: 64, background: 'linear-gradient(90deg, transparent, #f5c518)', boxShadow: '0 0 6px #f5c518' }} />
-                    <span className="f-mono" style={{ color: '#f5c518', fontSize: 11, letterSpacing: '0.3em', textTransform: 'uppercase' }}>
+                    <div style={{ height: 1, width: 64, background: isLofi ? 'linear-gradient(90deg, transparent, #b45309)' : 'linear-gradient(90deg, transparent, #f5c518)', boxShadow: isLofi ? 'none' : '0 0 6px #f5c518' }} />
+                    <span className="f-mono" style={{ color: isLofi ? '#b45309' : '#f5c518', fontSize: 11, letterSpacing: '0.3em', textTransform: 'uppercase', fontWeight: 600 }}>
                         {displayed}
-                        {!done && <span style={{ animation: 'blink 0.9s step-end infinite', borderRight: '1.5px solid #f5c518', marginLeft: 2, paddingRight: 2 }} />}
+                        {!done && <span style={{ animation: 'blink 0.9s step-end infinite', borderRight: isLofi ? '1.5px solid #b45309' : '1.5px solid #f5c518', marginLeft: 2, paddingRight: 2 }} />}
                     </span>
-                    <div style={{ height: 1, width: 64, background: 'linear-gradient(90deg, #f5c518, transparent)', boxShadow: '0 0 6px #f5c518' }} />
+                    <div style={{ height: 1, width: 64, background: isLofi ? 'linear-gradient(90deg, #b45309, transparent)' : 'linear-gradient(90deg, #f5c518, transparent)', boxShadow: isLofi ? 'none' : '0 0 6px #f5c518' }} />
                 </motion.div>
 
                 <motion.div variants={item} style={{ marginBottom: 24, position: 'relative' }}>
@@ -350,7 +361,7 @@ export default function HeroSection() {
                             initial={{ opacity: 0, letterSpacing: '0.8em' }}
                             animate={{ opacity: 1, letterSpacing: '0.65em' }}
                             transition={{ duration: 1.2, delay: 0.8, ease: 'easeOut' }}
-                            style={{ display: 'block', color: 'rgba(255,255,255,0.5)', fontSize: 'clamp(13px,1.8vw,20px)', fontWeight: 400, marginBottom: 10, fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.65em' }}
+                            style={{ display: 'block', color: isLofi ? '#475569' : 'rgba(255,255,255,0.5)', fontSize: 'clamp(13px,1.8vw,20px)', fontWeight: 600, marginBottom: 10, fontFamily: "'Rajdhani', sans-serif", letterSpacing: '0.65em' }}
                         >
                             HELLO, I AM
                         </motion.span>
@@ -360,11 +371,11 @@ export default function HeroSection() {
 
                 <motion.div variants={item} style={{ marginBottom: 44 }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, flexWrap: 'wrap', marginBottom: 18 }}>
-                        <span className="f-rajdhani" style={{ color: CC, fontSize: 'clamp(15px,2.4vw,22px)', fontWeight: 700, letterSpacing: '0.12em', textShadow: '0 0 14px rgba(0,245,255,0.45)' }}>
+                        <span className="f-rajdhani" style={{ color: isLofi ? '#0284c7' : CC, fontSize: 'clamp(15px,2.4vw,22px)', fontWeight: 700, letterSpacing: '0.12em', textShadow: isLofi ? 'none' : '0 0 14px rgba(0,245,255,0.45)' }}>
                             FULL STACK DEVELOPER
                         </span>
                     </div>
-                    <p className="f-rajdhani" style={{ color: '#a8b4c7', fontSize: 18, lineHeight: 1.78, maxWidth: 700, margin: '0 auto' }}>
+                    <p className="f-rajdhani" style={{ color: isLofi ? '#334155' : '#a8b4c7', fontSize: 18, lineHeight: 1.78, maxWidth: 700, margin: '0 auto' }}>
                         I build fast, scalable, and user-friendly web applications.
                         From backend APIs to frontend interfaces, I focus on clean architecture and great user experience.
                     </p>
@@ -374,10 +385,10 @@ export default function HeroSection() {
                     <Magnetic range={70} strength={0.3}>
                         <motion.button
                             suppressHydrationWarning
-                            whileHover={{ y: -4, boxShadow: '0 0 22px rgba(245,197,24,0.75), 0 8px 24px rgba(0,0,0,0.5)' }}
+                            whileHover={{ y: -4, boxShadow: isLofi ? '0 10px 24px rgba(217, 119, 6, 0.35)' : '0 0 22px rgba(245,197,24,0.75), 0 8px 24px rgba(0,0,0,0.5)' }}
                             whileTap={{ scale: 0.96, y: 0 }}
                             onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
-                            style={{ fontFamily: "'Orbitron', monospace", fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', background: C, color: DARK, padding: '15px 34px', borderRadius: 2, border: 'none', cursor: 'pointer', transition: 'box-shadow 0.25s, transform 0.25s' }}
+                            style={{ fontFamily: "'Orbitron', monospace", fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', background: isLofi ? '#b45309' : C, color: '#ffffff', padding: '15px 34px', borderRadius: 2, border: 'none', cursor: 'pointer', transition: 'box-shadow 0.25s, transform 0.25s' }}
                         >
                             View My Work
                         </motion.button>
@@ -387,9 +398,9 @@ export default function HeroSection() {
                             href="https://drive.google.com/file/d/1oq3uNYZfnftjkqnGN-nWsGcyyv8FZ2B4/view?usp=drive_link"
                             target="_blank"
                             rel="noopener noreferrer"
-                            whileHover={{ y: -4, boxShadow: '0 0 22px rgba(255,255,255,0.3), 0 8px 24px rgba(0,0,0,0.5)', background: 'rgba(255,255,255,0.1)' }}
+                            whileHover={{ y: -4, boxShadow: isLofi ? '0 8px 20px rgba(15, 23, 42, 0.12)' : '0 0 22px rgba(255,255,255,0.3), 0 8px 24px rgba(0,0,0,0.5)', background: isLofi ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.1)' }}
                             whileTap={{ scale: 0.96, y: 0 }}
-                            style={{ fontFamily: "'Orbitron', monospace", fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', background: 'transparent', color: '#fff', padding: '15px 34px', borderRadius: 2, border: '1px solid rgba(255,255,255,0.4)', cursor: 'pointer', transition: 'all 0.25s', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+                            style={{ fontFamily: "'Orbitron', monospace", fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', background: isLofi ? 'rgba(255, 255, 255, 0.85)' : 'transparent', color: isLofi ? '#0f172a' : '#fff', padding: '15px 34px', borderRadius: 2, border: isLofi ? '1px solid rgba(15, 23, 42, 0.22)' : '1px solid rgba(255,255,255,0.4)', cursor: 'pointer', transition: 'all 0.25s', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
                         >
                             Resume
                         </motion.a>
@@ -397,10 +408,10 @@ export default function HeroSection() {
                     <Magnetic range={70} strength={0.3}>
                         <motion.button
                             suppressHydrationWarning
-                            whileHover={{ y: -4, boxShadow: '0 0 18px rgba(0,245,255,0.45), 0 8px 24px rgba(0,0,0,0.5)', background: 'rgba(0,245,255,0.07)' }}
+                            whileHover={{ y: -4, boxShadow: isLofi ? '0 8px 20px rgba(2, 132, 199, 0.2)' : '0 0 18px rgba(0,245,255,0.45), 0 8px 24px rgba(0,0,0,0.5)', background: isLofi ? 'rgba(2, 132, 199, 0.12)' : 'rgba(0,245,255,0.07)' }}
                             whileTap={{ scale: 0.96, y: 0 }}
                             onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-                            style={{ fontFamily: "'Orbitron', monospace", fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', background: 'transparent', color: CC, padding: '15px 34px', borderRadius: 2, border: '1px solid rgba(0,245,255,0.45)', cursor: 'pointer', transition: 'all 0.25s' }}
+                            style={{ fontFamily: "'Orbitron', monospace", fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', background: isLofi ? 'rgba(2, 132, 199, 0.06)' : 'transparent', color: isLofi ? '#0284c7' : CC, padding: '15px 34px', borderRadius: 2, border: isLofi ? '1px solid rgba(2, 132, 199, 0.45)' : '1px solid rgba(0,245,255,0.45)', cursor: 'pointer', transition: 'all 0.25s' }}
                         >
                             Contact Me
                         </motion.button>
@@ -419,7 +430,7 @@ export default function HeroSection() {
                                 aria-label={label}
                                 whileHover={{ y: -7, scale: 1.35, color: hColor, filter: `drop-shadow(${glow}) drop-shadow(0 0 8px ${hColor}60)` }}
                                 whileTap={{ scale: 0.9 }}
-                                style={{ color: '#9aa8bf', transition: 'color 0.2s', display: 'inline-block' }}
+                                style={{ color: isLofi ? '#475569' : '#9aa8bf', transition: 'color 0.2s', display: 'inline-block' }}
                             >
                                 <Icon size={22} />
                             </motion.a>

@@ -101,14 +101,14 @@ export default function Navbar() {
                 <nav
                     style={{
                         padding: '12px 14px',
-                        background: 'rgba(13,13,26,0.65)',
+                        background: isLofi ? 'rgba(255, 255, 255, 0.88)' : 'rgba(13,13,26,0.65)',
                         backdropFilter: 'blur(20px)',
-                        border: '1px solid rgba(255,255,255,0.12)',
+                        border: isLofi ? '1px solid rgba(15, 23, 42, 0.12)' : '1px solid rgba(255,255,255,0.12)',
                         borderRadius: '100px',
                         display: 'flex',
                         alignItems: 'center',
                         gap: 8,
-                        boxShadow: '0 10px 40px rgba(0,0,0,0.5)',
+                        boxShadow: isLofi ? '0 10px 30px rgba(15, 23, 42, 0.08)' : '0 10px 40px rgba(0,0,0,0.5)',
                     }}
                     className="nav-pill"
                 >
@@ -116,12 +116,14 @@ export default function Navbar() {
                     <div style={{
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         paddingLeft: 4, paddingRight: 6, marginRight: 4,
-                        borderRight: '1px solid rgba(255,255,255,0.1)'
+                        borderRight: isLofi ? '1px solid rgba(15, 23, 42, 0.1)' : '1px solid rgba(255,255,255,0.1)'
                     }}>
                         <div style={{
                             width: 30, height: 30, borderRadius: '50%', overflow: 'hidden',
-                            border: `1px solid ${C}40`, boxShadow: `0 0 15px ${C}30`,
-                            background: '#0d0d1a', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                            border: `1px solid ${isLofi ? 'rgba(217, 119, 6, 0.4)' : `${C}40`}`,
+                            boxShadow: isLofi ? '0 0 10px rgba(217, 119, 6, 0.2)' : `0 0 15px ${C}30`,
+                            background: isLofi ? '#ffffff' : '#0d0d1a',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center'
                         }}>
                             <img src="/favicon.ico" style={{ width: '100%', height: '100%', objectFit: 'contain' }} alt="Logo" />
                         </div>
@@ -130,6 +132,9 @@ export default function Navbar() {
                     {LINKS.map((l) => {
                         const isActive = active === l.href.slice(1);
                         const isHov = hovered === l.href;
+                        const activeColor = isLofi ? '#b45309' : C;
+                        const inactiveColor = isLofi ? '#64748b' : 'rgba(255,255,255,0.5)';
+                        const hoverColor = isLofi ? '#0f172a' : '#fff';
                         return (
                             <motion.button
                                 key={l.href}
@@ -140,7 +145,7 @@ export default function Navbar() {
                                 whileHover={{ scale: 1.05, y: -1 }}
                                 whileTap={{ scale: 0.96 }}
                                 style={{
-                                    background: isActive ? 'rgba(245,197,24,0.12)' : 'transparent',
+                                    background: isActive ? (isLofi ? 'rgba(217, 119, 6, 0.12)' : 'rgba(245,197,24,0.12)') : 'transparent',
                                     border: 'none',
                                     borderRadius: '100px',
                                     padding: '10px 24px',
@@ -154,7 +159,7 @@ export default function Navbar() {
                                     fontWeight: 700,
                                     letterSpacing: '0.05em',
                                     textTransform: 'uppercase',
-                                    color: isActive ? C : (isHov ? '#fff' : 'rgba(255,255,255,0.5)'),
+                                    color: isActive ? activeColor : (isHov ? hoverColor : inactiveColor),
                                     transition: 'color 0.4s',
                                     display: 'block',
                                     zIndex: 2,
@@ -169,9 +174,9 @@ export default function Navbar() {
                                             position: 'absolute',
                                             inset: 0,
                                             borderRadius: '100px',
-                                            border: `1px solid ${C}50`,
-                                            boxShadow: `0 0 15px ${C}30`,
-                                            background: `linear-gradient(180deg, ${C}05, ${C}10)`,
+                                            border: `1px solid ${isLofi ? 'rgba(217, 119, 6, 0.45)' : `${C}50`}`,
+                                            boxShadow: isLofi ? '0 0 12px rgba(217, 119, 6, 0.2)' : `0 0 15px ${C}30`,
+                                            background: isLofi ? 'linear-gradient(180deg, rgba(217, 119, 6, 0.08), rgba(217, 119, 6, 0.14))' : `linear-gradient(180deg, ${C}05, ${C}10)`,
                                             zIndex: 1,
                                         }}
                                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}
@@ -182,7 +187,7 @@ export default function Navbar() {
                     })}
 
                     {/* Theme Toggle — at the end */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, borderLeft: '1px solid rgba(255,255,255,0.1)', paddingLeft: 8, marginLeft: 4 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, borderLeft: isLofi ? '1px solid rgba(15, 23, 42, 0.12)' : '1px solid rgba(255,255,255,0.1)', paddingLeft: 8, marginLeft: 4 }}>
                         <motion.button
                             onClick={toggleTheme}
                             whileHover={{ scale: 1.15, rotate: 15 }}
@@ -230,22 +235,22 @@ export default function Navbar() {
                     height: 80, // Fixed height for reliable alignment
                     padding: '0 24px', // Use height + flex for vertical centering
                     display: 'none', alignItems: 'center', justifyContent: 'space-between',
-                    background: menu ? 'transparent' : (scrolled ? 'rgba(8,8,16,0.85)' : 'transparent'),
+                    background: menu ? 'transparent' : (scrolled ? (isLofi ? 'rgba(255, 255, 255, 0.94)' : 'rgba(8,8,16,0.85)') : 'transparent'),
                     backdropFilter: (menu || !scrolled) ? 'none' : 'blur(16px)',
-                    borderBottom: menu ? 'none' : (scrolled ? '1px solid rgba(255,255,255,0.08)' : 'none'),
+                    borderBottom: menu ? 'none' : (scrolled ? (isLofi ? '1px solid rgba(15, 23, 42, 0.1)' : '1px solid rgba(255,255,255,0.08)') : 'none'),
                     transition: 'all 0.4s ease'
                 }}
             >
                 <div className="f-orbitron" style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.1em', display: 'flex', alignItems: 'center', gap: 10 }}>
                     <div style={{
                         width: 32, height: 32, borderRadius: '50%', overflow: 'hidden',
-                        border: `1px solid ${C}40`, background: '#0d0d1a',
+                        border: `1px solid ${isLofi ? 'rgba(217, 119, 6, 0.4)' : `${C}40`}`, background: isLofi ? '#ffffff' : '#0d0d1a',
                         display: 'flex', alignItems: 'center', justifyContent: 'center'
                     }}>
                         <img src="/favicon.ico" style={{ width: '100%', height: '100%', objectFit: 'contain' }} alt="Logo" />
                     </div>
                     <div>
-                        <span style={{ color: C }}>CHAHEL</span> <span style={{ color: '#fff', marginLeft: 4 }}>TANNA</span>
+                        <span style={{ color: isLofi ? '#b45309' : C }}>CHAHEL</span> <span style={{ color: isLofi ? '#0f172a' : '#fff', marginLeft: 4 }}>TANNA</span>
                     </div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -277,9 +282,9 @@ export default function Navbar() {
                         suppressHydrationWarning
                         onClick={() => setMenu(!menu)}
                         style={{
-                            background: menu ? 'rgba(245,197,24,0.1)' : 'none',
-                            border: menu ? `1px solid ${C}50` : 'none',
-                            color: C,
+                            background: menu ? (isLofi ? 'rgba(217, 119, 6, 0.1)' : 'rgba(245,197,24,0.1)') : 'none',
+                            border: menu ? (isLofi ? '1px solid rgba(217, 119, 6, 0.4)' : `1px solid ${C}50`) : 'none',
+                            color: isLofi ? '#b45309' : C,
                             cursor: 'pointer',
                             width: 44,
                             height: 44,
@@ -288,7 +293,7 @@ export default function Navbar() {
                             alignItems: 'center',
                             justifyContent: 'center',
                             transition: 'all 0.3s ease',
-                            boxShadow: menu ? `0 0 20px ${C}40` : 'none',
+                            boxShadow: menu ? (isLofi ? '0 0 16px rgba(217, 119, 6, 0.25)' : `0 0 20px ${C}40`) : 'none',
                             padding: 0,
                         }}
                     >
@@ -305,7 +310,7 @@ export default function Navbar() {
                         exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
                         style={{
                             position: 'fixed', inset: 0, zIndex: 99,
-                            background: 'rgba(6,6,12,0.9)',
+                            background: isLofi ? 'rgba(248, 250, 252, 0.96)' : 'rgba(6,6,12,0.9)',
                             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 32,
                         }}
                     >
@@ -318,7 +323,7 @@ export default function Navbar() {
                                 onClick={() => { scrollTo(l.href); setMenu(false); }}
                                 style={{ background: 'none', border: 'none' }}
                             >
-                                <span className="f-orbitron" style={{ fontSize: 28, fontWeight: 900, letterSpacing: '0.05em', color: active === l.href.slice(1) ? C : '#fff', textTransform: 'uppercase' }}>
+                                <span className="f-orbitron" style={{ fontSize: 28, fontWeight: 900, letterSpacing: '0.05em', color: active === l.href.slice(1) ? (isLofi ? '#b45309' : C) : (isLofi ? '#0f172a' : '#fff'), textTransform: 'uppercase' }}>
                                     {l.label}
                                 </span>
                             </motion.button>

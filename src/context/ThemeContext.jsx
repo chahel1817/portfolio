@@ -20,6 +20,24 @@ export function ThemeProvider({ children }) {
         if (savedMuted === 'true') setMuted(true);
     }, []);
 
+    useEffect(() => {
+        if (theme === 'lofi') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.documentElement.classList.add('light-mode');
+            if (document.body) {
+                document.body.style.backgroundColor = '#f8fafc';
+                document.body.style.color = '#1e293b';
+            }
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.documentElement.classList.remove('light-mode');
+            if (document.body) {
+                document.body.style.backgroundColor = '#080810';
+                document.body.style.color = '#d6deea';
+            }
+        }
+    }, [theme]);
+
     const toggleTheme = useCallback(() => {
         setTheme((prev) => {
             const next = prev === 'dark' ? 'lofi' : 'dark';

@@ -16,6 +16,7 @@ import {
 import Magnetic from '@/components/Magnetic';
 import ScrambleText from '@/components/ScrambleText';
 import IrisReveal from '@/components/IrisReveal';
+import { useTheme } from '@/context/ThemeContext';
 
 /* ─── Project Data ─────────────────────────────────────────────────────────── */
 const PROJECTS = [
@@ -213,6 +214,7 @@ function TechBadge({ label, accent }) {
 
 /* ─── Cinematic Showcase Stage Component ───────────────────────────────────── */
 function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoPlay, setAutoPlay }) {
+    const { isLofi } = useTheme();
     const [tilt, setTilt] = useState({ x: 0, y: 0, px: 50, py: 50, hov: false });
     const previewRef = useRef(null);
     const reducedMotion = useReducedMotion();
@@ -247,7 +249,7 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
                     bottom: '10%',
                     background: `radial-gradient(ellipse at center, ${project.glowColor} 0%, transparent 70%)`,
                     filter: 'blur(70px)',
-                    opacity: 0.65,
+                    opacity: isLofi ? 0.35 : 0.65,
                     pointerEvents: 'none',
                     transition: 'background 0.8s ease',
                     zIndex: 0,
@@ -260,10 +262,12 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
                     position: 'relative',
                     zIndex: 1,
                     borderRadius: 24,
-                    background: 'rgba(12, 14, 26, 0.88)',
+                    background: isLofi ? 'rgba(255, 255, 255, 0.94)' : 'rgba(12, 14, 26, 0.88)',
                     backdropFilter: 'blur(28px)',
-                    border: `1px solid ${project.accentColor}44`,
-                    boxShadow: `0 24px 64px rgba(0,0,0,0.7), 0 0 60px ${project.glowColorSoft}, inset 0 1px 0 rgba(255,255,255,0.08)`,
+                    border: isLofi ? '1px solid rgba(15, 23, 42, 0.12)' : `1px solid ${project.accentColor}44`,
+                    boxShadow: isLofi
+                        ? `0 16px 45px rgba(15, 23, 42, 0.08), 0 0 35px ${project.glowColorSoft}`
+                        : `0 24px 64px rgba(0,0,0,0.7), 0 0 60px ${project.glowColorSoft}, inset 0 1px 0 rgba(255,255,255,0.08)`,
                     padding: 'clamp(20px, 3.5vw, 40px)',
                     overflow: 'hidden',
                     transition: 'border-color 0.6s, box-shadow 0.6s',
@@ -302,13 +306,13 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
                             borderRadius: 16,
                             overflow: 'hidden',
                             height: 'clamp(195px, 22vw, 280px)',
-                            border: `1px solid ${tilt.hov ? project.accentColor : 'rgba(255,255,255,0.1)'}`,
+                            border: `1px solid ${tilt.hov ? project.accentColor : (isLofi ? 'rgba(15, 23, 42, 0.12)' : 'rgba(255,255,255,0.1)')}`,
                             boxShadow: tilt.hov
-                                ? `0 20px 45px rgba(0,0,0,0.7), 0 0 35px ${project.glowColor}`
-                                : '0 10px 30px rgba(0,0,0,0.5)',
+                                ? (isLofi ? `0 16px 36px rgba(15, 23, 42, 0.14), 0 0 25px ${project.glowColorSoft}` : `0 20px 45px rgba(0,0,0,0.7), 0 0 35px ${project.glowColor}`)
+                                : (isLofi ? '0 8px 24px rgba(15, 23, 42, 0.06)' : '0 10px 30px rgba(0,0,0,0.5)'),
                             transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale(${tilt.hov ? 1.02 : 1})`,
                             transition: 'transform 0.15s ease-out, border-color 0.4s, box-shadow 0.4s',
-                            background: '#090a14',
+                            background: isLofi ? '#f1f5f9' : '#090a14',
                         }}
                     >
                         <Image
@@ -402,8 +406,8 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
                                     letterSpacing: '0.16em',
                                     padding: '4px 10px',
                                     borderRadius: 20,
-                                    background: 'rgba(9, 11, 20, 0.85)',
-                                    border: `1px solid ${project.accentColor}66`,
+                                    background: isLofi ? 'rgba(255, 255, 255, 0.92)' : 'rgba(9, 11, 20, 0.85)',
+                                    border: isLofi ? '1px solid rgba(15, 23, 42, 0.15)' : `1px solid ${project.accentColor}66`,
                                     color: project.accentColor,
                                     backdropFilter: 'blur(10px)',
                                     display: 'flex',
@@ -434,12 +438,12 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
                                 zIndex: 6,
                                 fontFamily: "'Orbitron', monospace",
                                 fontSize: 10,
-                                color: 'rgba(255,255,255,0.7)',
+                                color: isLofi ? '#334155' : 'rgba(255,255,255,0.7)',
                                 letterSpacing: '0.14em',
-                                background: 'rgba(0,0,0,0.65)',
+                                background: isLofi ? 'rgba(255, 255, 255, 0.9)' : 'rgba(0,0,0,0.65)',
                                 padding: '3px 8px',
                                 borderRadius: 4,
-                                border: '1px solid rgba(255,255,255,0.1)',
+                                border: isLofi ? '1px solid rgba(15, 23, 42, 0.15)' : '1px solid rgba(255,255,255,0.1)',
                             }}
                         >
                             {project.id}
@@ -453,7 +457,7 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
                                 left: 0,
                                 right: 0,
                                 height: '35%',
-                                background: 'linear-gradient(to top, rgba(12,14,26,0.95), transparent)',
+                                background: isLofi ? 'linear-gradient(to top, rgba(255,255,255,0.85), transparent)' : 'linear-gradient(to top, rgba(12,14,26,0.95), transparent)',
                                 pointerEvents: 'none',
                                 zIndex: 2,
                             }}
@@ -493,11 +497,11 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
                                 onClick={() => setAutoPlay(!autoPlay)}
                                 title={autoPlay ? 'Pause auto-rotation' : 'Enable auto-rotation'}
                                 style={{
-                                    background: 'rgba(255,255,255,0.06)',
-                                    border: '1px solid rgba(255,255,255,0.14)',
+                                    background: isLofi ? 'rgba(15, 23, 42, 0.05)' : 'rgba(255,255,255,0.06)',
+                                    border: isLofi ? '1px solid rgba(15, 23, 42, 0.12)' : '1px solid rgba(255,255,255,0.14)',
                                     borderRadius: 16,
                                     padding: '4px 10px',
-                                    color: autoPlay ? '#4ade80' : 'rgba(255,255,255,0.5)',
+                                    color: autoPlay ? (isLofi ? '#15803d' : '#4ade80') : (isLofi ? '#64748b' : 'rgba(255,255,255,0.5)'),
                                     fontSize: 10,
                                     cursor: 'pointer',
                                     display: 'flex',
@@ -517,10 +521,10 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
                             style={{
                                 fontSize: 'clamp(22px, 2.7vw, 32px)',
                                 fontWeight: 900,
-                                color: '#ffffff',
+                                color: isLofi ? '#0f172a' : '#ffffff',
                                 letterSpacing: '0.04em',
                                 marginBottom: 6,
-                                textShadow: `0 0 25px ${project.glowColor}`,
+                                textShadow: isLofi ? 'none' : `0 0 25px ${project.glowColor}`,
                                 lineHeight: 1.18,
                             }}
                         >
@@ -531,7 +535,7 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
                         <p
                             className="f-rajdhani"
                             style={{
-                                color: project.accentColor,
+                                color: isLofi ? '#b45309' : project.accentColor,
                                 fontSize: 'clamp(13px, 1.6vw, 15px)',
                                 fontWeight: 700,
                                 letterSpacing: '0.08em',
@@ -546,7 +550,7 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
                         <p
                             className="f-rajdhani"
                             style={{
-                                color: 'rgba(232, 238, 252, 0.94)',
+                                color: isLofi ? '#334155' : 'rgba(232, 238, 252, 0.94)',
                                 fontSize: 'clamp(14.5px, 1.35vw, 16px)',
                                 lineHeight: 1.7,
                                 marginBottom: 18,
@@ -569,9 +573,9 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
                                         letterSpacing: '0.06em',
                                         padding: '4px 11px',
                                         borderRadius: 4,
-                                        background: 'rgba(255,255,255,0.06)',
-                                        border: `1px solid ${project.accentColor}50`,
-                                        color: '#ffffff',
+                                        background: isLofi ? 'rgba(15, 23, 42, 0.05)' : 'rgba(255,255,255,0.06)',
+                                        border: isLofi ? '1px solid rgba(15, 23, 42, 0.12)' : `1px solid ${project.accentColor}50`,
+                                        color: isLofi ? '#0f172a' : '#ffffff',
                                     }}
                                 >
                                     ✦ {h}
@@ -636,7 +640,7 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
                                         href={project.github}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        whileHover={{ scale: 1.05, background: 'rgba(255,255,255,0.1)' }}
+                                        whileHover={{ scale: 1.05, background: isLofi ? 'rgba(15, 23, 42, 0.08)' : 'rgba(255,255,255,0.1)' }}
                                         whileTap={{ scale: 0.97 }}
                                         style={{
                                             display: 'inline-flex',
@@ -649,10 +653,10 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
                                             textTransform: 'uppercase',
                                             padding: '12px 20px',
                                             borderRadius: 8,
-                                            background: 'rgba(255,255,255,0.04)',
-                                            color: 'rgba(255,255,255,0.8)',
+                                            background: isLofi ? 'rgba(15, 23, 42, 0.05)' : 'rgba(255,255,255,0.04)',
+                                            color: isLofi ? '#0f172a' : 'rgba(255,255,255,0.8)',
                                             textDecoration: 'none',
-                                            border: '1px solid rgba(255,255,255,0.14)',
+                                            border: isLofi ? '1px solid rgba(15, 23, 42, 0.15)' : '1px solid rgba(255,255,255,0.14)',
                                             cursor: 'pointer',
                                         }}
                                     >
@@ -666,16 +670,16 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
                             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                                 <motion.button
                                     onClick={onPrev}
-                                    whileHover={{ scale: 1.08, background: 'rgba(255,255,255,0.12)' }}
+                                    whileHover={{ scale: 1.08, background: isLofi ? 'rgba(15, 23, 42, 0.1)' : 'rgba(255,255,255,0.12)' }}
                                     whileTap={{ scale: 0.94 }}
                                     title="Previous project [←]"
                                     style={{
                                         width: 42,
                                         height: 42,
                                         borderRadius: '50%',
-                                        background: 'rgba(255,255,255,0.06)',
-                                        border: `1px solid ${project.accentColor}55`,
-                                        color: '#ffffff',
+                                        background: isLofi ? 'rgba(15, 23, 42, 0.05)' : 'rgba(255,255,255,0.06)',
+                                        border: isLofi ? '1px solid rgba(15, 23, 42, 0.15)' : `1px solid ${project.accentColor}55`,
+                                        color: isLofi ? '#0f172a' : '#ffffff',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
@@ -689,7 +693,7 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
                                     className="f-mono"
                                     style={{
                                         fontSize: 11,
-                                        color: 'rgba(255,255,255,0.6)',
+                                        color: isLofi ? '#64748b' : 'rgba(255,255,255,0.6)',
                                         letterSpacing: '0.1em',
                                         padding: '0 4px',
                                     }}
@@ -699,16 +703,16 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
 
                                 <motion.button
                                     onClick={onNext}
-                                    whileHover={{ scale: 1.08, background: 'rgba(255,255,255,0.12)' }}
+                                    whileHover={{ scale: 1.08, background: isLofi ? 'rgba(15, 23, 42, 0.1)' : 'rgba(255,255,255,0.12)' }}
                                     whileTap={{ scale: 0.94 }}
                                     title="Next project [→]"
                                     style={{
                                         width: 42,
                                         height: 42,
                                         borderRadius: '50%',
-                                        background: 'rgba(255,255,255,0.06)',
-                                        border: `1px solid ${project.accentColor}55`,
-                                        color: '#ffffff',
+                                        background: isLofi ? 'rgba(15, 23, 42, 0.05)' : 'rgba(255,255,255,0.06)',
+                                        border: isLofi ? '1px solid rgba(15, 23, 42, 0.15)' : `1px solid ${project.accentColor}55`,
+                                        color: isLofi ? '#0f172a' : '#ffffff',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
@@ -751,12 +755,12 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
                                 padding: '8px 14px',
                                 borderRadius: 12,
                                 background: isActive
-                                    ? `linear-gradient(135deg, rgba(20,22,40,0.95), ${p.glowColorSoft})`
-                                    : 'rgba(12, 14, 26, 0.7)',
-                                border: `1px solid ${isActive ? p.accentColor : 'rgba(255,255,255,0.08)'}`,
+                                    ? (isLofi ? 'rgba(255, 255, 255, 0.95)' : `linear-gradient(135deg, rgba(20,22,40,0.95), ${p.glowColorSoft})`)
+                                    : (isLofi ? 'rgba(255, 255, 255, 0.75)' : 'rgba(12, 14, 26, 0.7)'),
+                                border: `1px solid ${isActive ? p.accentColor : (isLofi ? 'rgba(15, 23, 42, 0.1)' : 'rgba(255,255,255,0.08)')}`,
                                 boxShadow: isActive
-                                    ? `0 0 18px ${p.glowColor}, inset 0 0 10px ${p.glowColorSoft}`
-                                    : 'none',
+                                    ? (isLofi ? `0 4px 15px rgba(217, 119, 6, 0.18)` : `0 0 18px ${p.glowColor}, inset 0 0 10px ${p.glowColorSoft}`)
+                                    : (isLofi ? '0 2px 6px rgba(15, 23, 42, 0.04)' : 'none'),
                                 cursor: 'pointer',
                                 textAlign: 'left',
                                 transition: 'all 0.3s cubic-bezier(0.23,1,0.32,1)',
@@ -771,7 +775,7 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
                                     borderRadius: 6,
                                     overflow: 'hidden',
                                     flexShrink: 0,
-                                    background: '#090a14',
+                                    background: isLofi ? '#e2e8f0' : '#090a14',
                                 }}
                             >
                                 <Image
@@ -789,7 +793,7 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
                                     style={{
                                         fontSize: 10.5,
                                         fontWeight: 800,
-                                        color: isActive ? '#ffffff' : 'rgba(220,230,245,0.7)',
+                                        color: isActive ? (isLofi ? '#0f172a' : '#ffffff') : (isLofi ? '#64748b' : 'rgba(220,230,245,0.7)'),
                                         letterSpacing: '0.06em',
                                     }}
                                 >
@@ -799,7 +803,7 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
                                     className="f-mono"
                                     style={{
                                         fontSize: 8.5,
-                                        color: isActive ? p.accentColor : 'rgba(255,255,255,0.35)',
+                                        color: isActive ? (isLofi ? '#b45309' : p.accentColor) : (isLofi ? '#94a3b8' : 'rgba(255,255,255,0.35)'),
                                         letterSpacing: '0.08em',
                                     }}
                                 >
@@ -816,6 +820,7 @@ function CinematicStage({ project, index, total, onNext, onPrev, onSelect, autoP
 
 /* ─── Project Card (For Grid View) ─────────────────────────────────────────── */
 function ProjectCard({ p, i, onFocusStage }) {
+    const { isLofi } = useTheme();
     const [hov, setHov] = useState(false);
     const [tilt, setTilt] = useState({ x: 0, y: 0, px: 50, py: 50 });
     const cardRef = useRef(null);
@@ -848,14 +853,18 @@ function ProjectCard({ p, i, onFocusStage }) {
                 position: 'relative',
                 borderRadius: 16,
                 overflow: 'hidden',
-                background: hov
-                    ? `linear-gradient(135deg, rgba(13,13,26,0.95) 0%, ${p.glowColorSoft} 100%)`
-                    : 'rgba(13,13,26,0.85)',
+                background: isLofi
+                    ? (hov ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.92)')
+                    : (hov ? `linear-gradient(135deg, rgba(13,13,26,0.95) 0%, ${p.glowColorSoft} 100%)` : 'rgba(13,13,26,0.85)'),
                 backdropFilter: 'blur(24px)',
-                border: `1px solid ${hov ? p.accentColor + '66' : 'rgba(255,255,255,0.06)'}`,
-                boxShadow: hov
-                    ? `0 0 0 1px ${p.accentColor}30, 0 32px 64px rgba(0,0,0,0.6), 0 0 70px ${p.glowColor}, inset 0 1px 0 rgba(255,255,255,0.08)`
-                    : `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03)`,
+                border: isLofi
+                    ? `1px solid ${hov ? p.accentColor : 'rgba(15, 23, 42, 0.12)'}`
+                    : `1px solid ${hov ? p.accentColor + '66' : 'rgba(255,255,255,0.06)'}`,
+                boxShadow: isLofi
+                    ? (hov ? `0 16px 36px rgba(15, 23, 42, 0.12), 0 0 25px ${p.glowColorSoft}` : '0 6px 20px rgba(15, 23, 42, 0.06)')
+                    : (hov
+                        ? `0 0 0 1px ${p.accentColor}30, 0 32px 64px rgba(0,0,0,0.6), 0 0 70px ${p.glowColor}, inset 0 1px 0 rgba(255,255,255,0.08)`
+                        : `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03)`),
                 transform: `perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) ${hov ? 'translateY(-10px) scale(1.015)' : 'translateY(0) scale(1)'}`,
                 transformStyle: 'preserve-3d',
                 transition: 'background 0.4s, border-color 0.4s, box-shadow 0.4s, transform 0.15s cubic-bezier(0.23,1,0.32,1)',
@@ -911,7 +920,7 @@ function ProjectCard({ p, i, onFocusStage }) {
                     position: 'relative',
                     overflow: 'hidden',
                     height: 220,
-                    background: `linear-gradient(135deg, #0d0d1a, #140d28)`,
+                    background: isLofi ? '#e2e8f0' : `linear-gradient(135deg, #0d0d1a, #140d28)`,
                     zIndex: 1,
                 }}
             >
@@ -956,8 +965,8 @@ function ProjectCard({ p, i, onFocusStage }) {
                         left: 8,
                         width: 12,
                         height: 12,
-                        borderTop: `2px solid ${hov ? p.accentColor : 'rgba(255,255,255,0.2)'}`,
-                        borderLeft: `2px solid ${hov ? p.accentColor : 'rgba(255,255,255,0.2)'}`,
+                        borderTop: `2px solid ${hov ? p.accentColor : (isLofi ? 'rgba(15, 23, 42, 0.2)' : 'rgba(255,255,255,0.2)')}`,
+                        borderLeft: `2px solid ${hov ? p.accentColor : (isLofi ? 'rgba(15, 23, 42, 0.2)' : 'rgba(255,255,255,0.2)')}`,
                         transition: 'all 0.3s',
                         pointerEvents: 'none',
                         zIndex: 4,
@@ -970,8 +979,8 @@ function ProjectCard({ p, i, onFocusStage }) {
                         right: 8,
                         width: 12,
                         height: 12,
-                        borderBottom: `2px solid ${hov ? p.accentColor : 'rgba(255,255,255,0.2)'}`,
-                        borderRight: `2px solid ${hov ? p.accentColor : 'rgba(255,255,255,0.2)'}`,
+                        borderBottom: `2px solid ${hov ? p.accentColor : (isLofi ? 'rgba(15, 23, 42, 0.2)' : 'rgba(255,255,255,0.2)')}`,
+                        borderRight: `2px solid ${hov ? p.accentColor : (isLofi ? 'rgba(15, 23, 42, 0.2)' : 'rgba(255,255,255,0.2)')}`,
                         transition: 'all 0.3s',
                         pointerEvents: 'none',
                         zIndex: 4,
@@ -986,7 +995,9 @@ function ProjectCard({ p, i, onFocusStage }) {
                         left: 0,
                         right: 0,
                         height: '55%',
-                        background: 'linear-gradient(to top, rgba(13,13,26,0.85) 0%, rgba(13,13,26,0.2) 60%, transparent 100%)',
+                        background: isLofi
+                            ? 'linear-gradient(to top, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.2) 60%, transparent 100%)'
+                            : 'linear-gradient(to top, rgba(13,13,26,0.85) 0%, rgba(13,13,26,0.2) 60%, transparent 100%)',
                         pointerEvents: 'none',
                     }}
                 />
@@ -1010,8 +1021,8 @@ function ProjectCard({ p, i, onFocusStage }) {
                             letterSpacing: '0.18em',
                             padding: '4px 10px',
                             borderRadius: 20,
-                            background: `${p.accentColor}22`,
-                            border: `1px solid ${p.accentColor}55`,
+                            background: isLofi ? 'rgba(255, 255, 255, 0.92)' : `${p.accentColor}22`,
+                            border: `1px solid ${isLofi ? 'rgba(15, 23, 42, 0.15)' : p.accentColor + '55'}`,
                             color: p.accentColor,
                             backdropFilter: 'blur(8px)',
                             display: 'flex',
@@ -1041,7 +1052,7 @@ function ProjectCard({ p, i, onFocusStage }) {
                         right: 14,
                         fontFamily: "'Orbitron', monospace",
                         fontSize: 9,
-                        color: 'rgba(255,255,255,0.3)',
+                        color: isLofi ? '#64748b' : 'rgba(255,255,255,0.3)',
                         letterSpacing: '0.12em',
                     }}
                 >
@@ -1070,10 +1081,10 @@ function ProjectCard({ p, i, onFocusStage }) {
                                 letterSpacing: '0.06em',
                                 padding: '2px 8px',
                                 borderRadius: 4,
-                                background: 'rgba(0,0,0,0.65)',
+                                background: isLofi ? 'rgba(255, 255, 255, 0.9)' : 'rgba(0,0,0,0.65)',
                                 backdropFilter: 'blur(8px)',
-                                border: `1px solid ${p.accentColor}40`,
-                                color: 'rgba(255,255,255,0.85)',
+                                border: `1px solid ${isLofi ? 'rgba(15, 23, 42, 0.12)' : p.accentColor + '40'}`,
+                                color: isLofi ? '#0f172a' : 'rgba(255,255,255,0.85)',
                             }}
                         >
                             {h}
@@ -1097,12 +1108,12 @@ function ProjectCard({ p, i, onFocusStage }) {
                 <h3
                     className="f-orbitron"
                     style={{
-                        color: '#ffffff',
+                        color: isLofi ? '#0f172a' : '#ffffff',
                         fontWeight: 900,
                         fontSize: 17,
                         marginBottom: 5,
                         letterSpacing: '0.04em',
-                        textShadow: hov ? `0 0 24px ${p.accentColor}55` : 'none',
+                        textShadow: hov && !isLofi ? `0 0 24px ${p.accentColor}55` : 'none',
                         transition: 'text-shadow 0.4s',
                     }}
                 >
@@ -1111,7 +1122,7 @@ function ProjectCard({ p, i, onFocusStage }) {
                 <p
                     className="f-rajdhani"
                     style={{
-                        color: p.accentColor,
+                        color: isLofi ? '#b45309' : p.accentColor,
                         fontSize: 12,
                         fontWeight: 600,
                         letterSpacing: '0.08em',
@@ -1127,7 +1138,7 @@ function ProjectCard({ p, i, onFocusStage }) {
                 <p
                     className="f-rajdhani"
                     style={{
-                        color: 'rgba(220,220,235,0.9)',
+                        color: isLofi ? '#334155' : 'rgba(220,220,235,0.9)',
                         fontSize: 14.5,
                         lineHeight: 1.6,
                         marginBottom: 20,
@@ -1209,10 +1220,10 @@ function ProjectCard({ p, i, onFocusStage }) {
                                 textTransform: 'uppercase',
                                 padding: '11px 16px',
                                 borderRadius: 8,
-                                background: 'rgba(255,255,255,0.04)',
-                                color: 'rgba(255,255,255,0.7)',
+                                background: isLofi ? 'rgba(15, 23, 42, 0.05)' : 'rgba(255,255,255,0.04)',
+                                color: isLofi ? '#0f172a' : 'rgba(255,255,255,0.7)',
                                 textDecoration: 'none',
-                                border: '1px solid rgba(255,255,255,0.1)',
+                                border: isLofi ? '1px solid rgba(15, 23, 42, 0.15)' : '1px solid rgba(255,255,255,0.1)',
                                 transition: 'all 0.35s',
                             }}
                         >
@@ -1234,9 +1245,9 @@ function ProjectCard({ p, i, onFocusStage }) {
                                 justifyContent: 'center',
                                 padding: '11px',
                                 borderRadius: 8,
-                                background: 'rgba(255,255,255,0.04)',
-                                color: p.accentColor,
-                                border: `1px solid ${p.accentColor}44`,
+                                background: isLofi ? 'rgba(15, 23, 42, 0.05)' : 'rgba(255,255,255,0.04)',
+                                color: isLofi ? '#0f172a' : p.accentColor,
+                                border: isLofi ? '1px solid rgba(15, 23, 42, 0.15)' : `1px solid ${p.accentColor}44`,
                                 cursor: 'pointer',
                                 transition: 'all 0.3s',
                             }}
@@ -1252,6 +1263,7 @@ function ProjectCard({ p, i, onFocusStage }) {
 
 /* ─── Main Section ─────────────────────────────────────────────────────────── */
 export default function ProjectsSection() {
+    const { isLofi } = useTheme();
     const headerRef = useRef(null);
     const headerInView = useInView(headerRef, { once: true, margin: '-100px' });
 
@@ -1487,7 +1499,7 @@ export default function ProjectsSection() {
                                 style={{
                                     fontSize: 'clamp(34px, 5.5vw, 58px)',
                                     fontWeight: 900,
-                                    color: '#fff',
+                                    color: isLofi ? '#0f172a' : '#fff',
                                     lineHeight: 1.1,
                                     marginBottom: 14,
                                 }}
@@ -1498,8 +1510,8 @@ export default function ProjectsSection() {
                                     text="BUILT"
                                     active={headerInView}
                                     style={{
-                                        color: '#f5c518',
-                                        textShadow: '0 0 30px rgba(245,197,24,0.7), 0 0 60px rgba(245,197,24,0.3)',
+                                        color: isLofi ? '#b45309' : '#f5c518',
+                                        textShadow: isLofi ? 'none' : '0 0 30px rgba(245,197,24,0.7), 0 0 60px rgba(245,197,24,0.3)',
                                     }}
                                 />
                             </h2>
@@ -1508,7 +1520,7 @@ export default function ProjectsSection() {
                             <p
                                 className="f-rajdhani"
                                 style={{
-                                    color: 'rgba(220,228,240,0.82)',
+                                    color: isLofi ? '#475569' : 'rgba(220,228,240,0.82)',
                                     fontSize: 16,
                                     maxWidth: 620,
                                     margin: '0 auto',
@@ -1527,9 +1539,10 @@ export default function ProjectsSection() {
                                     marginTop: 32,
                                     padding: '5px',
                                     borderRadius: 30,
-                                    background: 'rgba(12, 14, 28, 0.85)',
-                                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                                    background: isLofi ? 'rgba(255, 255, 255, 0.9)' : 'rgba(12, 14, 28, 0.85)',
+                                    border: isLofi ? '1px solid rgba(15, 23, 42, 0.12)' : '1px solid rgba(255, 255, 255, 0.12)',
                                     backdropFilter: 'blur(12px)',
+                                    boxShadow: isLofi ? '0 8px 24px rgba(15, 23, 42, 0.06)' : 'none',
                                 }}
                             >
                                 <button
@@ -1543,7 +1556,7 @@ export default function ProjectsSection() {
                                         borderRadius: 24,
                                         border: 'none',
                                         background: 'transparent',
-                                        color: viewMode === 'stage' ? '#ffffff' : 'rgba(255, 255, 255, 0.55)',
+                                        color: viewMode === 'stage' ? (isLofi ? '#0f172a' : '#ffffff') : (isLofi ? '#64748b' : 'rgba(255, 255, 255, 0.55)'),
                                         fontFamily: "'Orbitron', monospace",
                                         fontSize: 11,
                                         fontWeight: 700,
@@ -1560,9 +1573,9 @@ export default function ProjectsSection() {
                                                 position: 'absolute',
                                                 inset: 0,
                                                 borderRadius: 24,
-                                                background: 'linear-gradient(135deg, rgba(245, 197, 24, 0.25), rgba(0, 245, 255, 0.25))',
-                                                border: '1px solid rgba(245, 197, 24, 0.65)',
-                                                boxShadow: '0 0 20px rgba(245, 197, 24, 0.35)',
+                                                background: isLofi ? 'rgba(217, 119, 6, 0.14)' : 'linear-gradient(135deg, rgba(245, 197, 24, 0.25), rgba(0, 245, 255, 0.25))',
+                                                border: isLofi ? '1px solid rgba(217, 119, 6, 0.45)' : '1px solid rgba(245, 197, 24, 0.65)',
+                                                boxShadow: isLofi ? '0 0 14px rgba(217, 119, 6, 0.2)' : '0 0 20px rgba(245, 197, 24, 0.35)',
                                                 zIndex: 0,
                                             }}
                                             transition={{ type: 'spring', stiffness: 400, damping: 28 }}
@@ -1585,7 +1598,7 @@ export default function ProjectsSection() {
                                         borderRadius: 24,
                                         border: 'none',
                                         background: 'transparent',
-                                        color: viewMode === 'grid' ? '#ffffff' : 'rgba(255, 255, 255, 0.55)',
+                                        color: viewMode === 'grid' ? (isLofi ? '#0f172a' : '#ffffff') : (isLofi ? '#64748b' : 'rgba(255, 255, 255, 0.55)'),
                                         fontFamily: "'Orbitron', monospace",
                                         fontSize: 11,
                                         fontWeight: 700,
@@ -1602,9 +1615,9 @@ export default function ProjectsSection() {
                                                 position: 'absolute',
                                                 inset: 0,
                                                 borderRadius: 24,
-                                                background: 'linear-gradient(135deg, rgba(245, 197, 24, 0.25), rgba(0, 245, 255, 0.25))',
-                                                border: '1px solid rgba(245, 197, 24, 0.65)',
-                                                boxShadow: '0 0 20px rgba(245, 197, 24, 0.35)',
+                                                background: isLofi ? 'rgba(217, 119, 6, 0.14)' : 'linear-gradient(135deg, rgba(245, 197, 24, 0.25), rgba(0, 245, 255, 0.25))',
+                                                border: isLofi ? '1px solid rgba(217, 119, 6, 0.45)' : '1px solid rgba(245, 197, 24, 0.65)',
+                                                boxShadow: isLofi ? '0 0 14px rgba(217, 119, 6, 0.2)' : '0 0 20px rgba(245, 197, 24, 0.35)',
                                                 zIndex: 0,
                                             }}
                                             transition={{ type: 'spring', stiffness: 400, damping: 28 }}
@@ -1683,7 +1696,7 @@ export default function ProjectsSection() {
                                             fontWeight: 700,
                                             letterSpacing: '0.12em',
                                             textTransform: 'uppercase',
-                                            color: isActive ? '#ffffff' : 'rgba(200, 215, 235, 0.65)',
+                                            color: isActive ? (isLofi ? '#0f172a' : '#ffffff') : (isLofi ? '#64748b' : 'rgba(200, 215, 235, 0.65)'),
                                             transition: 'color 0.25s',
                                         }}
                                     >
@@ -1694,11 +1707,13 @@ export default function ProjectsSection() {
                                                     position: 'absolute',
                                                     inset: 0,
                                                     borderRadius: 30,
-                                                    background:
-                                                        'linear-gradient(135deg, rgba(245, 197, 24, 0.16), rgba(0, 245, 255, 0.16))',
-                                                    border: '1px solid rgba(245, 197, 24, 0.55)',
-                                                    boxShadow:
-                                                        '0 0 20px rgba(245, 197, 24, 0.25), inset 0 0 12px rgba(0, 245, 255, 0.15)',
+                                                    background: isLofi
+                                                        ? 'rgba(217, 119, 6, 0.14)'
+                                                        : 'linear-gradient(135deg, rgba(245, 197, 24, 0.16), rgba(0, 245, 255, 0.16))',
+                                                    border: isLofi ? '1px solid rgba(217, 119, 6, 0.45)' : '1px solid rgba(245, 197, 24, 0.55)',
+                                                    boxShadow: isLofi
+                                                        ? '0 0 14px rgba(217, 119, 6, 0.2)'
+                                                        : '0 0 20px rgba(245, 197, 24, 0.25), inset 0 0 12px rgba(0, 245, 255, 0.15)',
                                                     zIndex: 0,
                                                 }}
                                                 transition={{ type: 'spring', stiffness: 420, damping: 30 }}
@@ -1720,12 +1735,12 @@ export default function ProjectsSection() {
                                                     padding: '2px 7px',
                                                     borderRadius: 12,
                                                     background: isActive
-                                                        ? 'rgba(245, 197, 24, 0.35)'
-                                                        : 'rgba(255, 255, 255, 0.08)',
-                                                    color: isActive ? '#fff' : 'rgba(255,255,255,0.45)',
+                                                        ? (isLofi ? 'rgba(217, 119, 6, 0.25)' : 'rgba(245, 197, 24, 0.35)')
+                                                        : (isLofi ? 'rgba(15, 23, 42, 0.08)' : 'rgba(255, 255, 255, 0.08)'),
+                                                    color: isActive ? (isLofi ? '#b45309' : '#fff') : (isLofi ? '#64748b' : 'rgba(255,255,255,0.45)'),
                                                     border: isActive
-                                                        ? '1px solid rgba(245, 197, 24, 0.6)'
-                                                        : '1px solid rgba(255,255,255,0.1)',
+                                                        ? (isLofi ? '1px solid rgba(217, 119, 6, 0.4)' : '1px solid rgba(245, 197, 24, 0.6)')
+                                                        : (isLofi ? '1px solid rgba(15, 23, 42, 0.1)' : '1px solid rgba(255,255,255,0.1)'),
                                                     transition: 'all 0.25s',
                                                 }}
                                             >

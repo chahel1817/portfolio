@@ -1,10 +1,11 @@
 'use client';
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useSpring, useReducedMotion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '@/context/ThemeContext';
 
 const PRISM_PALETTE = ['#00f5ff', '#f5c518', '#a855f7', '#ec4899', '#38bdf8', '#34d399'];
 
-function KineticChar({ char, index, totalChars, mousePos, burstTrigger }) {
+function KineticChar({ char, index, totalChars, mousePos, burstTrigger, isLofi }) {
     const charRef = useRef(null);
     const reducedMotion = useReducedMotion();
 
@@ -107,16 +108,18 @@ function KineticChar({ char, index, totalChars, mousePos, burstTrigger }) {
             <span
                 style={{
                     display: 'inline-block',
-                    color: isHovered || burstTrigger > 0 ? '#ffffff' : '#f1f5f9',
+                    color: isHovered || burstTrigger > 0
+                        ? (isLofi ? '#0f172a' : '#ffffff')
+                        : (isLofi ? '#0f172a' : '#f1f5f9'),
                     textShadow: isHovered
-                        ? `
-                            -2px 0 12px rgba(0, 245, 255, 0.95),
-                            2px 0 12px rgba(245, 197, 24, 0.95),
-                            0 0 28px rgba(168, 85, 247, 0.8)
-                        `
+                        ? (isLofi
+                            ? `-2px 0 10px rgba(2, 132, 199, 0.85), 2px 0 10px rgba(217, 119, 6, 0.85), 0 0 24px rgba(124, 58, 237, 0.6)`
+                            : `-2px 0 12px rgba(0, 245, 255, 0.95), 2px 0 12px rgba(245, 197, 24, 0.95), 0 0 28px rgba(168, 85, 247, 0.8)`)
                         : burstTrigger > 0
                             ? `0 0 24px ${activeColor}, 0 0 45px ${activeColor}80`
-                            : '0 0 20px rgba(255, 255, 255, 0.2)',
+                            : isLofi
+                                ? '0 2px 10px rgba(15, 23, 42, 0.1)'
+                                : '0 0 20px rgba(255, 255, 255, 0.2)',
                     transition: 'color 0.2s, text-shadow 0.2s',
                 }}
             >
@@ -131,10 +134,10 @@ function KineticChar({ char, index, totalChars, mousePos, burstTrigger }) {
                         style={{
                             position: 'absolute',
                             inset: 0,
-                            color: 'rgba(0, 245, 255, 0.85)',
+                            color: isLofi ? 'rgba(2, 132, 199, 0.6)' : 'rgba(0, 245, 255, 0.85)',
                             transform: 'translate(-3px, -2px)',
                             pointerEvents: 'none',
-                            mixBlendMode: 'screen',
+                            mixBlendMode: isLofi ? 'multiply' : 'screen',
                             filter: 'blur(1px)',
                         }}
                     >
@@ -145,10 +148,10 @@ function KineticChar({ char, index, totalChars, mousePos, burstTrigger }) {
                         style={{
                             position: 'absolute',
                             inset: 0,
-                            color: 'rgba(245, 197, 24, 0.85)',
+                            color: isLofi ? 'rgba(217, 119, 6, 0.6)' : 'rgba(245, 197, 24, 0.85)',
                             transform: 'translate(3px, 2px)',
                             pointerEvents: 'none',
-                            mixBlendMode: 'screen',
+                            mixBlendMode: isLofi ? 'multiply' : 'screen',
                             filter: 'blur(1px)',
                         }}
                     >
@@ -161,6 +164,7 @@ function KineticChar({ char, index, totalChars, mousePos, burstTrigger }) {
 }
 
 export default function KineticPrismTitle({ text = 'CHAHEL TANNA' }) {
+    const { isLofi } = useTheme();
     const containerRef = useRef(null);
     const [mousePos, setMousePos] = useState({ x: -999, y: -999 });
     const [burstTrigger, setBurstTrigger] = useState(0);
@@ -241,6 +245,7 @@ export default function KineticPrismTitle({ text = 'CHAHEL TANNA' }) {
                     totalChars={characters.length}
                     mousePos={mousePos}
                     burstTrigger={burstTrigger}
+                    isLofi={isLofi}
                 />
             ))}
 

@@ -537,5 +537,198 @@ section span {
   animation: scan 5s linear infinite;
 }
 
+/* ═══════════════════════════════════════════════════════════
+   LIGHT / WHITE MODE SYSTEM
+   ═══════════════════════════════════════════════════════════ */
+html.light-mode {
+  --c-black: #f8fafc;
+  --c-dark: #ffffff;
+  --c-navy: #f1f5f9;
+  --c-gray: #e2e8f0;
+  --c-yellow: #d97706;
+  --c-gold: #b45309;
+  --c-cyan: #0284c7;
+  --c-purple: #7c3aed;
+}
+
+html.light-mode body {
+  background-color: #f8fafc !important;
+  color: #1e293b !important;
+}
+
+html.light-mode ::selection {
+  background: rgba(217, 119, 6, 0.25) !important;
+  color: #b45309 !important;
+}
+
+html.light-mode ::-webkit-scrollbar-track {
+  background: #f1f5f9 !important;
+}
+
+html.light-mode ::-webkit-scrollbar-thumb {
+  background: #cbd5e1 !important;
+}
+
+html.light-mode ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8 !important;
+}
+
+/* Headings in Light Mode */
+html.light-mode h1,
+html.light-mode h2,
+html.light-mode h3,
+html.light-mode h4,
+html.light-mode h5,
+html.light-mode h6 {
+  color: #0f172a !important;
+}
+
+html.light-mode .glitch-title {
+  color: #0f172a !important;
+  text-shadow: 0 0 20px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Section labels & subtitles */
+html.light-mode .sec-label span {
+  color: #b45309 !important;
+}
+
+html.light-mode p,
+html.light-mode .f-rajdhani {
+  color: #334155;
+}
+
+/* Navigation */
+html.light-mode .nav-bar,
+html.light-mode .nav-mobile-bar {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+}
+
+html.light-mode .nav-link {
+  color: #475569 !important;
+}
+
+html.light-mode .nav-link:hover,
+html.light-mode .nav-link.active {
+  color: #0f172a !important;
+}
+
+/* Hero Section */
+html.light-mode .hero-stat-strip {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+}
+
+html.light-mode .hero-stat-divider {
+  background: rgba(15, 23, 42, 0.1) !important;
+}
+
+html.light-mode .hero-stat-item div:last-child {
+  color: #64748b !important;
+}
+
+html.light-mode .hero-dossier-tag,
+html.light-mode .hero-status-tag {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  color: #475569 !important;
+}
+
+/* Section backgrounds */
+html.light-mode #about,
+html.light-mode #skills,
+html.light-mode #projects,
+html.light-mode #experience,
+html.light-mode #interests,
+html.light-mode #contact {
+  background: transparent !important;
+}
+
+/* Card surfaces */
+html.light-mode .experience-card,
+html.light-mode .contact-card,
+html.light-mode #about div[style*="background: rgba(13,13,26"],
+html.light-mode #about div[style*="background: rgba(13, 13, 26"],
+html.light-mode #skills div[style*="background: rgba(13,13,26"],
+html.light-mode #skills div[style*="background: rgba(18,18,34"],
+html.light-mode #skills div[style*="background: rgba(8,8,16"],
+html.light-mode #skills div[style*="background: rgba(8, 8, 16"],
+html.light-mode #experience div[style*="background: rgba(13,13,26"],
+html.light-mode #interests div[style*="background: rgba(13,13,26"],
+html.light-mode #contact div[style*="background: rgba(13,13,26"],
+html.light-mode #contact div[style*="background: rgba(8,8,16"],
+html.light-mode footer {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.03) !important;
+  color: #1e293b !important;
+}
+
+html.light-mode footer a,
+html.light-mode footer p,
+html.light-mode footer span {
+  color: #475569 !important;
+}
+
+html.light-mode footer div[style*="background: rgba(13,13,26"] {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  color: #0f172a !important;
+}
+
+/* Crisp text colors for cards in Light Mode */
+html.light-mode .experience-card h3,
+html.light-mode .contact-card h3,
+html.light-mode #interests h3,
+html.light-mode #about h3,
+html.light-mode #skills h3 {
+  color: #0f172a !important;
+}
+
+html.light-mode .experience-card p,
+html.light-mode .contact-card p,
+html.light-mode #interests p,
+html.light-mode #about p,
+html.light-mode #skills p {
+  color: #334155 !important;
+}
+
+/* Contact Inputs in Light Mode */
+html.light-mode input,
+html.light-mode select,
+html.light-mode textarea {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(15, 23, 42, 0.18) !important;
+  color: #0f172a !important;
+}
+
+html.light-mode select option {
+  background: #ffffff !important;
+  color: #0f172a !important;
+}
+
+html.light-mode input:focus,
+html.light-mode select:focus,
+html.light-mode textarea:focus {
+  border-color: #0284c7 !important;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) !important;
+}
+
+html.light-mode input::placeholder,
+html.light-mode textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+html.light-mode .scanline {
+  display: none !important;
+}
+
+html.light-mode .grid-bg {
+  opacity: 0.3 !important;
+}
+
 
 
