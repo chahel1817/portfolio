@@ -18,10 +18,10 @@ const stats = [
 ];
 
 const principles = [
-    { icon: FiZap, color: C, title: 'Performance-First', desc: 'Optimized backend workflows and efficient data handling for scalable, high-throughput systems.' },
-    { icon: FiCpu, color: CC, title: 'Data Engineering', desc: 'Mastered high-level SQL and currently advancing Python proficiency to architect robust, scalable data systems.' },
-    { icon: FiZap, color: '#a855f7', title: 'DevOps & Deployment Pipelines', desc: 'Designing automated CI/CD workflows, containerized deployments, and scalable infrastructure for reliable, production-grade applications' },
-    { icon: FiCode, color: '#4ade80', title: 'AI Integration & Automation', desc: 'Building intelligent features by integrating AI APIs, automating workflows, and enhancing applications with smart, data-driven capabilities' },
+    { icon: FiZap, color: C, title: 'Backend Systems', desc: 'Designing modular services and efficient data handling patterns for responsive, high-throughput applications.' },
+    { icon: FiCpu, color: CC, title: 'Data Engineering', desc: 'Strong foundation in SQL, database optimization, and data processing, with hands-on experience building Python-based data pipelines and analytics systems.' },
+    { icon: FiZap, color: '#a855f7', title: 'DevOps & CI/CD Pipelines', desc: 'Implementing automated workflows, containerized Docker deployments, and structured testing for reliable software delivery.' },
+    { icon: FiCode, color: '#4ade80', title: 'AI Integration & Automation', desc: 'Engineering intelligent features through LLM APIs, prompt architecture, and automated evaluation workflows.' },
 ];
 
 function useTypewriterOnView(text, inView, speed = 26, startDelay = 350) {
@@ -207,11 +207,11 @@ export default function AboutSection() {
                             {/* Body copy — outcome-driven */}
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 22 }}>
                                 <p className="f-rajdhani" style={{ color: isLofi ? '#1e293b' : '#9ca3af', fontSize: 17, lineHeight: 1.85 }}>
-                                    I design <span style={{ color: cyanColor, fontWeight: 700 }}>modular backend systems</span> and scalable APIs optimized for{' '}
-                                    <span style={{ color: goldColor, fontWeight: 700 }}>performance, maintainability, and long-term growth</span> — not just to make things work, but to make them <em style={{ color: isLofi ? '#0f172a' : '#e2e8f0', fontStyle: 'normal', fontWeight: 700 }}>last</em>.
+                                    I build <span style={{ color: cyanColor, fontWeight: 700 }}>modular backend services</span> and robust APIs designed for{' '}
+                                    <span style={{ color: goldColor, fontWeight: 700 }}>clarity, maintainability, and longevity</span> — not just to make things work, but to make them <em style={{ color: isLofi ? '#0f172a' : '#e2e8f0', fontStyle: 'normal', fontWeight: 700 }}>last</em>.
                                 </p>
                                 <p className="f-rajdhani" style={{ color: isLofi ? '#1e293b' : '#9ca3af', fontSize: 17, lineHeight: 1.85 }}>
-                                    From <span style={{ color: purpleColor, fontWeight: 700 }}>scalable data pipelines</span> to production-ready REST APIs, every system I build is approached with{' '}
+                                    From <span style={{ color: purpleColor, fontWeight: 700 }}>PySpark data pipelines</span> to full-stack web applications, every system I build is approached with{' '}
                                     <span style={{ color: goldColor, fontWeight: 700 }}>architectural discipline</span> — because great software isn't built by accident.{' '}
                                     <span style={{ color: isLofi ? '#0f172a' : '#e2e8f0', fontWeight: 700 }}>It's engineered.</span>
                                 </p>
@@ -221,7 +221,7 @@ export default function AboutSection() {
                             <div style={{ borderLeft: `3px solid ${goldColor}`, paddingLeft: 16, marginBottom: 28 }}>
                                 <p className="f-rajdhani" style={{ color: isLofi ? '#334155' : 'rgba(200,210,225,0.7)', fontSize: 15, lineHeight: 1.7, fontStyle: 'italic', fontWeight: 500 }}>
                                     Focused on <span style={{ color: goldColor, fontStyle: 'normal', fontWeight: 700 }}>backend architecture</span>,{' '}
-                                    <span style={{ color: cyanColor, fontStyle: 'normal', fontWeight: 700 }}>API design</span>, and scalable system engineering.
+                                    <span style={{ color: cyanColor, fontStyle: 'normal', fontWeight: 700 }}>API design</span>, and data-driven systems.
                                 </p>
                             </div>
 
