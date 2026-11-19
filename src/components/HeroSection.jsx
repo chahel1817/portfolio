@@ -1,11 +1,12 @@
 'use client';
-import { motion, useAnimation, useInView } from 'framer-motion';
+import { motion, useAnimation, useInView, useReducedMotion } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import { FiGithub, FiLinkedin, FiMail, FiTwitter, FiInstagram, FiYoutube } from 'react-icons/fi';
 import { SiLeetcode } from 'react-icons/si';
 import { useTheme } from '@/context/ThemeContext';
 import Magnetic from '@/components/Magnetic';
 import CountUp from '@/components/CountUp';
+import KineticPrismTitle from '@/components/KineticPrismTitle';
 
 const C = '#f5c518';
 const CC = '#00f5ff';
@@ -56,7 +57,7 @@ function FlavorText() {
                 {isLofi ? (
                     <>☀️ Enjoying the sunshine? The code runs smoother in <span style={{ color: '#e89020', fontWeight: 700, fontStyle: 'normal' }}>golden hour.</span></>
                 ) : (
-                    <>Don&apos;t mind the bats. They&apos;re just here to <span style={{ color: '#00f5ff', textShadow: '0 0 12px rgba(0,245,255,0.7)', fontWeight: 700, fontStyle: 'normal' }}>hunt down the bugs.</span></>
+                    <>Refracting complex challenges into <span style={{ color: '#00f5ff', textShadow: '0 0 12px rgba(0,245,255,0.7)', fontWeight: 700, fontStyle: 'normal' }}>clean, scalable architectures.</span></>
                 )}
             </span>
         </motion.div>
@@ -116,7 +117,7 @@ function DossierTag() {
                 color: 'rgba(245,197,24,0.55)', fontSize: 9, letterSpacing: '0.1em',
             }}
         >
-            FILE NO. GC-2026-001
+            SYS ID: CT-2026-DEV
         </motion.div>
     );
 }
@@ -162,36 +163,102 @@ function HudCorner({ position }) {
 }
 
 function StatStrip() {
+    const cardRef = useRef(null);
+    const [tilt, setTilt] = useState({ rx: 0, ry: 0, glareX: 50, glareY: 50, isHover: false });
+    const reducedMotion = useReducedMotion();
+
+    const handleMouseMove = (e) => {
+        if (reducedMotion || !cardRef.current || window.innerWidth < 768) return;
+        const rect = cardRef.current.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width;
+        const py = (e.clientY - rect.top) / rect.height;
+        const rx = (0.5 - py) * 16;
+        const ry = (px - 0.5) * 18;
+        setTilt({ rx, ry, glareX: px * 100, glareY: py * 100, isHover: true });
+    };
+
+    const handleMouseLeave = () => {
+        setTilt({ rx: 0, ry: 0, glareX: 50, glareY: 50, isHover: false });
+    };
+
     const STATS = [
-        { value: '5+', label: 'Projects Shipped', color: C },
+        { value: '9+', label: 'Projects Shipped', color: C },
         { value: '230+', label: 'LeetCode Solved', color: CC },
         { value: '9.02', label: 'CGPA', color: C },
         { value: 'OPEN', label: 'To Work', color: '#4ade80' },
     ];
+
     return (
         <motion.div
+            ref={cardRef}
             variants={item}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            animate={{
+                rotateX: tilt.rx,
+                rotateY: tilt.ry,
+                scale: tilt.isHover ? 1.025 : 1,
+            }}
+            transition={{ type: 'spring', stiffness: 280, damping: 20 }}
             className="hero-stat-strip"
             style={{
                 display: 'inline-grid',
                 gridTemplateColumns: 'repeat(4, 1fr)',
-                background: 'rgba(13,13,26,0.65)',
-                border: '1px solid rgba(255,255,255,0.12)',
-                borderRadius: 12,
+                background: 'rgba(12, 15, 26, 0.72)',
+                border: '1px solid rgba(255, 255, 255, 0.14)',
+                borderRadius: 14,
                 padding: '16px 20px',
-                backdropFilter: 'blur(12px)',
+                backdropFilter: 'blur(16px)',
                 marginBottom: 44,
-                boxShadow: '0 8px 28px rgba(0,0,0,0.4)',
+                boxShadow: tilt.isHover
+                    ? '0 20px 45px rgba(0,0,0,0.65), 0 0 35px rgba(0, 245, 255, 0.18)'
+                    : '0 8px 28px rgba(0,0,0,0.4)',
                 gap: 16,
                 alignItems: 'center',
                 maxWidth: '100%',
+                position: 'relative',
+                transformStyle: 'preserve-3d',
+                perspective: 1000,
+                overflow: 'hidden',
+                cursor: 'default',
             }}
         >
+            {/* Dynamic Interactive Specular Holographic Glare Sheen */}
+            {tilt.isHover && (
+                <div
+                    style={{
+                        position: 'absolute',
+                        inset: 0,
+                        pointerEvents: 'none',
+                        background: `
+                            radial-gradient(circle at ${tilt.glareX}% ${tilt.glareY}%, rgba(255, 255, 255, 0.22) 0%, rgba(0, 245, 255, 0.12) 35%, transparent 65%)
+                        `,
+                        mixBlendMode: 'overlay',
+                        zIndex: 10,
+                    }}
+                />
+            )}
+
+            {/* Rotating Rainbow Prism Border Highlight */}
+            <div
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: 1,
+                    background: 'linear-gradient(90deg, transparent, rgba(0,245,255,0.85) 30%, rgba(245,197,24,0.85) 70%, transparent)',
+                    opacity: tilt.isHover ? 1 : 0.45,
+                    transition: 'opacity 0.3s',
+                }}
+            />
+
             {STATS.map((s, i) => (
                 <div key={s.label} className="hero-stat-item" style={{
                     textAlign: 'center',
                     padding: '4px 12px',
                     position: 'relative',
+                    transform: 'translateZ(15px)',
                 }}>
                     {i > 0 && <div className="hero-stat-divider" style={{ position: 'absolute', left: -8, top: '15%', bottom: '15%', width: 1, background: 'rgba(255,255,255,0.12)' }} />}
                     <CountUp value={s.value} className="f-orbitron" style={{ fontSize: 'clamp(18px, 4vw, 22px)', fontWeight: 800, color: s.color, textShadow: `0 0 14px ${s.color}70` }} />
@@ -287,7 +354,7 @@ export default function HeroSection() {
                         >
                             HELLO, I AM
                         </motion.span>
-                        <motion.span className="glitch-title" data-text="CHAHEL TANNA">CHAHEL TANNA</motion.span>
+                        <KineticPrismTitle text="CHAHEL TANNA" />
                     </h1>
                 </motion.div>
 

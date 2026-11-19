@@ -10,7 +10,7 @@ import ExperienceSection from '@/components/ExperienceSection';
 import InterestsSection from '@/components/InterestsSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
-import GothamBackground from '@/components/GothamBackground';
+import ObsidianBackground from '@/components/ObsidianBackground';
 
 const CustomCursor = dynamic(() => import('@/components/CustomCursor'), { ssr: false });
 const ThreeDElement = dynamic(() => import('@/components/ThreeDElement'), { ssr: false });
@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <>
       <CustomCursor />
-      <GothamBackground />
+      <ObsidianBackground />
       <ThreeDElement />
       <ScrollToTop />
       <div style={{ position: 'relative', zIndex: 3 }}>

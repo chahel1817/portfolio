@@ -5,13 +5,13 @@ const ThemeContext = createContext({
     theme: 'dark',
     toggleTheme: () => { },
     isLofi: false,
-    muted: false,
+    muted: true,
     toggleMute: () => { },
 });
 
 export function ThemeProvider({ children }) {
     const [theme, setTheme] = useState('dark');
-    const [muted, setMuted] = useState(false);
+    const [muted, setMuted] = useState(true);
 
     useEffect(() => {
         const saved = localStorage.getItem('portfolio_theme');

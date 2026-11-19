@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiMenu, FiX, FiSun, FiMoon, FiVolume2, FiVolumeX } from 'react-icons/fi';
+import { FiMenu, FiX, FiSun, FiMoon } from 'react-icons/fi';
 import { useTheme } from '@/context/ThemeContext';
 
 const C = '#f5c518';
@@ -27,7 +27,7 @@ export default function Navbar() {
     const [menu, setMenu] = useState(false);
     const [hovered, setHovered] = useState(null);
     const [scrollPct, setScrollPct] = useState(0);
-    const { theme, toggleTheme, isLofi, muted, toggleMute } = useTheme();
+    const { theme, toggleTheme, isLofi } = useTheme();
 
     useEffect(() => {
         const observerOptions = {
@@ -181,30 +181,8 @@ export default function Navbar() {
                         );
                     })}
 
-                    {/* Sound + Theme Toggle — at the end */}
+                    {/* Theme Toggle — at the end */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6, borderLeft: '1px solid rgba(255,255,255,0.1)', paddingLeft: 8, marginLeft: 4 }}>
-                        <motion.button
-                            onClick={toggleMute}
-                            whileHover={{ scale: 1.15 }}
-                            whileTap={{ scale: 0.9 }}
-                            title={muted ? 'Unmute Sound' : 'Mute Sound'}
-                            aria-label={muted ? 'Unmute Sound' : 'Mute Sound'}
-                            style={{
-                                background: 'rgba(255,255,255,0.05)',
-                                border: '1px solid rgba(255,255,255,0.15)',
-                                borderRadius: '50%',
-                                width: 32,
-                                height: 32,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                cursor: 'pointer',
-                                color: muted ? 'rgba(255,255,255,0.35)' : '#c4cedd',
-                                transition: 'all 0.3s ease',
-                            }}
-                        >
-                            {muted ? <FiVolumeX size={14} /> : <FiVolume2 size={14} />}
-                        </motion.button>
                         <motion.button
                             onClick={toggleTheme}
                             whileHover={{ scale: 1.15, rotate: 15 }}
@@ -271,30 +249,6 @@ export default function Navbar() {
                     </div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    {/* Mobile Sound Toggle */}
-                    <motion.button
-                        onClick={toggleMute}
-                        whileTap={{ scale: 0.85 }}
-                        title={muted ? 'Unmute Sound' : 'Mute Sound'}
-                        aria-label={muted ? 'Unmute Sound' : 'Mute Sound'}
-                        style={{
-                            background: 'rgba(255,255,255,0.06)',
-                            border: '1px solid rgba(255,255,255,0.18)',
-                            borderRadius: '50%',
-                            width: 38,
-                            height: 38,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer',
-                            color: muted ? 'rgba(255,255,255,0.35)' : '#c4cedd',
-                            transition: 'all 0.3s ease',
-                            padding: 0,
-                        }}
-                    >
-                        {muted ? <FiVolumeX size={16} /> : <FiVolume2 size={16} />}
-                    </motion.button>
-
                     {/* Mobile Theme Toggle */}
                     <motion.button
                         onClick={toggleTheme}
