@@ -395,7 +395,7 @@ export default function HeroSection() {
                     </Magnetic>
                     <Magnetic range={70} strength={0.3}>
                         <motion.a
-                            href="https://drive.google.com/file/d/1oq3uNYZfnftjkqnGN-nWsGcyyv8FZ2B4/view?usp=drive_link"
+                            href="https://drive.google.com/drive/u/0/folders/1ZHoSMw8iKHs5zo_PTQy6CJOM3sffOdJq"
                             target="_blank"
                             rel="noopener noreferrer"
                             whileHover={{ y: -4, boxShadow: isLofi ? '0 8px 20px rgba(15, 23, 42, 0.12)' : '0 0 22px rgba(255,255,255,0.3), 0 8px 24px rgba(0,0,0,0.5)', background: isLofi ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.1)' }}

@@ -14,6 +14,7 @@ const NAV = [
     { href: '#projects', label: 'Projects' },
     { href: '#experience', label: 'Experience' },
     { href: '#contact', label: 'Contact' },
+    { href: 'https://drive.google.com/drive/u/0/folders/1ZHoSMw8iKHs5zo_PTQy6CJOM3sffOdJq', label: 'Resume', external: true },
 ];
 
 export default function Footer() {
@@ -91,7 +92,11 @@ export default function Footer() {
                         <p className="f-orbitron" style={{ color: goldColor, fontSize: 11, fontWeight: 800, letterSpacing: '0.14em', marginBottom: 20 }}>NAVIGATION</p>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                             {NAV.map((l) => (
-                                <motion.a key={l.href} href={l.href}
+                                <motion.a
+                                    key={l.href}
+                                    href={l.href}
+                                    target={l.external ? '_blank' : undefined}
+                                    rel={l.external ? 'noopener noreferrer' : undefined}
                                     whileHover={{ x: 5, color: goldColor }}
                                     className="f-rajdhani"
                                     style={{ color: isLofi ? '#334155' : '#b6c1d3', fontSize: 15, fontWeight: isLofi ? 600 : 500, transition: 'color 0.2s' }}

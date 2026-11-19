@@ -14,7 +14,7 @@ const EXPERIENCE_DATA = [
         category: 'work',
         role: 'Software Engineering Intern',
         organization: 'Ambiguity Labs',
-        period: '2024 – 2025',
+        period: 'July 2026 - September 2026',
         location: 'Remote',
         badge: 'SWE INTERNSHIP',
         color: CC,
