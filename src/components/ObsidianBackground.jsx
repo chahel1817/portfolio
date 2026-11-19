@@ -87,7 +87,7 @@ export default function ObsidianBackground() {
   if (!mounted) return null;
 
   /* ─────────────────────────────────────────────────────────────
-     LOFI / LIGHT MODE: Frosted Alabaster & Golden Sunlit Quartz
+     LOFI / LIGHT MODE: Frosted Alabaster & Sunlit Golden Quartz
      ───────────────────────────────────────────────────────────── */
   if (isLofi) {
     return (
@@ -98,37 +98,73 @@ export default function ObsidianBackground() {
           zIndex: 1,
           pointerEvents: 'none',
           overflow: 'hidden',
-          background: 'linear-gradient(135deg, #f7f9fc 0%, #edf2f7 40%, #e2e8f0 100%)',
+          background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 40%, #f1f5f9 100%)',
         }}
       >
-        {/* Soft Golden Prism Refraction Light */}
+        {/* Dynamic Sunlit Cursor Follower */}
+        {!reducedMotion && (
+          <div
+            style={{
+              position: 'absolute',
+              top: `${mousePos.y}%`,
+              left: `${mousePos.x}%`,
+              width: isMobile ? 320 : 540,
+              height: isMobile ? 320 : 540,
+              transform: 'translate(-50%, -50%)',
+              borderRadius: '50%',
+              background:
+                'radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, rgba(2, 132, 199, 0.08) 35%, transparent 70%)',
+              filter: 'blur(50px)',
+              transition: 'top 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), left 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)',
+              pointerEvents: 'none',
+            }}
+          />
+        )}
+
+        {/* Soft Golden Prism Aurora - Top Right */}
         <div
           style={{
             position: 'absolute',
             top: '-10%',
-            right: '-5%',
+            right: '-8%',
             width: '65vw',
             height: '65vw',
             borderRadius: '50%',
             background:
-              'radial-gradient(circle, rgba(245, 197, 24, 0.16) 0%, rgba(255, 230, 160, 0.08) 45%, transparent 70%)',
-            filter: 'blur(60px)',
-            animation: 'lightPulse 8s ease-in-out infinite',
+              'radial-gradient(circle, rgba(245, 158, 11, 0.18) 0%, rgba(254, 243, 199, 0.25) 30%, transparent 68%)',
+            filter: 'blur(70px)',
+            animation: reducedMotion ? 'none' : 'sunbeamDrift 14s ease-in-out infinite alternate',
           }}
         />
 
-        {/* Subtle Cyan Edge Tint */}
+        {/* Crystal Azure Sky Tint - Bottom Left */}
         <div
           style={{
             position: 'absolute',
-            bottom: '-15%',
+            bottom: '-12%',
             left: '-10%',
             width: '60vw',
             height: '60vw',
             borderRadius: '50%',
             background:
-              'radial-gradient(circle, rgba(0, 245, 255, 0.1) 0%, rgba(180, 240, 255, 0.04) 50%, transparent 75%)',
-            filter: 'blur(70px)',
+              'radial-gradient(circle, rgba(2, 132, 199, 0.14) 0%, rgba(224, 242, 254, 0.3) 40%, transparent 72%)',
+            filter: 'blur(80px)',
+            animation: reducedMotion ? 'none' : 'azureDrift 16s ease-in-out infinite alternate',
+          }}
+        />
+
+        {/* Prismatic Violet Center Sheen */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '40%',
+            left: '30%',
+            width: '45vw',
+            height: '45vw',
+            borderRadius: '50%',
+            background:
+              'radial-gradient(circle, rgba(168, 85, 247, 0.06) 0%, transparent 65%)',
+            filter: 'blur(90px)',
           }}
         />
 
@@ -138,41 +174,83 @@ export default function ObsidianBackground() {
             position: 'absolute',
             inset: 0,
             backgroundImage: `
-              linear-gradient(rgba(200, 215, 230, 0.25) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(200, 215, 230, 0.25) 1px, transparent 1px)
+              linear-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(148, 163, 184, 0.12) 1px, transparent 1px)
             `,
-            backgroundSize: '80px 80px',
-            opacity: 0.6,
+            backgroundSize: '72px 72px',
+            opacity: 0.7,
           }}
         />
 
-        {/* Ambient floating quartz dust */}
-        {photons.slice(0, 14).map((p) => (
+        {/* Interactive Sunlit Glint Sparkles */}
+        {sparkles.map((s) => (
           <div
-            key={p.id}
+            key={s.id}
             style={{
-              position: 'absolute',
-              left: `${p.left}%`,
-              top: `${p.top}%`,
-              width: p.size,
-              height: p.size,
-              borderRadius: '50%',
-              background: '#f59e0b',
-              opacity: 0.4,
-              boxShadow: '0 0 8px rgba(245, 158, 11, 0.4)',
-              animation: reducedMotion ? 'none' : `quartzFloat ${p.dur}s ease-in-out ${p.delay}s infinite`,
+              position: 'fixed',
+              top: s.y,
+              left: s.x,
+              width: s.size,
+              height: s.size,
+              transform: 'translate(-50%, -50%) rotate(45deg)',
+              background:
+                s.hue === 'gold'
+                  ? 'radial-gradient(circle, #f59e0b 0%, #fbbf24 40%, transparent 75%)'
+                  : 'radial-gradient(circle, #0284c7 0%, #38bdf8 40%, transparent 75%)',
+              filter: 'blur(1px) drop-shadow(0 0 6px rgba(245, 158, 11, 0.5))',
+              animation: 'sparklePop 0.8s ease-out forwards',
+              pointerEvents: 'none',
+              zIndex: 3,
             }}
           />
         ))}
 
+        {/* Ambient floating quartz micro-photons */}
+        {photons.slice(0, 18).map((p) => {
+          const photonColor =
+            p.id % 3 === 0
+              ? '#d97706' // Warm Amber
+              : p.id % 3 === 1
+              ? '#0284c7' // Azure
+              : '#7c3aed'; // Violet
+          return (
+            <div
+              key={p.id}
+              style={{
+                position: 'absolute',
+                left: `${p.left}%`,
+                top: `${p.top}%`,
+                width: p.size + 1,
+                height: p.size + 1,
+                borderRadius: '50%',
+                background: photonColor,
+                opacity: 0.5,
+                boxShadow: `0 0 10px ${photonColor}60`,
+                animation: reducedMotion ? 'none' : `quartzFloat ${p.dur}s ease-in-out ${p.delay}s infinite`,
+              }}
+            />
+          );
+        })}
+
         <style>{`
-          @keyframes lightPulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.08); opacity: 1; }
+          @keyframes sunbeamDrift {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.85; }
+            50% { transform: translate(-30px, 20px) scale(1.08); opacity: 1; }
+            100% { transform: translate(20px, -15px) scale(0.96); opacity: 0.9; }
+          }
+          @keyframes azureDrift {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+            50% { transform: translate(25px, -20px) scale(1.06); opacity: 1; }
+            100% { transform: translate(-20px, 15px) scale(0.94); opacity: 0.85; }
           }
           @keyframes quartzFloat {
-            0%, 100% { transform: translateY(0) scale(1); opacity: 0.25; }
-            50% { transform: translateY(-16px) scale(1.2); opacity: 0.6; }
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.35; }
+            50% { transform: translateY(-20px) scale(1.25); opacity: 0.75; }
+          }
+          @keyframes sparklePop {
+            0% { transform: translate(-50%, -50%) rotate(45deg) scale(0.4); opacity: 0; }
+            40% { transform: translate(-50%, -50%) rotate(90deg) scale(1.2); opacity: 1; }
+            100% { transform: translate(-50%, -50%) rotate(135deg) scale(0.2); opacity: 0; }
           }
         `}</style>
       </div>

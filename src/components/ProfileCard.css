@@ -456,3 +456,107 @@
     font-size: 8px;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   LIGHT / WHITE MODE SYSTEM FOR PROFILE CARD
+   ═══════════════════════════════════════════════════════════ */
+html.light-mode {
+  --pc-bg-dark: #ffffff;
+  --pc-bg-navy: #f8fafc;
+  --pc-bg-purple: #f1f5f9;
+  --pc-bg-blue: #e2e8f0;
+  --pc-cyan-accent: #0284c7;
+  --pc-gold-accent: #b45309;
+  --pc-text-main: #0f172a;
+  --pc-text-muted: #475569;
+  --pc-status-green: #15803d;
+  --behind-glow-color: rgba(245, 158, 11, 0.25);
+  --behind-glow-size: 70%;
+  --inner-gradient: linear-gradient(160deg, #ffffff 0%, #f8fafc 55%, #f1f5f9 100%);
+}
+
+html.light-mode .pc-card {
+  background: #ffffff !important;
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 
+    0 20px 40px -10px rgba(15, 23, 42, 0.08),
+    0 0 25px rgba(245, 158, 11, 0.12),
+    inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+}
+
+html.light-mode .pc-card:hover,
+html.light-mode .pc-card.active {
+  border-color: rgba(2, 132, 199, 0.4) !important;
+  box-shadow: 
+    0 25px 50px -10px rgba(15, 23, 42, 0.12),
+    0 0 35px rgba(2, 132, 199, 0.18),
+    inset 0 1px 1px #ffffff !important;
+}
+
+html.light-mode .pc-inside {
+  background-color: #ffffff !important;
+  background-image: linear-gradient(160deg, #ffffff 0%, #f8fafc 60%, #e0f2fe 100%) !important;
+}
+
+html.light-mode .pc-name {
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 60%, #0369a1 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: none !important;
+}
+
+html.light-mode .pc-title {
+  color: #0284c7 !important;
+  font-weight: 700 !important;
+}
+
+html.light-mode .pc-avatar-fade {
+  background: linear-gradient(to top, #ffffff 0%, rgba(255, 255, 255, 0.88) 50%, transparent 100%) !important;
+}
+
+html.light-mode .pc-tech-focus span {
+  color: #64748b !important;
+  font-weight: 600 !important;
+}
+
+html.light-mode .pc-user-info {
+  background: rgba(255, 255, 255, 0.94) !important;
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 
+    0 10px 25px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+html.light-mode .pc-user-info:hover {
+  border-color: rgba(2, 132, 199, 0.45) !important;
+  box-shadow: 
+    0 12px 30px rgba(15, 23, 42, 0.12),
+    0 0 18px rgba(2, 132, 199, 0.15) !important;
+}
+
+html.light-mode .pc-handle {
+  color: #b45309 !important;
+}
+
+html.light-mode .pc-status {
+  color: #15803d !important;
+}
+
+html.light-mode .pc-contact-btn {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35) !important;
+}
+
+html.light-mode .pc-contact-btn:hover {
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5) !important;
+}
+
+html.light-mode .pc-organic-aura {
+  background: radial-gradient(
+    circle, 
+    rgba(245, 158, 11, 0.2) 0%, 
+    rgba(2, 132, 199, 0.12) 50%, 
+    transparent 100%
+  ) !important;
+}

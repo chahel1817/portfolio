@@ -13,6 +13,7 @@ import {
 import { FaJava } from 'react-icons/fa';
 import { VscCode } from 'react-icons/vsc';
 import ScrambleText from '@/components/ScrambleText';
+import { useTheme } from '@/context/ThemeContext';
 
 const C = '#f5c518';
 const CC = '#00f5ff';
@@ -146,8 +147,24 @@ const CATS = [
     },
 ];
 
-function SkillCard({ skill, color, delay, inView }) {
+function SkillCard({ skill, color, delay, inView, isLofi }) {
     const [hov, setHov] = useState(false);
+    const cardBg = isLofi
+        ? (hov ? `${skill.color}22` : 'rgba(255,255,255,0.94)')
+        : (hov ? `${skill.color}20` : 'rgba(18,18,34,0.9)');
+    const cardBorder = isLofi
+        ? (hov ? `${skill.color}80` : 'rgba(15,23,42,0.1)')
+        : (hov ? `${skill.color}70` : 'rgba(255,255,255,0.2)');
+    const iconBg = isLofi
+        ? (hov ? `${skill.color}15` : '#f1f5f9')
+        : (hov ? `${skill.color}18` : 'rgba(10,10,22,0.85)');
+    const iconColor = isLofi
+        ? (skill.color === '#ffffff' ? '#0f172a' : skill.color)
+        : (hov ? skill.color : '#d4dde9');
+    const textColor = isLofi
+        ? '#0f172a'
+        : (hov ? '#f1f5f9' : '#d4dde9');
+
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.7, y: 20 }}
@@ -158,9 +175,11 @@ function SkillCard({ skill, color, delay, inView }) {
             style={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
                 padding: '16px 10px', borderRadius: 10,
-                background: hov ? `${skill.color}20` : 'rgba(18,18,34,0.9)',
-                border: `1px solid ${hov ? `${skill.color}70` : 'rgba(255,255,255,0.2)'}`,
-                boxShadow: hov ? `0 0 22px ${skill.color}35, 0 6px 24px rgba(0,0,0,0.5)` : '0 1px 4px rgba(0,0,0,0.3)',
+                background: cardBg,
+                border: cardBorder,
+                boxShadow: isLofi
+                    ? (hov ? `0 8px 24px ${skill.color}30` : '0 4px 14px rgba(15,23,42,0.05)')
+                    : (hov ? `0 0 22px ${skill.color}35, 0 6px 24px rgba(0,0,0,0.5)` : '0 1px 4px rgba(0,0,0,0.3)'),
                 transform: hov ? 'translateY(-5px)' : 'translateY(0)',
                 transition: 'all 0.28s cubic-bezier(0.23,1,0.32,1)',
                 minWidth: 0,
@@ -168,16 +187,17 @@ function SkillCard({ skill, color, delay, inView }) {
         >
             <div style={{
                 width: 44, height: 44, borderRadius: 10,
-                background: hov ? `${skill.color}18` : 'rgba(10,10,22,0.85)',
-                border: `1px solid ${hov ? `${skill.color}40` : 'rgba(255,255,255,0.16)'}`,
+                background: iconBg,
+                border: `1px solid ${hov ? `${skill.color}50` : isLofi ? 'rgba(15,23,42,0.12)' : 'rgba(255,255,255,0.16)'}`,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 transition: 'all 0.28s',
                 boxShadow: hov ? `0 0 12px ${skill.color}40` : 'none',
             }}>
-                <skill.icon size={22} style={{ color: hov ? skill.color : '#d4dde9', transition: 'color 0.25s' }} />
+                <skill.icon size={22} style={{ color: iconColor, transition: 'color 0.25s' }} />
             </div>
             <span className="f-mono" style={{
-                fontSize: 10, color: hov ? '#f1f5f9' : '#d4dde9',
+                fontSize: 10, color: textColor,
+                fontWeight: isLofi ? 700 : 500,
                 textAlign: 'center', lineHeight: 1.2,
                 transition: 'color 0.25s',
                 whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%',
@@ -189,28 +209,32 @@ function SkillCard({ skill, color, delay, inView }) {
 }
 
 export default function SkillsSection() {
+    const { isLofi } = useTheme();
     const [active, setActive] = useState('backend'); // backend is core strength — load first
     const ref = useRef(null);
     const inView = useInView(ref, { once: true, margin: '-80px' });
     const cat = CATS.find(c => c.id === active);
 
+    const goldColor = isLofi ? '#b45309' : C;
+    const cyanColor = isLofi ? '#0284c7' : CC;
+
     return (
-        <section id="skills" style={{ position: 'relative', padding: '120px 0', background: 'linear-gradient(180deg, rgba(8,8,16,0.46) 0%, rgba(13,13,26,0.5) 100%)', overflow: 'hidden' }}>
+        <section id="skills" style={{ position: 'relative', padding: '160px 0 120px', background: isLofi ? 'transparent' : 'linear-gradient(180deg, rgba(8,8,16,0.46) 0%, rgba(13,13,26,0.5) 100%)', overflow: 'hidden', scrollMarginTop: 110 }}>
             {/* Scanline */}
-            <div className="scanline" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }} />
-            <div style={{ position: 'absolute', top: '40%', left: '50%', transform: 'translate(-50%,-50%)', width: 600, height: 400, background: 'radial-gradient(ellipse, rgba(0,245,255,0.04), transparent 70%)', pointerEvents: 'none', borderRadius: '50%' }} />
+            {!isLofi && <div className="scanline" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }} />}
+            <div style={{ position: 'absolute', top: '40%', left: '50%', transform: 'translate(-50%,-50%)', width: 600, height: 400, background: isLofi ? 'radial-gradient(ellipse, rgba(2,132,199,0.06), transparent 70%)' : 'radial-gradient(ellipse, rgba(0,245,255,0.04), transparent 70%)', pointerEvents: 'none', borderRadius: '50%' }} />
 
             <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
 
                 {/* ── Header ─────────────────────────────── */}
                 <div style={{ textAlign: 'center', marginBottom: 60 }}>
                     <div className="sec-label">
-                        <span className="f-mono" style={{ color: 'rgba(0,245,255,0.5)', fontSize: 11, letterSpacing: '0.28em' }}>02 // ARSENAL</span>
+                        <span className="f-mono" style={{ color: cyanColor, fontSize: 11, letterSpacing: '0.28em' }}>02 // ARSENAL</span>
                     </div>
-                    <h2 className="f-orbitron" style={{ fontSize: 'clamp(32px,5vw,54px)', fontWeight: 900, color: '#fff', lineHeight: 1.1 }}>
-                        TECH <ScrambleText as="span" text="ARSENAL" style={{ color: CC, textShadow: '0 0 20px rgba(0,245,255,0.55)' }} />
+                    <h2 className="f-orbitron" style={{ fontSize: 'clamp(32px,5vw,54px)', fontWeight: 900, color: isLofi ? '#0f172a' : '#fff', lineHeight: 1.1 }}>
+                        TECH <ScrambleText as="span" text="ARSENAL" style={{ color: cyanColor, textShadow: isLofi ? 'none' : '0 0 20px rgba(0,245,255,0.55)' }} />
                     </h2>
-                    <p className="f-rajdhani" style={{ color: '#b6c1d3', fontSize: 17, marginTop: 10 }}>Technologies I use to build production-ready products</p>
+                    <p className="f-rajdhani" style={{ color: isLofi ? '#475569' : '#b6c1d3', fontSize: 17, marginTop: 10, fontWeight: 500 }}>Technologies I use to build production-ready products</p>
                 </div>
 
                 {/* ── Category pills ──────────────────────── */}
@@ -224,19 +248,20 @@ export default function SkillsSection() {
                                 whileTap={{ scale: 0.96 }}
                                 style={{
                                     display: 'flex', alignItems: 'center', gap: 6,
-                                    fontFamily: "'Orbitron', monospace", fontSize: 10, fontWeight: 700,
+                                    fontFamily: "'Orbitron', monospace", fontSize: 10, fontWeight: 800,
                                     letterSpacing: '0.08em', textTransform: 'uppercase',
-                                    padding: '10px 16px', borderRadius: 4,
-                                    background: isOn ? c.color : 'transparent',
-                                    color: isOn ? '#080810' : '#c4cedd',
-                                    border: isOn ? `1px solid ${c.color}` : '1px solid rgba(255,255,255,0.2)',
-                                    boxShadow: isOn ? `0 0 20px ${c.color}50` : 'none',
+                                    padding: '10px 16px', borderRadius: 8,
+                                    background: isOn ? c.color : isLofi ? 'rgba(255,255,255,0.92)' : 'transparent',
+                                    color: isOn ? '#080810' : isLofi ? '#334155' : '#c4cedd',
+                                    border: isOn ? `1px solid ${c.color}` : isLofi ? '1px solid rgba(15,23,42,0.12)' : '1px solid rgba(255,255,255,0.2)',
+                                    boxShadow: isOn ? `0 0 20px ${c.color}50` : isLofi ? '0 4px 12px rgba(15,23,42,0.04)' : 'none',
                                     transition: 'all 0.3s', whiteSpace: 'nowrap',
+                                    cursor: 'pointer'
                                 }}
                             >
                                 <span style={{ fontSize: 14 }}>{c.emoji}</span>
                                 {c.label}
-                                <span className="f-mono" style={{ fontSize: 9, opacity: 0.55 }}>{c.code}</span>
+                                <span className="f-mono" style={{ fontSize: 9, opacity: 0.65 }}>{c.code}</span>
                             </motion.button>
                         );
                     })}
@@ -252,17 +277,23 @@ export default function SkillsSection() {
                             transition={{ duration: 0.3 }}
                         >
                             {/* Panel header */}
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 28, padding: '18px 24px', background: 'rgba(13,13,26,0.8)', border: `1px solid ${cat.color}20`, borderRadius: 8, position: 'relative', overflow: 'hidden' }}>
+                            <div style={{
+                                display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 28, padding: '18px 24px',
+                                background: isLofi ? 'rgba(255,255,255,0.95)' : 'rgba(13,13,26,0.8)',
+                                border: isLofi ? '1px solid rgba(15,23,42,0.1)' : `1px solid ${cat.color}20`,
+                                borderRadius: 12, position: 'relative', overflow: 'hidden',
+                                boxShadow: isLofi ? '0 10px 30px rgba(15,23,42,0.05)' : 'none'
+                            }}>
                                 <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${cat.color}80, transparent)` }} />
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                                     <div style={{ width: 4, height: 28, borderRadius: 2, background: cat.color, boxShadow: `0 0 10px ${cat.color}` }} />
                                     <div>
-                                        <h3 className="f-orbitron" style={{ color: '#e2e8f0', fontWeight: 700, fontSize: 14 }}>{cat.label}</h3>
-                                        <p className="f-mono" style={{ color: '#a8b4c7', fontSize: 10, marginTop: 3 }}>{cat.desc}</p>
+                                        <h3 className="f-orbitron" style={{ color: isLofi ? '#0f172a' : '#e2e8f0', fontWeight: 800, fontSize: 14 }}>{cat.label}</h3>
+                                        <p className="f-mono" style={{ color: isLofi ? '#475569' : '#a8b4c7', fontSize: 10, marginTop: 3, fontWeight: 600 }}>{cat.desc}</p>
                                     </div>
                                 </div>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <span className="f-mono" style={{ color: `${cat.color}80`, fontSize: 11 }}>
+                                    <span className="f-mono" style={{ color: isLofi ? '#475569' : `${cat.color}80`, fontSize: 11, fontWeight: 600 }}>
                                         {cat.skills.length}{(cat.patterns || cat.patternGroups) ? ` techs + ${cat.patternGroups ? cat.patternGroups.reduce((a, g) => a + g.items.length, 0) : cat.patterns.length} concepts` : ' technologies'}
                                     </span>
                                     <div style={{ width: 6, height: 6, borderRadius: '50%', background: cat.color, boxShadow: `0 0 8px ${cat.color}` }} />
@@ -277,7 +308,7 @@ export default function SkillsSection() {
                                 marginBottom: (cat.patterns || cat.patternGroups) ? 28 : 0,
                             }}>
                                 {cat.skills.map((skill, i) => (
-                                    <SkillCard key={skill.name} skill={skill} color={cat.color} delay={i * 0.04} inView={inView} />
+                                    <SkillCard key={skill.name} skill={skill} color={cat.color} delay={i * 0.04} inView={inView} isLofi={isLofi} />
                                 ))}
                             </div>
 
@@ -287,12 +318,18 @@ export default function SkillsSection() {
                                     initial={{ opacity: 0, y: 12 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.4, delay: 0.2 }}
-                                    style={{ padding: '20px 24px', background: `${cat.color}07`, border: `1px solid ${cat.color}20`, borderRadius: 8, position: 'relative', overflow: 'hidden' }}
+                                    style={{
+                                        padding: '20px 24px',
+                                        background: isLofi ? 'rgba(255,255,255,0.92)' : `${cat.color}07`,
+                                        border: isLofi ? '1px solid rgba(15,23,42,0.1)' : `1px solid ${cat.color}20`,
+                                        borderRadius: 12, position: 'relative', overflow: 'hidden',
+                                        boxShadow: isLofi ? '0 8px 24px rgba(15,23,42,0.04)' : 'none'
+                                    }}
                                 >
                                     <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${cat.color}60, transparent)` }} />
                                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                                         <div style={{ width: 3, height: 14, borderRadius: 2, background: cat.color, boxShadow: `0 0 8px ${cat.color}` }} />
-                                        <span className="f-mono" style={{ color: `${cat.color}90`, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase' }}>Patterns & Practices</span>
+                                        <span className="f-mono" style={{ color: isLofi ? '#0f172a' : `${cat.color}90`, fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 700 }}>Patterns & Practices</span>
                                     </div>
                                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                                         {cat.patterns.map((p, i) => (
@@ -301,9 +338,17 @@ export default function SkillsSection() {
                                                 initial={{ opacity: 0, scale: 0.85 }}
                                                 animate={inView ? { opacity: 1, scale: 1 } : {}}
                                                 transition={{ delay: 0.25 + i * 0.05 }}
-                                                whileHover={{ scale: 1.06, y: -2, color: cat.color, borderColor: `${cat.color}70`, background: `${cat.color}12` }}
+                                                whileHover={{ scale: 1.06, y: -2 }}
                                                 className="f-mono"
-                                                style={{ fontSize: 11, padding: '7px 16px', borderRadius: 4, border: `1px solid ${cat.color}35`, color: '#d4dde9', background: 'rgba(8,8,16,0.62)', transition: 'all 0.22s', cursor: 'default' }}
+                                                style={{
+                                                    fontSize: 11, padding: '7px 16px', borderRadius: 6,
+                                                    border: isLofi ? '1px solid rgba(15,23,42,0.12)' : `1px solid ${cat.color}35`,
+                                                    color: isLofi ? '#0f172a' : '#d4dde9',
+                                                    fontWeight: isLofi ? 600 : 500,
+                                                    background: isLofi ? '#ffffff' : 'rgba(8,8,16,0.62)',
+                                                    boxShadow: isLofi ? '0 2px 6px rgba(15,23,42,0.04)' : 'none',
+                                                    transition: 'all 0.22s', cursor: 'default'
+                                                }}
                                             >
                                                 {p}
                                             </motion.span>
@@ -321,9 +366,15 @@ export default function SkillsSection() {
                                     style={{ display: 'flex', flexDirection: 'column', gap: 16 }}
                                 >
                                     {cat.patternGroups.map((group, gi) => (
-                                        <div key={group.label} style={{ padding: '18px 22px', background: 'rgba(13,13,26,0.7)', border: '1px solid rgba(148,163,184,0.12)', borderRadius: 8, position: 'relative', overflow: 'hidden' }}>
+                                        <div key={group.label} style={{
+                                            padding: '18px 22px',
+                                            background: isLofi ? 'rgba(255,255,255,0.92)' : 'rgba(13,13,26,0.7)',
+                                            border: isLofi ? '1px solid rgba(15,23,42,0.1)' : '1px solid rgba(148,163,184,0.12)',
+                                            borderRadius: 12, position: 'relative', overflow: 'hidden',
+                                            boxShadow: isLofi ? '0 6px 20px rgba(15,23,42,0.04)' : 'none'
+                                        }}>
                                             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(148,163,184,0.35), transparent)' }} />
-                                            <p className="f-mono" style={{ color: '#94a3b8', fontSize: 11, marginBottom: 12, letterSpacing: '0.06em' }}>{group.label}</p>
+                                            <p className="f-mono" style={{ color: isLofi ? '#0f172a' : '#94a3b8', fontSize: 11, marginBottom: 12, letterSpacing: '0.06em', fontWeight: 700 }}>{group.label}</p>
                                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                                                 {group.items.map((item, ii) => (
                                                     <motion.span
@@ -331,9 +382,17 @@ export default function SkillsSection() {
                                                         initial={{ opacity: 0, scale: 0.88 }}
                                                         animate={inView ? { opacity: 1, scale: 1 } : {}}
                                                         transition={{ delay: 0.2 + gi * 0.1 + ii * 0.04 }}
-                                                        whileHover={{ scale: 1.05, y: -2, color: '#e2e8f0', borderColor: 'rgba(148,163,184,0.5)', background: 'rgba(148,163,184,0.08)' }}
+                                                        whileHover={{ scale: 1.05, y: -2 }}
                                                         className="f-mono"
-                                                        style={{ fontSize: 11, padding: '6px 14px', borderRadius: 4, border: '1px solid rgba(148,163,184,0.28)', color: '#b0bac9', background: 'rgba(8,8,16,0.4)', transition: 'all 0.2s', cursor: 'default' }}
+                                                        style={{
+                                                            fontSize: 11, padding: '6px 14px', borderRadius: 6,
+                                                            border: isLofi ? '1px solid rgba(15,23,42,0.12)' : '1px solid rgba(148,163,184,0.28)',
+                                                            color: isLofi ? '#0f172a' : '#b0bac9',
+                                                            fontWeight: isLofi ? 600 : 500,
+                                                            background: isLofi ? '#ffffff' : 'rgba(8,8,16,0.4)',
+                                                            boxShadow: isLofi ? '0 2px 6px rgba(15,23,42,0.04)' : 'none',
+                                                            transition: 'all 0.2s', cursor: 'default'
+                                                        }}
                                                     >
                                                         {item}
                                                     </motion.span>
@@ -344,16 +403,27 @@ export default function SkillsSection() {
                                     {/* Applied In + Credibility lines */}
                                     {cat.appliedIn && (
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                                            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, padding: '14px 20px', background: 'rgba(148,163,184,0.04)', border: '1px solid rgba(148,163,184,0.1)', borderRadius: 6, borderLeft: '3px solid rgba(148,163,184,0.4)' }}>
-                                                <span className="f-mono" style={{ color: 'rgba(148,163,184,0.5)', fontSize: 10, flexShrink: 0, marginTop: 1 }}>⚡</span>
-                                                <p className="f-rajdhani" style={{ color: '#94a3b8', fontSize: 15, lineHeight: 1.6, fontStyle: 'italic' }}>
+                                            <div style={{
+                                                display: 'flex', alignItems: 'flex-start', gap: 10, padding: '14px 20px',
+                                                background: isLofi ? 'rgba(2,132,199,0.05)' : 'rgba(148,163,184,0.04)',
+                                                border: isLofi ? '1px solid rgba(2,132,199,0.15)' : '1px solid rgba(148,163,184,0.1)',
+                                                borderRadius: 8,
+                                                borderLeft: isLofi ? '3px solid #0284c7' : '3px solid rgba(148,163,184,0.4)'
+                                            }}>
+                                                <span className="f-mono" style={{ color: isLofi ? '#0284c7' : 'rgba(148,163,184,0.5)', fontSize: 10, flexShrink: 0, marginTop: 1 }}>⚡</span>
+                                                <p className="f-rajdhani" style={{ color: isLofi ? '#334155' : '#94a3b8', fontSize: 15, lineHeight: 1.6, fontStyle: 'italic', fontWeight: 500 }}>
                                                     {cat.appliedIn}
                                                 </p>
                                             </div>
                                             {cat.credibility && (
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '11px 18px', background: 'rgba(74,222,128,0.04)', border: '1px solid rgba(74,222,128,0.18)', borderRadius: 6 }}>
-                                                    <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#4ade80', boxShadow: '0 0 6px #4ade80', flexShrink: 0 }} />
-                                                    <p className="f-mono" style={{ color: '#4ade80', fontSize: 11 }}>{cat.credibility}</p>
+                                                <div style={{
+                                                    display: 'flex', alignItems: 'center', gap: 10, padding: '11px 18px',
+                                                    background: isLofi ? 'rgba(21,128,61,0.06)' : 'rgba(74,222,128,0.04)',
+                                                    border: isLofi ? '1px solid rgba(21,128,61,0.2)' : '1px solid rgba(74,222,128,0.18)',
+                                                    borderRadius: 8
+                                                }}>
+                                                    <span style={{ width: 7, height: 7, borderRadius: '50%', background: isLofi ? '#15803d' : '#4ade80', boxShadow: isLofi ? '0 0 6px #15803d' : '0 0 6px #4ade80', flexShrink: 0 }} />
+                                                    <p className="f-mono" style={{ color: isLofi ? '#15803d' : '#4ade80', fontSize: 11, fontWeight: 700 }}>{cat.credibility}</p>
                                                 </div>
                                             )}
                                         </div>
@@ -365,32 +435,46 @@ export default function SkillsSection() {
                 </div>
 
                 {/* ── All-tech mini strip ─────────────────── */}
-                <div style={{ marginTop: 56, padding: '28px 28px 24px', background: 'rgba(13,13,26,0.6)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 10, position: 'relative', overflow: 'hidden' }}>
-                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(245,197,24,0.3), rgba(0,245,255,0.3), transparent)' }} />
+                <div style={{
+                    marginTop: 56, padding: '28px 28px 24px',
+                    background: isLofi ? 'rgba(255,255,255,0.94)' : 'rgba(13,13,26,0.6)',
+                    border: isLofi ? '1px solid rgba(15,23,42,0.1)' : '1px solid rgba(255,255,255,0.05)',
+                    borderRadius: 14, position: 'relative', overflow: 'hidden',
+                    boxShadow: isLofi ? '0 10px 30px rgba(15,23,42,0.05)' : 'none'
+                }}>
+                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: isLofi ? 'linear-gradient(90deg, transparent, rgba(217,119,6,0.4), rgba(2,132,199,0.4), transparent)' : 'linear-gradient(90deg, transparent, rgba(245,197,24,0.3), rgba(0,245,255,0.3), transparent)' }} />
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-                        <div style={{ width: 3, height: 18, borderRadius: 2, background: C }} />
-                        <span className="f-orbitron" style={{ color: C, fontSize: 11, fontWeight: 700, letterSpacing: '0.14em' }}>CURRENTLY EXPANDING</span>
+                        <div style={{ width: 3, height: 18, borderRadius: 2, background: goldColor }} />
+                        <span className="f-orbitron" style={{ color: goldColor, fontSize: 11, fontWeight: 800, letterSpacing: '0.14em' }}>CURRENTLY EXPANDING</span>
                     </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
                         {[
-                            { name: 'Machine Learning', color: C },
-                            { name: 'Neural Networks', color: CC },
-                            { name: 'Distributed Systems', color: '#a855f7' },
-                            { name: 'AWS Fundamentals', color: '#ff9900' },
-                            { name: 'CI/CD Pipelines', color: '#2088ff' },
-                            { name: 'AI Workflow Automation', color: C },
+                            { name: 'Machine Learning', color: goldColor },
+                            { name: 'Neural Networks', color: cyanColor },
+                            { name: 'Distributed Systems', color: '#7c3aed' },
+                            { name: 'AWS Fundamentals', color: '#d97706' },
+                            { name: 'CI/CD Pipelines', color: '#0284c7' },
+                            { name: 'AI Workflow Automation', color: goldColor },
                         ].map(t => (
                             <motion.span key={t.name}
-                                whileHover={{ scale: 1.08, y: -3, borderColor: t.color, color: t.color, background: `${t.color}0d` }}
+                                whileHover={{ scale: 1.08, y: -3 }}
                                 className="f-mono"
-                                style={{ fontSize: 11, padding: '8px 18px', borderRadius: 4, border: '1px solid rgba(255,255,255,0.18)', color: '#b0bac9', transition: 'all 0.25s' }}
+                                style={{
+                                    fontSize: 11, padding: '8px 18px', borderRadius: 6,
+                                    border: isLofi ? '1px solid rgba(15,23,42,0.12)' : '1px solid rgba(255,255,255,0.18)',
+                                    color: isLofi ? '#0f172a' : '#b0bac9',
+                                    fontWeight: isLofi ? 600 : 500,
+                                    background: isLofi ? '#ffffff' : 'transparent',
+                                    boxShadow: isLofi ? '0 2px 6px rgba(15,23,42,0.04)' : 'none',
+                                    transition: 'all 0.25s'
+                                }}
                             >
                                 {t.name}
                             </motion.span>
                         ))}
                     </div>
-                    <p className="f-rajdhani" style={{ color: '#b6c1d3', fontSize: 14, marginTop: 18, borderLeft: '2px solid rgba(245,197,24,0.35)', paddingLeft: 12 }}>
-                        Focused trajectory: <span style={{ color: '#f5c518' }}>Backend → AI Systems → Neural Engineering.</span> Depth over breadth.
+                    <p className="f-rajdhani" style={{ color: isLofi ? '#475569' : '#b6c1d3', fontSize: 14, marginTop: 18, borderLeft: `2px solid ${goldColor}`, paddingLeft: 12, fontWeight: 500 }}>
+                        Focused trajectory: <span style={{ color: goldColor, fontWeight: 700 }}>Backend → AI Systems → Neural Engineering.</span> Depth over breadth.
                     </p>
                 </div>
             </div>

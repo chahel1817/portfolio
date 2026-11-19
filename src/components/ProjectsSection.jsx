@@ -1369,9 +1369,10 @@ export default function ProjectsSection() {
             id="projects"
             style={{
                 position: 'relative',
-                padding: '130px 0 140px',
-                background: 'rgba(13,13,26,0.46)',
+                padding: '160px 0 140px',
+                background: isLofi ? 'transparent' : 'rgba(13,13,26,0.46)',
                 overflow: 'hidden',
+                scrollMarginTop: 110,
             }}
         >
             <style>{`

@@ -164,6 +164,11 @@ section span {
   border-radius: 8px;
 }
 
+/* ─── Global Scroll Margin for Section Headers ──────────── */
+section[id] {
+  scroll-margin-top: 110px;
+}
+
 /* ─── Section Label ──────────────────────────────────────── */
 .sec-label {
   display: flex;
@@ -650,20 +655,14 @@ html.light-mode #contact {
 /* Card surfaces */
 html.light-mode .experience-card,
 html.light-mode .contact-card,
-html.light-mode #about div[style*="background: rgba(13,13,26"],
-html.light-mode #about div[style*="background: rgba(13, 13, 26"],
-html.light-mode #skills div[style*="background: rgba(13,13,26"],
-html.light-mode #skills div[style*="background: rgba(18,18,34"],
-html.light-mode #skills div[style*="background: rgba(8,8,16"],
-html.light-mode #skills div[style*="background: rgba(8, 8, 16"],
-html.light-mode #experience div[style*="background: rgba(13,13,26"],
-html.light-mode #interests div[style*="background: rgba(13,13,26"],
-html.light-mode #contact div[style*="background: rgba(13,13,26"],
-html.light-mode #contact div[style*="background: rgba(8,8,16"],
+html.light-mode .about-card,
+html.light-mode .bio-card,
+html.light-mode .interest-card,
+html.light-mode .info-card,
 html.light-mode footer {
-  background: rgba(255, 255, 255, 0.92) !important;
+  background: rgba(255, 255, 255, 0.94) !important;
   border-color: rgba(15, 23, 42, 0.1) !important;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.03) !important;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07), 0 1px 3px rgba(15, 23, 42, 0.04) !important;
   color: #1e293b !important;
 }
 
@@ -673,18 +672,16 @@ html.light-mode footer span {
   color: #475569 !important;
 }
 
-html.light-mode footer div[style*="background: rgba(13,13,26"] {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border-color: rgba(15, 23, 42, 0.12) !important;
-  color: #0f172a !important;
-}
-
 /* Crisp text colors for cards in Light Mode */
 html.light-mode .experience-card h3,
 html.light-mode .contact-card h3,
 html.light-mode #interests h3,
+html.light-mode #about h2,
 html.light-mode #about h3,
-html.light-mode #skills h3 {
+html.light-mode #skills h2,
+html.light-mode #skills h3,
+html.light-mode #contact h2,
+html.light-mode #contact h3 {
   color: #0f172a !important;
 }
 
@@ -692,16 +689,22 @@ html.light-mode .experience-card p,
 html.light-mode .contact-card p,
 html.light-mode #interests p,
 html.light-mode #about p,
-html.light-mode #skills p {
+html.light-mode #skills p,
+html.light-mode #contact p {
   color: #334155 !important;
 }
 
 /* Contact Inputs in Light Mode */
+html.light-mode label {
+  color: #b45309 !important;
+  font-weight: 700 !important;
+}
+
 html.light-mode input,
 html.light-mode select,
 html.light-mode textarea {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border-color: rgba(15, 23, 42, 0.18) !important;
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.2) !important;
   color: #0f172a !important;
 }
 

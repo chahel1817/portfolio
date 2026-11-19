@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import { FiSend, FiMail, FiMapPin, FiGithub, FiLinkedin, FiTwitter, FiInstagram, FiYoutube } from 'react-icons/fi';
 import ScrambleText from '@/components/ScrambleText';
 import IrisReveal from '@/components/IrisReveal';
+import { useTheme } from '@/context/ThemeContext';
 
 const C = '#f5c518';
 const CC = '#00f5ff';
@@ -15,57 +16,115 @@ const INFO = [
 
 const INQUIRY_TYPES = ['Job Opportunity', 'Freelance Project', 'Collaboration', 'Just Saying Hi'];
 
-function Field({ label, name, value, onChange, type = 'text' }) {
+function Field({ label, name, value, onChange, type = 'text', isLofi }) {
     return (
         <div>
-            <label className="f-mono" style={{ display: 'block', color: 'rgba(245,197,24,0.65)', fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: 8 }}>{label}</label>
+            <label className="f-mono" style={{ display: 'block', color: isLofi ? '#b45309' : 'rgba(245,197,24,0.65)', fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: 8, fontWeight: 700 }}>{label}</label>
             <input type={type} name={name} value={value} onChange={onChange} required
-                style={{ width: '100%', background: 'rgba(8,8,16,0.6)', border: '1px solid rgba(255,255,255,0.14)', borderRadius: 4, padding: '12px 16px', color: '#e2e8f0', fontFamily: "'Rajdhani', sans-serif", fontSize: 15, outline: 'none', transition: 'border-color 0.2s' }}
-                onFocus={(e) => { e.target.style.borderColor = 'rgba(245,197,24,0.5)'; }}
-                onBlur={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.14)'; }}
+                style={{
+                    width: '100%',
+                    background: isLofi ? '#ffffff' : 'rgba(8,8,16,0.6)',
+                    border: isLofi ? '1px solid rgba(15,23,42,0.18)' : '1px solid rgba(255,255,255,0.14)',
+                    borderRadius: 6,
+                    padding: '12px 16px',
+                    color: isLofi ? '#0f172a' : '#e2e8f0',
+                    fontFamily: "'Rajdhani', sans-serif",
+                    fontSize: 15,
+                    fontWeight: 600,
+                    outline: 'none',
+                    transition: 'border-color 0.2s, box-shadow 0.2s'
+                }}
+                onFocus={(e) => {
+                    e.target.style.borderColor = isLofi ? '#0284c7' : 'rgba(245,197,24,0.5)';
+                    if (isLofi) e.target.style.boxShadow = '0 0 0 3px rgba(2, 132, 199, 0.15)';
+                }}
+                onBlur={(e) => {
+                    e.target.style.borderColor = isLofi ? 'rgba(15,23,42,0.18)' : 'rgba(255,255,255,0.14)';
+                    if (isLofi) e.target.style.boxShadow = 'none';
+                }}
             />
         </div>
     );
 }
-function Select({ label, name, value, onChange, options }) {
+function Select({ label, name, value, onChange, options, isLofi }) {
     return (
         <div>
-            <label className="f-mono" style={{ display: 'block', color: 'rgba(245,197,24,0.65)', fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: 8 }}>{label}</label>
+            <label className="f-mono" style={{ display: 'block', color: isLofi ? '#b45309' : 'rgba(245,197,24,0.65)', fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: 8, fontWeight: 700 }}>{label}</label>
             <select name={name} value={value} onChange={onChange} required
-                style={{ width: '100%', background: 'rgba(8,8,16,0.6)', border: '1px solid rgba(255,255,255,0.14)', borderRadius: 4, padding: '12px 16px', color: value ? '#e2e8f0' : 'rgba(226,232,240,0.45)', fontFamily: "'Rajdhani', sans-serif", fontSize: 15, outline: 'none', transition: 'border-color 0.2s', cursor: 'pointer' }}
-                onFocus={(e) => { e.target.style.borderColor = 'rgba(245,197,24,0.5)'; }}
-                onBlur={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.14)'; }}
+                style={{
+                    width: '100%',
+                    background: isLofi ? '#ffffff' : 'rgba(8,8,16,0.6)',
+                    border: isLofi ? '1px solid rgba(15,23,42,0.18)' : '1px solid rgba(255,255,255,0.14)',
+                    borderRadius: 6,
+                    padding: '12px 16px',
+                    color: value ? (isLofi ? '#0f172a' : '#e2e8f0') : (isLofi ? '#94a3b8' : 'rgba(226,232,240,0.45)'),
+                    fontFamily: "'Rajdhani', sans-serif",
+                    fontSize: 15,
+                    fontWeight: 600,
+                    outline: 'none',
+                    transition: 'border-color 0.2s, box-shadow 0.2s',
+                    cursor: 'pointer'
+                }}
+                onFocus={(e) => {
+                    e.target.style.borderColor = isLofi ? '#0284c7' : 'rgba(245,197,24,0.5)';
+                    if (isLofi) e.target.style.boxShadow = '0 0 0 3px rgba(2, 132, 199, 0.15)';
+                }}
+                onBlur={(e) => {
+                    e.target.style.borderColor = isLofi ? 'rgba(15,23,42,0.18)' : 'rgba(255,255,255,0.14)';
+                    if (isLofi) e.target.style.boxShadow = 'none';
+                }}
             >
-                <option value="" disabled style={{ color: '#080810' }}>Select an option</option>
+                <option value="" disabled style={{ color: isLofi ? '#94a3b8' : '#080810' }}>Select an option</option>
                 {options.map((opt) => (
-                    <option key={opt} value={opt} style={{ color: '#080810' }}>{opt}</option>
+                    <option key={opt} value={opt} style={{ color: '#0f172a', background: '#ffffff' }}>{opt}</option>
                 ))}
             </select>
         </div>
     );
 }
-function TextArea({ label, name, value, onChange }) {
+function TextArea({ label, name, value, onChange, isLofi }) {
     return (
         <div>
-            <label className="f-mono" style={{ display: 'block', color: 'rgba(245,197,24,0.65)', fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: 8 }}>{label}</label>
+            <label className="f-mono" style={{ display: 'block', color: isLofi ? '#b45309' : 'rgba(245,197,24,0.65)', fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: 8, fontWeight: 700 }}>{label}</label>
             <textarea name={name} value={value} onChange={onChange} rows={5} required
-                style={{ width: '100%', background: 'rgba(8,8,16,0.6)', border: '1px solid rgba(255,255,255,0.14)', borderRadius: 4, padding: '12px 16px', color: '#e2e8f0', fontFamily: "'Rajdhani', sans-serif", fontSize: 15, outline: 'none', resize: 'none', transition: 'border-color 0.2s' }}
-                onFocus={(e) => { e.target.style.borderColor = 'rgba(245,197,24,0.5)'; }}
-                onBlur={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.14)'; }}
+                style={{
+                    width: '100%',
+                    background: isLofi ? '#ffffff' : 'rgba(8,8,16,0.6)',
+                    border: isLofi ? '1px solid rgba(15,23,42,0.18)' : '1px solid rgba(255,255,255,0.14)',
+                    borderRadius: 6,
+                    padding: '12px 16px',
+                    color: isLofi ? '#0f172a' : '#e2e8f0',
+                    fontFamily: "'Rajdhani', sans-serif",
+                    fontSize: 15,
+                    fontWeight: 600,
+                    outline: 'none',
+                    resize: 'none',
+                    transition: 'border-color 0.2s, box-shadow 0.2s'
+                }}
+                onFocus={(e) => {
+                    e.target.style.borderColor = isLofi ? '#0284c7' : 'rgba(245,197,24,0.5)';
+                    if (isLofi) e.target.style.boxShadow = '0 0 0 3px rgba(2, 132, 199, 0.15)';
+                }}
+                onBlur={(e) => {
+                    e.target.style.borderColor = isLofi ? 'rgba(15,23,42,0.18)' : 'rgba(255,255,255,0.14)';
+                    if (isLofi) e.target.style.boxShadow = 'none';
+                }}
             />
         </div>
     );
 }
 
 export default function ContactSection() {
+    const { isLofi } = useTheme();
     const ref = useRef(null);
     const inView = useInView(ref, { once: true, margin: '-80px' });
-    // Tracked outside IrisReveal's own clip-path wrapper — ancestor clipping would otherwise
-    // starve ScrambleText's own IntersectionObserver of any visible area to detect.
     const headerRef = useRef(null);
     const headerInView = useInView(headerRef, { once: true, margin: '-100px' });
     const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
     const [status, setStatus] = useState('idle');
+
+    const goldColor = isLofi ? '#b45309' : C;
+    const cyanColor = isLofi ? '#0284c7' : CC;
 
     const handleChange = (e) => setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
     const handleSubmit = async (e) => {
@@ -92,21 +151,21 @@ export default function ContactSection() {
     };
 
     return (
-        <section id="contact" style={{ position: 'relative', padding: '120px 0', background: 'rgba(13,13,26,0.46)', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: 1, height: '100%', background: 'linear-gradient(180deg, rgba(245,197,24,0.06), transparent)', pointerEvents: 'none' }} />
+        <section id="contact" style={{ position: 'relative', padding: '160px 0 120px', background: isLofi ? 'transparent' : 'rgba(13,13,26,0.46)', overflow: 'hidden', scrollMarginTop: 110 }}>
+            <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: 1, height: '100%', background: isLofi ? 'linear-gradient(180deg, rgba(217,119,6,0.15), transparent)' : 'linear-gradient(180deg, rgba(245,197,24,0.06), transparent)', pointerEvents: 'none' }} />
 
             <div className="contact-container" style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px' }}>
                 <div ref={headerRef}>
                 <IrisReveal>
                 <div style={{ textAlign: 'center', marginBottom: 64 }}>
                     <div className="sec-label">
-                        <span className="f-mono" style={{ color: 'rgba(245,197,24,0.65)', fontSize: 11, letterSpacing: '0.24em' }}>06 // CONTACT</span>
+                        <span className="f-mono" style={{ color: goldColor, fontSize: 11, letterSpacing: '0.24em' }}>06 // CONTACT</span>
                     </div>
-                    <h2 className="f-orbitron" style={{ fontSize: 'clamp(32px,5vw,52px)', fontWeight: 900, color: '#fff' }}>
+                    <h2 className="f-orbitron" style={{ fontSize: 'clamp(32px,5vw,52px)', fontWeight: 900, color: isLofi ? '#0f172a' : '#fff' }}>
                         LET&apos;S{' '}
-                        <ScrambleText as="span" text="WORK TOGETHER" active={headerInView} style={{ color: C, textShadow: '0 0 20px rgba(245,197,24,0.6)' }} />
+                        <ScrambleText as="span" text="WORK TOGETHER" active={headerInView} style={{ color: goldColor, textShadow: isLofi ? 'none' : '0 0 20px rgba(245,197,24,0.6)' }} />
                     </h2>
-                    <p className="f-rajdhani" style={{ color: '#a8b4c7', fontSize: 18, marginTop: 12 }}>Share your project details and I&apos;ll get back to you.</p>
+                    <p className="f-rajdhani" style={{ color: isLofi ? '#475569' : '#a8b4c7', fontSize: 18, marginTop: 12, fontWeight: 500 }}>Share your project details and I&apos;ll get back to you.</p>
                 </div>
                 </IrisReveal>
                 </div>
@@ -119,23 +178,37 @@ export default function ContactSection() {
                             transition={{ duration: 0.7 }}
                             style={{ display: 'flex', justifyContent: 'center', marginBottom: 40 }}
                         >
-                            <div style={{ width: 160, height: 160, borderRadius: '50%', border: '1px solid rgba(245,197,24,0.3)', display: 'grid', placeItems: 'center', background: 'radial-gradient(circle, rgba(245,197,24,0.08), transparent 70%)' }}>
-                                <span className="f-orbitron" style={{ color: C, fontSize: 12, letterSpacing: '0.14em' }}>AVAILABLE</span>
+                            <div style={{
+                                width: 160, height: 160, borderRadius: '50%',
+                                border: isLofi ? '1px solid rgba(180,83,9,0.35)' : '1px solid rgba(245,197,24,0.3)',
+                                display: 'grid', placeItems: 'center',
+                                background: isLofi ? 'radial-gradient(circle, rgba(245,158,11,0.12), transparent 70%)' : 'radial-gradient(circle, rgba(245,197,24,0.08), transparent 70%)'
+                            }}>
+                                <span className="f-orbitron" style={{ color: goldColor, fontSize: 12, letterSpacing: '0.14em', fontWeight: 800 }}>AVAILABLE</span>
                             </div>
                         </motion.div>
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 40 }}>
                             {INFO.map(({ icon: Icon, label, value, href, color }, i) => {
+                                const infoColor = isLofi && color === C ? goldColor : isLofi && color === CC ? cyanColor : color;
                                 const inner = (
                                     <motion.div key={label} initial={{ opacity: 0, x: -20 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ delay: i * 0.1 + 0.3 }} whileHover={{ x: 5 }}
-                                        style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '16px 20px', background: 'rgba(13,13,26,0.6)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 8, transition: 'all 0.25s' }}
+                                        className="info-card"
+                                        style={{
+                                            display: 'flex', alignItems: 'center', gap: 16, padding: '16px 20px',
+                                            background: isLofi ? 'rgba(255,255,255,0.94)' : 'rgba(13,13,26,0.6)',
+                                            border: isLofi ? '1px solid rgba(15,23,42,0.1)' : '1px solid rgba(255,255,255,0.08)',
+                                            borderRadius: 10,
+                                            boxShadow: isLofi ? '0 8px 24px rgba(15,23,42,0.04)' : 'none',
+                                            transition: 'all 0.25s'
+                                        }}
                                     >
-                                        <div style={{ width: 40, height: 40, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', background: `${color}12`, border: `1px solid ${color}28` }}>
-                                            <Icon size={17} style={{ color }} />
+                                        <div style={{ width: 40, height: 40, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', background: `${infoColor}15`, border: `1px solid ${infoColor}35` }}>
+                                            <Icon size={17} style={{ color: infoColor }} />
                                         </div>
                                         <div>
-                                            <p className="f-mono" style={{ color: '#8b95a8', fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase' }}>{label}</p>
-                                            <p className="f-rajdhani" style={{ color: '#d6deea', fontWeight: 600, fontSize: 15 }}>{value}</p>
+                                            <p className="f-mono" style={{ color: isLofi ? '#64748b' : '#8b95a8', fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 600 }}>{label}</p>
+                                            <p className="f-rajdhani" style={{ color: isLofi ? '#0f172a' : '#d6deea', fontWeight: 700, fontSize: 15 }}>{value}</p>
                                         </div>
                                     </motion.div>
                                 );
@@ -144,18 +217,26 @@ export default function ContactSection() {
                         </div>
 
                         <div>
-                            <p className="f-mono" style={{ color: '#8b95a8', fontSize: 10, letterSpacing: '0.2em', marginBottom: 14 }}>// SOCIAL</p>
+                            <p className="f-mono" style={{ color: isLofi ? '#64748b' : '#8b95a8', fontSize: 10, letterSpacing: '0.2em', marginBottom: 14, fontWeight: 600 }}>// SOCIAL</p>
                             <div style={{ display: 'flex', gap: 12 }}>
                                 {[
-                                    { icon: FiGithub, href: 'https://github.com/chahel1817', h: '#fff', label: 'GitHub' },
-                                    { icon: FiLinkedin, href: 'https://www.linkedin.com/in/chahel-tanna-87300a269/', h: CC, label: 'LinkedIn' },
-                                    { icon: FiTwitter, href: 'https://x.com/chahel1817', h: '#60a5fa', label: 'X' },
+                                    { icon: FiGithub, href: 'https://github.com/chahel1817', h: isLofi ? '#0f172a' : '#fff', label: 'GitHub' },
+                                    { icon: FiLinkedin, href: 'https://www.linkedin.com/in/chahel-tanna-87300a269/', h: cyanColor, label: 'LinkedIn' },
+                                    { icon: FiTwitter, href: 'https://x.com/chahel1817', h: '#0284c7', label: 'X' },
                                     { icon: FiInstagram, href: 'https://www.instagram.com/chahel_9/', h: '#e1306c', label: 'Instagram' },
-                                    { icon: FiYoutube, href: 'https://www.youtube.com/@Chahel-1817', h: '#ff0000', label: 'YouTube' }
+                                    { icon: FiYoutube, href: 'https://www.youtube.com/@Chahel-1817', h: '#dc2626', label: 'YouTube' }
                                 ].map(({ icon: I, href, h, label }, i) => (
                                     <motion.a key={i} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                                        whileHover={{ y: -4, scale: 1.2, color: h }}
-                                        style={{ width: 40, height: 40, borderRadius: 8, background: 'rgba(8,8,16,0.5)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9aa8bf', transition: 'color 0.2s' }}
+                                        whileHover={{ y: -4, scale: 1.15, color: h }}
+                                        style={{
+                                            width: 40, height: 40, borderRadius: 8,
+                                            background: isLofi ? 'rgba(255,255,255,0.92)' : 'rgba(8,8,16,0.5)',
+                                            border: isLofi ? '1px solid rgba(15,23,42,0.12)' : '1px solid rgba(255,255,255,0.1)',
+                                            boxShadow: isLofi ? '0 4px 12px rgba(15,23,42,0.05)' : 'none',
+                                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                            color: isLofi ? '#475569' : '#9aa8bf',
+                                            transition: 'color 0.2s'
+                                        }}
                                     >
                                         <I size={17} />
                                     </motion.a>
@@ -165,33 +246,47 @@ export default function ContactSection() {
                     </div>
 
                     <motion.div initial={{ opacity: 0, x: 28 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.55, delay: 0.2 }}>
-                        <div className="contact-card" style={{ position: 'relative', background: 'rgba(13,13,26,0.75)', backdropFilter: 'blur(18px)', border: '1px solid rgba(245,197,24,0.16)', borderRadius: 8, padding: 36 }}>
+                        <div className="contact-card" style={{
+                            position: 'relative',
+                            background: isLofi ? 'rgba(255,255,255,0.96)' : 'rgba(13,13,26,0.75)',
+                            backdropFilter: 'blur(18px)',
+                            border: isLofi ? '1px solid rgba(15,23,42,0.12)' : '1px solid rgba(245,197,24,0.16)',
+                            borderRadius: 14,
+                            padding: 36,
+                            boxShadow: isLofi ? '0 20px 45px -10px rgba(15,23,42,0.08), 0 1px 3px rgba(15,23,42,0.04)' : 'none'
+                        }}>
                             <div className="corner-tl" /><div className="corner-tr" /><div className="corner-bl" /><div className="corner-br" />
                             <div style={{ marginBottom: 28 }}>
-                                <h3 className="f-orbitron" style={{ color: C, fontWeight: 700, fontSize: 13, letterSpacing: '0.14em', marginBottom: 4 }}>SEND A MESSAGE</h3>
-                                <p className="f-rajdhani" style={{ color: '#b6c1d3', fontSize: 15 }}>Fill out the form and I&apos;ll reply soon.</p>
+                                <h3 className="f-orbitron" style={{ color: goldColor, fontWeight: 800, fontSize: 13, letterSpacing: '0.14em', marginBottom: 4 }}>SEND A MESSAGE</h3>
+                                <p className="f-rajdhani" style={{ color: isLofi ? '#475569' : '#b6c1d3', fontSize: 15, fontWeight: 500 }}>Fill out the form and I&apos;ll reply soon.</p>
                             </div>
                             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
                                 <div className="form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-                                    <Field label="Name" name="name" value={form.name} onChange={handleChange} type="text" />
-                                    <Field label="Email" name="email" value={form.email} onChange={handleChange} type="email" />
+                                    <Field label="Name" name="name" value={form.name} onChange={handleChange} type="text" isLofi={isLofi} />
+                                    <Field label="Email" name="email" value={form.email} onChange={handleChange} type="email" isLofi={isLofi} />
                                 </div>
-                                <Select label="Inquiry Type" name="subject" value={form.subject} onChange={handleChange} options={INQUIRY_TYPES} />
-                                <TextArea label="Message" name="message" value={form.message} onChange={handleChange} />
+                                <Select label="Inquiry Type" name="subject" value={form.subject} onChange={handleChange} options={INQUIRY_TYPES} isLofi={isLofi} />
+                                <TextArea label="Message" name="message" value={form.message} onChange={handleChange} isLofi={isLofi} />
                                 <motion.button type="submit" disabled={status !== 'idle'}
-                                    whileHover={status === 'idle' ? { scale: 1.02, boxShadow: '0 0 28px rgba(245,197,24,0.5)' } : {}}
+                                    whileHover={status === 'idle' ? { scale: 1.02, boxShadow: isLofi ? '0 8px 24px rgba(217,119,6,0.35)' : '0 0 28px rgba(245,197,24,0.5)' } : {}}
                                     whileTap={status === 'idle' ? { scale: 0.98 } : {}}
                                     style={{
-                                        fontFamily: "'Orbitron', monospace", fontSize: 12, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase',
-                                        padding: '16px', borderRadius: 3, border: 'none',
+                                        fontFamily: "'Orbitron', monospace", fontSize: 12, fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase',
+                                        padding: '16px', borderRadius: 8, border: 'none',
                                         display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-                                        background: status === 'sent' ? 'rgba(74,222,128,0.15)' : status === 'sending' ? 'rgba(245,197,24,0.15)' : C,
-                                        color: status === 'sent' ? '#4ade80' : status === 'sending' ? 'rgba(245,197,24,0.6)' : '#080810',
+                                        background: status === 'sent'
+                                            ? 'rgba(74,222,128,0.15)'
+                                            : status === 'sending'
+                                            ? 'rgba(245,197,24,0.15)'
+                                            : isLofi ? 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)' : C,
+                                        color: status === 'sent' ? '#15803d' : status === 'sending' ? goldColor : (isLofi ? '#ffffff' : '#080810'),
                                         border: status === 'idle' ? 'none' : '1px solid currentColor',
+                                        boxShadow: isLofi && status === 'idle' ? '0 4px 14px rgba(245,158,11,0.25)' : 'none',
+                                        cursor: status === 'idle' ? 'pointer' : 'default'
                                     }}
                                 >
                                     {status === 'idle' && <><FiSend size={15} /> SEND MESSAGE</>}
-                                    {status === 'sending' && <><motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }} style={{ width: 16, height: 16, border: '2px solid rgba(245,197,24,0.3)', borderTopColor: C, borderRadius: '50%' }} /> SENDING...</>}
+                                    {status === 'sending' && <><motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }} style={{ width: 16, height: 16, border: '2px solid rgba(245,197,24,0.3)', borderTopColor: goldColor, borderRadius: '50%' }} /> SENDING...</>}
                                     {status === 'sent' && 'MESSAGE SENT SUCCESSFULLY'}
                                 </motion.button>
                             </form>
@@ -201,7 +296,7 @@ export default function ContactSection() {
             </div>
             <style>{`
                 @media (max-width: 640px) {
-                    #contact { padding: 80px 0 !important; }
+                    #contact { padding: 120px 0 80px !important; }
                     .contact-container { padding: 0 16px !important; }
                     .contact-grid { 
                         grid-template-columns: 1fr !important;
