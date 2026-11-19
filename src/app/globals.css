@@ -666,10 +666,8 @@ html.light-mode footer {
   color: #1e293b !important;
 }
 
-html.light-mode footer a,
-html.light-mode footer p,
-html.light-mode footer span {
-  color: #475569 !important;
+html.light-mode footer p {
+  color: #475569;
 }
 
 /* Crisp text colors for cards in Light Mode */

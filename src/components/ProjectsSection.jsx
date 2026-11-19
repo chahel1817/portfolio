@@ -1785,7 +1785,13 @@ export default function ProjectsSection() {
                     transition={{ delay: 0.4 }}
                     style={{ textAlign: 'center', marginTop: 72 }}
                 >
-                    <p className="f-rajdhani" style={{ color: 'rgba(200,200,220,0.35)', marginBottom: 24, fontSize: 15 }}>
+                    <p className="f-rajdhani" style={{
+                        color: isLofi ? '#475569' : 'rgba(200,200,220,0.5)',
+                        marginBottom: 24,
+                        fontSize: 16,
+                        fontWeight: isLofi ? 600 : 400,
+                        letterSpacing: '0.02em'
+                    }}>
                         More repositories and experiments available on GitHub
                     </p>
                     <motion.a
@@ -1794,7 +1800,9 @@ export default function ProjectsSection() {
                         rel="noopener noreferrer"
                         whileHover={{
                             scale: 1.05,
-                            boxShadow: '0 0 30px rgba(245,197,24,0.35), 0 0 60px rgba(245,197,24,0.1)',
+                            boxShadow: isLofi
+                                ? '0 8px 24px rgba(245, 158, 11, 0.45)'
+                                : '0 0 30px rgba(245,197,24,0.35), 0 0 60px rgba(245,197,24,0.1)',
                         }}
                         whileTap={{ scale: 0.97 }}
                         style={{
@@ -1803,17 +1811,21 @@ export default function ProjectsSection() {
                             gap: 10,
                             fontFamily: "'Orbitron', monospace",
                             fontSize: 11,
-                            fontWeight: 700,
+                            fontWeight: 800,
                             letterSpacing: '0.14em',
                             textTransform: 'uppercase',
                             padding: '14px 32px',
                             borderRadius: 8,
-                            border: '1px solid rgba(245,197,24,0.4)',
-                            color: '#f5c518',
+                            border: isLofi ? 'none' : '1px solid rgba(245,197,24,0.4)',
+                            color: isLofi ? '#ffffff' : '#f5c518',
                             textDecoration: 'none',
-                            background: 'rgba(245,197,24,0.05)',
+                            background: isLofi
+                                ? 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)'
+                                : 'rgba(245,197,24,0.05)',
+                            boxShadow: isLofi ? '0 4px 16px rgba(245, 158, 11, 0.28)' : 'none',
                             backdropFilter: 'blur(8px)',
                             transition: 'all 0.3s',
+                            cursor: 'pointer',
                         }}
                     >
                         <FiGithub size={16} />
