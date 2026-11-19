@@ -193,7 +193,7 @@ function StatStrip() {
 
     const STATS = [
         { value: '9+', label: 'Projects Shipped', color: isLofi ? '#b45309' : C },
-        { value: '230+', label: 'LeetCode Solved', color: isLofi ? '#0284c7' : CC },
+        { value: '230+', label: 'DSA Solved', color: isLofi ? '#0284c7' : CC },
         { value: '9.02', label: 'CGPA', color: isLofi ? '#b45309' : C },
         { value: 'OPEN', label: 'To Work', color: isLofi ? '#15803d' : '#4ade80' },
     ];

@@ -12,7 +12,7 @@ const CC = '#00f5ff';
 
 const stats = [
     { value: '100%', label: 'Data Integrity', code: 'ACID', color: C },
-    { value: '5', label: 'Projects Shipped', code: 'PRJ', color: CC },
+    { value: '9+', label: 'Projects Shipped', code: 'PRJ', color: CC },
     { value: '15+', label: 'APIs Designed', code: 'API', color: '#a855f7' },
     { value: '10+', label: 'Technologies Mastered', code: 'STK', color: '#4ade80' },
 ];
